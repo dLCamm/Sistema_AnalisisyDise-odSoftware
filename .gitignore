@@ -1,0 +1,19 @@
+# Carpetas de compilación
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Archivos de base de datos
+*.db
+*.sqlite
+
+# Logs
+*.log
+
+# Archivos temporales
+*.cache
+*.tmp

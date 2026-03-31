@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Sistema.BLL/Sistema.BLL.csproj" />
+  <Project Path="Sistema.DAL/Sistema.DAL.csproj" />
+  <Project Path="Sistema.Entities/Sistema.Entities.csproj" />
+  <Project Path="Sistema.UI/Sistema.UI.csproj" Id="72ae7929-755d-42f3-a73f-9c9c420358da" />
+</Solution>
