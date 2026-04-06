@@ -22,7 +22,10 @@ namespace Sistema.UI
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
+            
+            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto();
 
+            ventanaModal.ShowDialog();
         }
 
         private void frmInventario_Load(object sender, EventArgs e)

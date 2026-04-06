@@ -86,6 +86,7 @@
             // 
             btnAgregarProducto.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAgregarProducto.BackColor = Color.RoyalBlue;
+            btnAgregarProducto.Cursor = Cursors.Hand;
             btnAgregarProducto.FlatAppearance.BorderSize = 0;
             btnAgregarProducto.FlatStyle = FlatStyle.Flat;
             btnAgregarProducto.Font = new Font("Segoe UI", 13F);
