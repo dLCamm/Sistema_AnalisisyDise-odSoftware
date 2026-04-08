@@ -16,10 +16,12 @@ namespace Sistema.UI
                 .UseSqlite("Data Source=sistema.db")
                 .Options;
 
-            Context = new SistemaDbContext(options);
+            // Realizar migraciones
+            using (var context = new SistemaDbContext(options))
+            {
+                context.Database.Migrate();
+            }
 
-            // Crear base de datos
-            Context.Database.Migrate();
 
             // Iniciar WinForms
             ApplicationConfiguration.Initialize();
