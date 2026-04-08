@@ -18,5 +18,11 @@ namespace Sistema.DAL.Repositories
         {
             return _context.Productos.ToList();
         }
+
+        public void Insertar(Producto producto)
+        {
+            _context.Productos.Add(producto);
+            _context.SaveChanges();
+        }
     }
 }

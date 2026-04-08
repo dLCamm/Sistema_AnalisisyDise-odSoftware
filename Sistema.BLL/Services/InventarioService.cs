@@ -20,6 +20,26 @@ namespace Sistema.BLL.Services
             return _repo.ObtenerTodos();
         }
 
+        public void RegistrarProducto(Producto producto)
+        {
+            // VALIDACIONES
+            if (string.IsNullOrWhiteSpace(producto.Nombre))
+                throw new Exception("El nombre es obligatorio");
+
+            if (producto.PrecioVenta < producto.PrecioCompra)
+                throw new Exception("El precio de venta no puede ser menor al de compra");
+
+            if (producto.Stock < 0)
+                throw new Exception("El stock no puede ser negativo");
+
+            // Valores por defecto
+            producto.Estado = "Activo";
+            producto.FechaCreacion = DateTime.Now;
+
+            // Guardar
+            _repo.Insertar(producto);
+        }
+
         public void Dispose()
         {
             _context.Dispose();
