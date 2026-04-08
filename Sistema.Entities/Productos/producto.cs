@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sistema.Entities
+namespace Sistema.Entities.Productos
 {
     public class Producto
     {

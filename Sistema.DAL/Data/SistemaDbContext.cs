@@ -1,15 +1,27 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Sistema.Entities.Productos;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Microsoft.EntityFrameworkCore;
-using Sistema.Entities;
-
-namespace Sistema.DAL
+namespace Sistema.DAL.Data
 {
     public class SistemaDbContext : DbContext
     {
         public DbSet<Producto> Productos { get; set; }
+
+        public class SistemaDbContextFactory : IDesignTimeDbContextFactory<SistemaDbContext>
+        {
+            public SistemaDbContext CreateDbContext(string[] args)
+            {
+                var optionsBuilder = new DbContextOptionsBuilder<SistemaDbContext>();
+
+                optionsBuilder.UseSqlite("Data Source=sistema.db");
+
+                return new SistemaDbContext(optionsBuilder.Options);
+            }
+        }
 
         public SistemaDbContext(DbContextOptions<SistemaDbContext> options)
             : base(options)
