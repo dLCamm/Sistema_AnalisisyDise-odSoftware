@@ -31,21 +31,19 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            btnRefrescar = new Button();
             label1 = new Label();
             btnBuscar = new Button();
             btnAgregarProducto = new Button();
             textBox1 = new TextBox();
             dgvProductos = new DataGridView();
-            colNombre = new DataGridViewTextBoxColumn();
-            colStatus = new DataGridViewTextBoxColumn();
-            colStock = new DataGridViewTextBoxColumn();
-            colAccion = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
+            panel1.Controls.Add(btnRefrescar);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnBuscar);
             panel1.Controls.Add(btnAgregarProducto);
@@ -56,6 +54,16 @@
             panel1.Size = new Size(1300, 76);
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
+            // 
+            // btnRefrescar
+            // 
+            btnRefrescar.Location = new Point(537, 20);
+            btnRefrescar.Name = "btnRefrescar";
+            btnRefrescar.Size = new Size(94, 29);
+            btnRefrescar.TabIndex = 4;
+            btnRefrescar.Text = "Refrescar";
+            btnRefrescar.UseVisualStyleBackColor = true;
+            btnRefrescar.Click += btnRefrescar_Click;
             // 
             // label1
             // 
@@ -125,7 +133,6 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvProductos.Columns.AddRange(new DataGridViewColumn[] { colNombre, colStatus, colStock, colAccion });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
@@ -147,42 +154,6 @@
             dgvProductos.TabIndex = 3;
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             dgvProductos.CellFormatting += dgvProductos_CellFormatting;
-            // 
-            // colNombre
-            // 
-            colNombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colNombre.HeaderText = "Nombre";
-            colNombre.MinimumWidth = 6;
-            colNombre.Name = "colNombre";
-            colNombre.ReadOnly = true;
-            colNombre.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colStatus
-            // 
-            colStatus.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            colStatus.HeaderText = "Status";
-            colStatus.MinimumWidth = 6;
-            colStatus.Name = "colStatus";
-            colStatus.ReadOnly = true;
-            colStatus.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // colStock
-            // 
-            colStock.HeaderText = "Stock";
-            colStock.MinimumWidth = 6;
-            colStock.Name = "colStock";
-            colStock.ReadOnly = true;
-            colStock.SortMode = DataGridViewColumnSortMode.NotSortable;
-            colStock.Width = 125;
-            // 
-            // colAccion
-            // 
-            colAccion.HeaderText = "Actualizar";
-            colAccion.MinimumWidth = 6;
-            colAccion.Name = "colAccion";
-            colAccion.ReadOnly = true;
-            colAccion.SortMode = DataGridViewColumnSortMode.NotSortable;
-            colAccion.Width = 125;
             // 
             // frmInventario
             // 
@@ -209,9 +180,6 @@
         private TextBox textBox1;
         private Label label1;
         private DataGridView dgvProductos;
-        private DataGridViewTextBoxColumn colNombre;
-        private DataGridViewTextBoxColumn colStatus;
-        private DataGridViewTextBoxColumn colStock;
-        private DataGridViewTextBoxColumn colAccion;
+        private Button btnRefrescar;
     }
 }

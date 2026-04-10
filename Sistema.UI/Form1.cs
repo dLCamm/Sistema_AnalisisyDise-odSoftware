@@ -49,6 +49,9 @@ namespace Sistema.UI
 
         }
 
-        
+        private void btnVentas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

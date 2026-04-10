@@ -185,6 +185,7 @@
             btnGuardar.TabIndex = 12;
             btnGuardar.Text = "Guardar Producto";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnCancelar
             // 
@@ -251,6 +252,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "frmMantenimientoProducto";
+            Load += frmMantenimientoProducto_Load;
             ResumeLayout(false);
             PerformLayout();
         }

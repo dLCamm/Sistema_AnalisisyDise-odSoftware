@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Sistema.BLL.Factories;
+using Sistema.Entities.Productos;
 
 namespace Sistema.UI
 {
@@ -22,15 +24,16 @@ namespace Sistema.UI
 
         private void btnAgregarProducto_Click(object sender, EventArgs e)
         {
-            
-            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto();
 
+            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto();
             ventanaModal.ShowDialog();
+
+
         }
 
         private void frmInventario_Load(object sender, EventArgs e)
         {
-        
+
         }
 
         private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -62,6 +65,21 @@ namespace Sistema.UI
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            
+            using (var service = ServiceFactory.CrearInventarioService())
+            {
+                dgvProductos.DataSource = null;
+                dgvProductos.DataSource=service.ListarProductos();
+            }
         }
     }
 }
