@@ -15,14 +15,53 @@ namespace Sistema.BLL.Services
             _repo = repo;
         }
 
+        // Busqueda de datos
         public List<Producto> ListarProductos()
         {
             return _repo.ObtenerTodos();
         }
+         
+        public Producto ObtenerProducto(int id)
+        {
+            var producto = _repo.ObtenerPorId(id);
 
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            return producto;
+        }
+
+        public bool VerificarStock(int productoId, int cantidad)
+        {
+            var producto = _repo.ObtenerPorId(productoId);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            return producto.Stock >= cantidad;
+        }
+
+        public List<Producto> ObtenerProductosBajoStock()
+        {
+            var productos = _repo.ObtenerTodos();
+
+            return productos
+                .Where(p => p.Stock < p.StockMinimo && p.Estado == "Activo")
+                .ToList();
+        }
+
+        public List<Producto> ObtenerProductosActivos()
+        {
+            var productos = _repo.ObtenerTodos();
+
+            return productos
+                .Where(p => p.Stock < p.StockMinimo && p.Estado == "Activo")
+                .ToList();
+        }
+
+        // Insercion de datos
         public void RegistrarProducto(Producto producto)
         {
-            // VALIDACIONES
             if (string.IsNullOrWhiteSpace(producto.Nombre))
                 throw new Exception("El nombre es obligatorio");
 
@@ -32,12 +71,77 @@ namespace Sistema.BLL.Services
             if (producto.Stock < 0)
                 throw new Exception("El stock no puede ser negativo");
 
-            // Valores por defecto
             producto.Estado = "Activo";
             producto.FechaCreacion = DateTime.Now;
 
-            // Guardar
             _repo.Insertar(producto);
+        }
+
+
+        // Actualizar datos
+        public void ActualizarStock(int productoId, int cantidad)
+        {
+            var producto = _repo.ObtenerPorId(productoId);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            if (cantidad < 0)
+                throw new Exception("El stock no puede ser negativo");
+
+            if (producto.Stock == cantidad)
+                return;
+            else
+                producto.Stock = cantidad;
+                _repo.Actualizar(producto);
+        }
+
+        public void IncrementarStock(int productoId, int cantidad)
+        {
+            var producto = _repo.ObtenerPorId(productoId);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            if (cantidad <= 0)
+                throw new Exception("Cantidad inválida");
+
+            producto.Stock += cantidad;
+
+            _repo.Actualizar(producto);
+        }
+
+        public void DisminuirStock(int productoId, int cantidad)
+        {
+            var producto = _repo.ObtenerPorId(productoId);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            if (cantidad <= 0)
+                throw new Exception("Cantidad inválida");
+
+            if (producto.Stock < cantidad)
+                throw new Exception("Stock insuficiente");
+
+            producto.Stock -= cantidad;
+
+            _repo.Actualizar(producto);
+        }
+
+        public void DesactivarProducto(int id)
+        {
+            var producto = _repo.ObtenerPorId(id);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            if (producto.Estado == "Inactivo")
+                return;
+
+            producto.Estado = "Inactivo";
+
+            _repo.Actualizar(producto);
         }
 
         public void Dispose()

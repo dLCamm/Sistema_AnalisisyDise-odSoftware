@@ -24,5 +24,16 @@ namespace Sistema.DAL.Repositories
             _context.Productos.Add(producto);
             _context.SaveChanges();
         }
+
+        public Producto ObtenerPorId(int id)
+        {
+            return _context.Productos.FirstOrDefault(p => p.Id == id);
+        }
+
+        public void Actualizar(Producto producto)
+        {
+            _context.Productos.Update(producto);
+            _context.SaveChanges();
+        }
     }
 }
