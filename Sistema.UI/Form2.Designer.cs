@@ -13,10 +13,11 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             panelMain = new Panel();
+            button1 = new Button();
             dataGridView1 = new DataGridView();
             txtBuscar = new TextBox();
             listProductos = new ListBox();
@@ -39,7 +40,8 @@
             // 
             // panelMain
             // 
-            panelMain.BackColor = SystemColors.ActiveCaption;
+            panelMain.BackColor = Color.FromArgb(15, 19, 23);
+            panelMain.Controls.Add(button1);
             panelMain.Controls.Add(dataGridView1);
             panelMain.Controls.Add(txtBuscar);
             panelMain.Controls.Add(listProductos);
@@ -52,34 +54,46 @@
             panelMain.TabIndex = 0;
             panelMain.Paint += panelMain_Paint;
             // 
+            // button1
+            // 
+            button1.BackColor = Color.SteelBlue;
+            button1.Cursor = Cursors.AppStarting;
+            button1.Location = new Point(1344, 113);
+            button1.Name = "button1";
+            button1.Size = new Size(173, 38);
+            button1.TabIndex = 6;
+            button1.Text = "Ver Ventas";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
             // dataGridView1
             // 
-            dataGridViewCellStyle1.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle7.ForeColor = Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle9.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
             dataGridView1.GridColor = Color.DarkBlue;
-            dataGridView1.Location = new Point(831, 80);
+            dataGridView1.Location = new Point(831, 157);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(686, 360);
@@ -88,7 +102,7 @@
             // txtBuscar
             // 
             txtBuscar.ForeColor = Color.Gray;
-            txtBuscar.Location = new Point(161, 80);
+            txtBuscar.Location = new Point(161, 127);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(250, 27);
             txtBuscar.TabIndex = 0;
@@ -99,7 +113,7 @@
             // 
             listProductos.BackColor = SystemColors.GradientActiveCaption;
             listProductos.ForeColor = Color.Black;
-            listProductos.Location = new Point(152, 132);
+            listProductos.Location = new Point(161, 191);
             listProductos.Name = "listProductos";
             listProductos.RightToLeft = RightToLeft.No;
             listProductos.Size = new Size(507, 544);
@@ -117,7 +131,7 @@
             panelPago.Controls.Add(lblCliente);
             panelPago.Controls.Add(cmbCliente);
             panelPago.Controls.Add(btnAgregarCliente);
-            panelPago.Location = new Point(831, 446);
+            panelPago.Location = new Point(831, 523);
             panelPago.Name = "panelPago";
             panelPago.Size = new Size(686, 212);
             panelPago.TabIndex = 3;
@@ -167,23 +181,24 @@
             // 
             cmbCliente.Location = new Point(10, 110);
             cmbCliente.Name = "cmbCliente";
-            cmbCliente.Size = new Size(200, 28);
+            cmbCliente.Size = new Size(348, 28);
             cmbCliente.TabIndex = 5;
             // 
             // btnAgregarCliente
             // 
-            btnAgregarCliente.Location = new Point(220, 110);
+            btnAgregarCliente.Location = new Point(379, 102);
             btnAgregarCliente.Name = "btnAgregarCliente";
-            btnAgregarCliente.Size = new Size(80, 25);
+            btnAgregarCliente.Size = new Size(228, 43);
             btnAgregarCliente.TabIndex = 6;
-            btnAgregarCliente.Text = "Agregar";
+            btnAgregarCliente.Text = "Agregar Nuevo Cliente";
+            btnAgregarCliente.Click += btnAgregarCliente_Click;
             // 
             // btnRealizarVenta
             // 
             btnRealizarVenta.BackColor = Color.RoyalBlue;
             btnRealizarVenta.FlatStyle = FlatStyle.Flat;
             btnRealizarVenta.ForeColor = Color.White;
-            btnRealizarVenta.Location = new Point(928, 664);
+            btnRealizarVenta.Location = new Point(1031, 760);
             btnRealizarVenta.Name = "btnRealizarVenta";
             btnRealizarVenta.Size = new Size(300, 40);
             btnRealizarVenta.TabIndex = 4;
@@ -214,7 +229,6 @@
             // 
             // Form2
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
             ClientSize = new Size(1806, 948);
             Controls.Add(panelMain);
             Name = "Form2";
@@ -248,5 +262,6 @@
         private DataGridViewTextBoxColumn Col_Producto;
         private DataGridViewTextBoxColumn Col_Cantidad;
         private DataGridViewTextBoxColumn Col_Subtotal;
+        private Button button1;
     }
 }

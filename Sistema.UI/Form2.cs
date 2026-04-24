@@ -1,12 +1,18 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Linq;
+using Sistema.Entities.Ventas;
+using Sistema.Entities.Productos;
 
 namespace Sistema.UI
 {
-    public partial class Form2 : Form1
+    public partial class Form2 : Form
     {
-        private List<DetalleVenta> carrito = new List<DetalleVenta>();
+        private List<CartItem> carrito = new List<CartItem>();
         private List<Producto> productosAll = new List<Producto>();
+        private Button btnVerVentas = null!;
 
         public Form2()
         {
@@ -20,6 +26,12 @@ namespace Sistema.UI
             dataGridView1.CellEndEdit += DataGridView1_CellEndEdit;
             dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
             btnRealizarVenta!.Click += BtnRealizarVenta_Click;
+
+            
+
+            // Añadimos al panel principal (si existe)
+            if (panelMain != null)
+                panelMain.Controls.Add(btnVerVentas);
         }
 
         // =========================
@@ -66,10 +78,10 @@ namespace Sistema.UI
         {
             productosAll = new List<Producto>
             {
-                new Producto(1, "Block", 500),
-                new Producto(2, "Cemento", 50),
-                new Producto(3, "Pintura", 120),
-                new Producto(4, "Arena", 30)
+                new Producto { Id = 1, Nombre = "Block", PrecioVenta = 500m },
+                new Producto { Id = 2, Nombre = "Cemento", PrecioVenta = 50m },
+                new Producto { Id = 3, Nombre = "Pintura", PrecioVenta = 120m },
+                new Producto { Id = 4, Nombre = "Arena", PrecioVenta = 30m }
             };
 
             listProductos.DataSource = new BindingList<Producto>(productosAll);
@@ -114,7 +126,7 @@ namespace Sistema.UI
                 }
                 else
                 {
-                    carrito.Add(new DetalleVenta(prod, 1));
+                    carrito.Add(new CartItem(prod, 1));
                 }
 
                 RefrescarCarrito(carrito.Count - 1);
@@ -138,7 +150,7 @@ namespace Sistema.UI
             {
                 var item = carrito[i];
                 var nombre = item.Producto?.Nombre ?? "(sin nombre)";
-                var precioUnitario = $"Q{item.Producto.Precio:0.00}";
+                var precioUnitario = $"Q{item.Producto.PrecioVenta:0.00}";
                 var cantidad = item.Cantidad.ToString();
                 var subtotal = $"Q{item.Subtotal:0.00}";
 
@@ -147,7 +159,7 @@ namespace Sistema.UI
                 dataGridView1.Rows[rowIndex].Tag = item;
             }
 
-            // El total se calcula a partir de la propia columna Subtotal del grid
+            // El total se calcula a partir del modelo
             lblTotal!.Text = $"Total: Q{CalcularTotal():0.00}";
 
             if (current.HasValue && current.Value >= 0 && current.Value < dataGridView1.Rows.Count)
@@ -176,7 +188,7 @@ namespace Sistema.UI
             if (col.Name != "Cantidad") return;
 
             var row = dataGridView1.Rows[e.RowIndex];
-            var item = row.Tag as DetalleVenta;
+            var item = row.Tag as CartItem;
             if (item == null) return;
 
             var cell = row.Cells[e.ColumnIndex];
@@ -227,8 +239,9 @@ namespace Sistema.UI
             }
 
             string tipoPago = rbCredito!.Checked ? "Crédito" : "Físico";
+            int idcliente = cmbCliente.SelectedIndex; // En un caso real, aquí obtendrías el ID real del cliente seleccionado
 
-            var venta = CrearVenta(1, 1, carrito);
+            var venta = CrearVenta(idcliente, 1, carrito, tipoPago);
 
             ProcesarPago(venta, tipoPago);
             RegistrarVenta(venta);
@@ -242,9 +255,29 @@ namespace Sistema.UI
         // =========================
         // BLL SIMULADO
         // =========================
-        private Venta CrearVenta(int clienteId, int usuarioId, List<DetalleVenta> detalles)
+        private Venta CrearVenta(int clienteId, int usuarioId, List<CartItem> detallesCart, string tipoPago)
         {
-            return new Venta(clienteId, usuarioId, detalles, CalcularTotal());
+            var nuevaventa = new Venta
+            {
+                ClienteId = clienteId,
+                UsuarioId = usuarioId,
+                Fecha = DateTime.Now,
+                TipoPago = tipoPago,
+                Total = CalcularTotal()
+            };
+
+            var detalles = detallesCart.Select(ci => new DetalleVenta
+            {
+                Venta = nuevaventa,
+                VentaId = nuevaventa.Id,
+                Producto = ci.Producto,
+                ProductoId = ci.Producto.Id,
+                Cantidad = ci.Cantidad,
+                PrecioUnitario = ci.PrecioUnitario
+            }).ToList();
+
+            nuevaventa.Detalles = detalles;
+            return nuevaventa;
         }
 
         private void ProcesarPago(Venta venta, string tipoPago)
@@ -318,7 +351,7 @@ namespace Sistema.UI
         {
             if (e.RowIndex < 0) return;
             var row = dataGridView1!.Rows[e.RowIndex];
-            var item = row.Tag as DetalleVenta;
+            var item = row.Tag as CartItem;
             if (item == null) return;
             var col = dataGridView1.Columns[e.ColumnIndex];
             if (col.Name == "Dec")
@@ -379,53 +412,58 @@ namespace Sistema.UI
             // No-op (puedes ampliar si necesitas sincronizar controles externos)
         }
 
+        // Botón: abrir FormVerVentas dentro del mismo panel (desde Form2)
+        private void BtnVerVentas_Click(object? sender, EventArgs e)
+        {
+            // Buscar el host Form1 en las ventanas abiertas y abrir FormVerVentas dentro del mismo panel
+            var host = Application.OpenForms.OfType<Form1>().FirstOrDefault();
+            if (host != null)
+            {
+                host.AbrirFormEnPanel(new FormVerVentas());
+                return;
+            }
+
+            // fallback: mostrar en ventana normal si no hay host (debe ser raro)
+            var fv = new FormVerVentas();
+            fv.Show();
+        }
+
+        // Added: handler expected by designer for `button1.Click`.
+        private void button1_Click(object? sender, EventArgs e)
+        {
+            // Reuse the same logic as BtnVerVentas_Click
+            BtnVerVentas_Click(sender, e);
+        }
+
+        private void btnAgregarCliente_Click(object sender, EventArgs e)
+        {
+            frmIngresarCliente ventanamodal = new frmIngresarCliente();
+
+            ventanamodal.StartPosition = FormStartPosition.CenterScreen;
+            ventanamodal.ShowDialog(); ventanamodal.ResumeLayout();
+
+        }
+
         // panelCantidad and related controls removed. Quantity changes handled via grid Inc/Dec buttons.
     }
 
     // =========================
     // MODELOS
     // =========================
-    public class Producto
+    // Local lightweight cart item that adapts to Sistema.Entities types
+    internal class CartItem
     {
-        public int Id { get; set; }
-        public string Nombre { get; set; }
-        public decimal Precio { get; set; }
+        public Producto Producto { get; }
+        public int Cantidad { get; set; }
+        public decimal PrecioUnitario => Producto.PrecioVenta;
+        public decimal Subtotal => PrecioUnitario * Cantidad;
 
-        public Producto(int id, string nombre, decimal precio)
-        {
-            Id = id;
-            Nombre = nombre;
-            Precio = precio;
-        }
-    }
-
-    public class DetalleVenta
-    {
-        public Producto Producto;
-        public int Cantidad;
-
-        public decimal Subtotal => Producto.Precio * Cantidad;
-
-        public DetalleVenta(Producto producto, int cantidad)
+        public CartItem(Producto producto, int cantidad)
         {
             Producto = producto;
             Cantidad = cantidad;
         }
     }
 
-    public class Venta
-    {
-        public int ClienteId;
-        public int UsuarioId;
-        public List<DetalleVenta> Detalles;
-        public decimal Total;
-
-        public Venta(int clienteId, int usuarioId, List<DetalleVenta> detalles, decimal total)
-        {
-            ClienteId = clienteId;
-            UsuarioId = usuarioId;
-            Detalles = detalles;
-            Total = total;
-        }
-    }
+    
 }
