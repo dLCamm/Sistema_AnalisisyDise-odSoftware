@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema.DAL.Data;
 
@@ -10,9 +11,11 @@ using Sistema.DAL.Data;
 namespace Sistema.DAL.Migrations
 {
     [DbContext(typeof(SistemaDbContext))]
-    partial class SistemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260426214240_AgregarClientesUsuariosVentaDetalleventa")]
+    partial class AgregarClientesUsuariosVentaDetalleventa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
@@ -98,7 +101,7 @@ namespace Sistema.DAL.Migrations
 
             modelBuilder.Entity("Sistema.Entities.Usuarios.Usuario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdUsuario")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -125,7 +128,7 @@ namespace Sistema.DAL.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdUsuario");
 
                     b.ToTable("Usuarios", (string)null);
                 });

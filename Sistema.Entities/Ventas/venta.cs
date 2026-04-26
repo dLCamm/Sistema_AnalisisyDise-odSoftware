@@ -1,4 +1,8 @@
-﻿namespace Sistema.Entities.Ventas
+﻿using System;
+using Sistema.Entities.Clientes;
+using Sistema.Entities.Usuarios;
+
+namespace Sistema.Entities.Ventas
 {
     public class Venta
     {
@@ -13,8 +17,8 @@
         public int UsuarioId { get; set; }
 
         // Navegación (crear entidad cliente y usuario)
-        // public Cliente Cliente { get; set; } = null!;
-        // public Usuario Usuario { get; set; } = null!;
+        public Cliente Cliente { get; set; } = null!;
+        public Usuario Usuario { get; set; } = null!;
         public ICollection<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
     }
 }

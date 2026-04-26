@@ -1,5 +1,5 @@
-﻿using Sistema.Entities.Productos;
-
+﻿using System;
+using Sistema.Entities.Productos;
 
 namespace Sistema.Entities.Ventas
 {
