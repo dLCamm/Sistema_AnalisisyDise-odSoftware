@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistema.Entities.Clientes;
+using System;
 
 namespace Sistema.Entities.Usuarios
 {
@@ -9,7 +10,7 @@ namespace Sistema.Entities.Usuarios
         public string Username { get; set; }
         public string Password { get; set; }
         public string Rol { get; set; }
-        public string Estado { get; set; }
+        public EstadoCliente Estado { get; set; }
         public DateTime FechaCreacion { get; set; }
     }
 }

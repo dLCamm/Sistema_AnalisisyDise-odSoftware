@@ -11,7 +11,7 @@ namespace Sistema.Entities.Clientes
         public string Direccion { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string Email { get; set; }
-        public string Estado { get; set; }
+        public EstadoCliente Estado { get; set; }
     }
   
 }

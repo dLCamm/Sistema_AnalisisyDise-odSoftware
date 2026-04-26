@@ -46,7 +46,7 @@ namespace Sistema.BLL.Services
             var productos = _repo.ObtenerTodos();
 
             return productos
-                .Where(p => p.Stock < p.StockMinimo && p.Estado == "Activo")
+                .Where(p => p.Stock < p.StockMinimo && p.Estado == EstadoProducto.Activo)
                 .ToList();
         }
 
@@ -55,7 +55,7 @@ namespace Sistema.BLL.Services
             var productos = _repo.ObtenerTodos();
 
             return productos
-                .Where(p => p.Stock < p.StockMinimo && p.Estado == "Activo")
+                .Where(p => p.Stock < p.StockMinimo && p.Estado == EstadoProducto.Activo)
                 .ToList();
         }
 
@@ -71,7 +71,7 @@ namespace Sistema.BLL.Services
             if (producto.Stock < 0)
                 throw new Exception("El stock no puede ser negativo");
 
-            producto.Estado = "Activo";
+            producto.Estado = EstadoProducto.Activo;
             producto.FechaCreacion = DateTime.Now;
 
             _repo.Insertar(producto);
@@ -136,10 +136,10 @@ namespace Sistema.BLL.Services
             if (producto == null)
                 throw new Exception("Producto no encontrado");
 
-            if (producto.Estado == "Inactivo")
+            if (producto.Estado == EstadoProducto.Inactivo)
                 return;
 
-            producto.Estado = "Inactivo";
+            producto.Estado = EstadoProducto.Inactivo;
 
             _repo.Actualizar(producto);
         }

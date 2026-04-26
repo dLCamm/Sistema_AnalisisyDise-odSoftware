@@ -65,7 +65,8 @@ namespace Sistema.DAL.Data
                 entity.Property(p => p.FechaCreacion);
 
                 entity.Property(p => p.Estado)
-                      .HasMaxLength(20);
+                      .HasMaxLength(20)
+                      .HasConversion<string>();
             });
 
             // TABLA VENTAS
@@ -82,7 +83,8 @@ namespace Sistema.DAL.Data
                       .HasColumnType("decimal(10,2)");
 
                 entity.Property(v => v.Estado)
-                      .HasMaxLength(20);
+                      .HasMaxLength(20)
+                      .HasConversion<string>();
 
                 entity.HasMany(v => v.Detalles)
                       .WithOne(d => d.Venta)
@@ -141,7 +143,8 @@ namespace Sistema.DAL.Data
                       .HasMaxLength(100);
 
                 entity.Property(c => c.Estado)
-                      .HasMaxLength(20);
+                      .HasMaxLength(20)
+                      .HasConversion<string>();
 
                 entity.Property(c => c.FechaRegistro);
             });
@@ -165,7 +168,8 @@ namespace Sistema.DAL.Data
                       .HasMaxLength(50);
 
                 entity.Property(u => u.Estado)
-                      .HasMaxLength(20);
+                      .HasMaxLength(20)
+                      .HasConversion<string>();
 
                 entity.Property(u => u.FechaCreacion);
             });

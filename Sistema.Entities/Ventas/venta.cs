@@ -10,7 +10,7 @@ namespace Sistema.Entities.Ventas
         public DateTime Fecha { get; set; }
         public string TipoPago { get; set; } = string.Empty;
         public decimal Total { get; set; }
-        public string Estado { get; set; } = string.Empty;
+        public EstadoVenta Estado { get; set; }
 
         // FK
         public int ClienteId { get; set; }

@@ -21,6 +21,6 @@ namespace Sistema.Entities.Productos
 
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
-        public string Estado { get; set; }
+        public EstadoProducto Estado { get; set; }
     }
 }
