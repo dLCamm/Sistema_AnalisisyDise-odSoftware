@@ -10,6 +10,8 @@ obj/
 # Archivos de base de datos
 *.db
 *.sqlite
+*.db-wal
+*.db-shm
 
 # Logs
 *.log
