@@ -1,10 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Sistema.Entities.Ventas;
 
 namespace Sistema.DAL.Repositories.Interfaces
 {
-    internal interface IVentaRepository
+    public interface IVentaRepository
     {
+        void InsertarVenta(Venta venta);
+        void InsertarDetalles(List<DetalleVenta> detalles);
+
+        Venta? ObtenerPorId(int id);
+        List<Venta> ObtenerTodos();
+        List<Venta> ObtenerPorEstado(EstadoVenta estado);
+
+        void Actualizar(Venta venta);
     }
 }
