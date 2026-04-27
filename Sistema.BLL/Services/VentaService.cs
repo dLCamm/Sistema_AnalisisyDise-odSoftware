@@ -103,9 +103,17 @@ namespace Sistema.BLL.Services
         }
 
         // Filtrar por estado
-        public List<Venta> ListarVentasPorEstado(EstadoVenta estado)
+        public List<Venta> ListarVentasPorPendientes()
         {
-            return _repo.ObtenerPorEstado(estado);
+            return _repo.ObtenerPorEstado(EstadoVenta.Pendiente);
+        }
+        public List<Venta> ListarVentasPorPagada()
+        {
+            return _repo.ObtenerPorEstado(EstadoVenta.Pagada);
+        }
+        public List<Venta> ListarVentasPorAnulado()
+        {
+            return _repo.ObtenerPorEstado(EstadoVenta.Anulado);
         }
 
         // Anular venta
