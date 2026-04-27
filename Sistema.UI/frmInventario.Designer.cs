@@ -28,26 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            btnRefrescar = new Button();
-            label1 = new Label();
-            btnBuscar = new Button();
-            btnAgregarProducto = new Button();
             textBox1 = new TextBox();
+            btnFiltrar = new Button();
+            menuFiltros = new ContextMenuStrip(components);
+            verTodoToolStripMenuItem = new ToolStripMenuItem();
+            stockBajoToolStripMenuItem = new ToolStripMenuItem();
+            sinExistenciasToolStripMenuItem = new ToolStripMenuItem();
+            txtBuscar = new TextBox();
+            label1 = new Label();
+            btnAgregarProducto = new Button();
             dgvProductos = new DataGridView();
             panel1.SuspendLayout();
+            menuFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnRefrescar);
-            panel1.Controls.Add(label1);
-            panel1.Controls.Add(btnBuscar);
-            panel1.Controls.Add(btnAgregarProducto);
             panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(btnFiltrar);
+            panel1.Controls.Add(txtBuscar);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(btnAgregarProducto);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -55,15 +61,72 @@
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
             // 
-            // btnRefrescar
+            // textBox1
             // 
-            btnRefrescar.Location = new Point(537, 20);
-            btnRefrescar.Name = "btnRefrescar";
-            btnRefrescar.Size = new Size(94, 29);
-            btnRefrescar.TabIndex = 4;
-            btnRefrescar.Text = "Refrescar";
-            btnRefrescar.UseVisualStyleBackColor = true;
-            btnRefrescar.Click += btnRefrescar_Click;
+            textBox1.Anchor = AnchorStyles.Top;
+            textBox1.BackColor = Color.FromArgb(15, 19, 23);
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Font = new Font("Segoe UI", 14F);
+            textBox1.ForeColor = SystemColors.Window;
+            textBox1.Location = new Point(451, 23);
+            textBox1.Margin = new Padding(0);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(36, 32);
+            textBox1.TabIndex = 5;
+            textBox1.Text = "🔎";
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.Anchor = AnchorStyles.Top;
+            btnFiltrar.ContextMenuStrip = menuFiltros;
+            btnFiltrar.Font = new Font("Segoe UI", 10F);
+            btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFiltrar.Location = new Point(882, 21);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(97, 32);
+            btnFiltrar.TabIndex = 5;
+            btnFiltrar.Text = "Filtrar ▽";
+            btnFiltrar.UseVisualStyleBackColor = true;
+            btnFiltrar.Click += btnFiltrar_Click;
+            // 
+            // menuFiltros
+            // 
+            menuFiltros.ImageScalingSize = new Size(20, 20);
+            menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem });
+            menuFiltros.Name = "menuFiltros";
+            menuFiltros.Size = new Size(174, 76);
+            menuFiltros.Opening += menuFiltros_Opening;
+            // 
+            // verTodoToolStripMenuItem
+            // 
+            verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
+            verTodoToolStripMenuItem.Size = new Size(173, 24);
+            verTodoToolStripMenuItem.Text = "Ver Todo";
+            verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
+            // 
+            // stockBajoToolStripMenuItem
+            // 
+            stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
+            stockBajoToolStripMenuItem.Size = new Size(173, 24);
+            stockBajoToolStripMenuItem.Text = "Stock Bajo";
+            stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
+            // 
+            // sinExistenciasToolStripMenuItem
+            // 
+            sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
+            sinExistenciasToolStripMenuItem.Size = new Size(173, 24);
+            sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
+            sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Anchor = AnchorStyles.Top;
+            txtBuscar.Font = new Font("Segoe UI", 12F);
+            txtBuscar.Location = new Point(490, 21);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(375, 34);
+            txtBuscar.TabIndex = 4;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // label1
             // 
@@ -75,20 +138,6 @@
             label1.Size = new Size(286, 57);
             label1.TabIndex = 3;
             label1.Text = "PRODUCTOS";
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnBuscar.FlatAppearance.BorderSize = 0;
-            btnBuscar.FlatStyle = FlatStyle.Flat;
-            btnBuscar.ForeColor = Color.White;
-            btnBuscar.Location = new Point(666, 14);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(40, 41);
-            btnBuscar.TabIndex = 1;
-            btnBuscar.Text = "🔍";
-            btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnAgregarProducto
             // 
@@ -107,22 +156,12 @@
             btnAgregarProducto.UseVisualStyleBackColor = false;
             btnAgregarProducto.Click += btnAgregarProducto_Click;
             // 
-            // textBox1
-            // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            textBox1.BackColor = SystemColors.ButtonFace;
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Segoe UI", 13F);
-            textBox1.Location = new Point(712, 18);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(329, 29);
-            textBox1.TabIndex = 2;
-            // 
             // dgvProductos
             // 
             dgvProductos.AllowUserToAddRows = false;
             dgvProductos.AllowUserToResizeColumns = false;
             dgvProductos.AllowUserToResizeRows = false;
+            dgvProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvProductos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
@@ -169,17 +208,27 @@
             Load += frmInventario_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            menuFiltros.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvProductos).EndInit();
             ResumeLayout(false);
+        }
+
+        private void textBuscar_TextChanged(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
         private Panel panel1;
         private Button btnAgregarProducto;
-        private Button btnBuscar;
-        private TextBox textBox1;
         private Label label1;
         private DataGridView dgvProductos;
-        private Button btnRefrescar;
+        private ContextMenuStrip menuFiltros;
+        private ToolStripMenuItem verTodoToolStripMenuItem;
+        private ToolStripMenuItem stockBajoToolStripMenuItem;
+        private ToolStripMenuItem sinExistenciasToolStripMenuItem;
+        private Button btnFiltrar;
+        private TextBox txtBuscar;
+        private TextBox textBox1;
     }
 }

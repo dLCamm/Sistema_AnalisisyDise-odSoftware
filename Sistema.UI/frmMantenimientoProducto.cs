@@ -28,6 +28,13 @@ namespace Sistema.UI
 
         }
 
+        public void CargarDatosParaEditar(string nombre, string descripcion, int stock)
+        {
+            txtNombre.Text = nombre;
+            txtDescripcion.Text = descripcion;
+            txtStockActual.Text = stock.ToString();
+            
+        }
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
