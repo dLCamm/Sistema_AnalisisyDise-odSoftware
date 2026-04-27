@@ -9,7 +9,7 @@ namespace Sistema.Entities.Ventas
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
        
-        public decimal Subtotal => PrecioUnitario * Cantidad;
+        public decimal Subtotal { get; set; }
 
         // FK
         public int VentaId { get; set; }

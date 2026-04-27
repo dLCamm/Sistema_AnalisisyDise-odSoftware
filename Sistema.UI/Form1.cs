@@ -76,12 +76,7 @@ namespace Sistema.UI
 
         private void btnVentas_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
-
-=======
-            // Al pulsar Ventas abrimos Form2 (si ya está abierto, el método lo traerá al frente)
             AbrirFormEnPanel(new Form2());
->>>>>>> Camilo
         }
     }
 }

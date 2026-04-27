@@ -77,7 +77,9 @@ namespace Sistema.DAL.Data
                 entity.HasKey(v => v.Id);
 
                 entity.Property(v => v.TipoPago)
-                      .HasMaxLength(50);
+                      .HasMaxLength(50)
+                      .HasConversion<string>();
+
 
                 entity.Property(v => v.Total)
                       .HasColumnType("decimal(10,2)");
