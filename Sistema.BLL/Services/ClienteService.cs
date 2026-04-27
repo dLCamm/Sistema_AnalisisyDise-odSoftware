@@ -87,5 +87,5 @@ namespace Sistema.BLL.Services
             return _repo.ObtenerPorEstado(EstadoCliente.Inactivo);
         }
     }
-    }
+    
 }

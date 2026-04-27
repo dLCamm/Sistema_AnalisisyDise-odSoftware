@@ -8,7 +8,7 @@ namespace Sistema.Entities.Ventas
     {
         public int Id { get; set; }
         public DateTime Fecha { get; set; }
-        public string TipoPago { get; set; } = string.Empty;
+        public TipoPago TipoPago { get; set; }
         public decimal Total { get; set; }
         public EstadoVenta Estado { get; set; }
 

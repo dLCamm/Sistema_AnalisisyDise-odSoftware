@@ -55,7 +55,7 @@ namespace Sistema.BLL.Services
             var productos = _repo.ObtenerTodos();
 
             return productos
-                .Where(p => p.Stock < p.StockMinimo && p.Estado == EstadoProducto.Activo)
+                .Where(p => p.Estado == EstadoProducto.Activo)
                 .ToList();
         }
 

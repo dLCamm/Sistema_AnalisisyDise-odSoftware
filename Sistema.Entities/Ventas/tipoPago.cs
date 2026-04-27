@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Sistema.Entities.Ventas
 {
-    public enum EstadoVenta
+    public enum TipoPago
     {
-        Pendiente,
-        Pagada,
-        Anulado
+        Contado,
+        Credito
     }
 }
