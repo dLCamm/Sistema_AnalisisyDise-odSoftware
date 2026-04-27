@@ -128,6 +128,7 @@
             btnVentas.TabIndex = 2;
             btnVentas.Text = "\U0001f6d2 Ventas";
             btnVentas.UseVisualStyleBackColor = true;
+            btnVentas.Click += btnVentas_Click;
             // 
             // btnInicio
             // 
@@ -171,7 +172,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(0, 1, 53);
+            panel3.BackColor = Color.FromArgb(7, 2, 108);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
