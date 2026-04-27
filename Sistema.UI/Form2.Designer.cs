@@ -33,6 +33,8 @@
             Col_Producto = new DataGridViewTextBoxColumn();
             Col_Cantidad = new DataGridViewTextBoxColumn();
             Col_Subtotal = new DataGridViewTextBoxColumn();
+            label1 = new Label();
+            label2 = new Label();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panelPago.SuspendLayout();
@@ -41,6 +43,8 @@
             // panelMain
             // 
             panelMain.BackColor = Color.FromArgb(15, 19, 23);
+            panelMain.Controls.Add(label2);
+            panelMain.Controls.Add(label1);
             panelMain.Controls.Add(button1);
             panelMain.Controls.Add(dataGridView1);
             panelMain.Controls.Add(txtBuscar);
@@ -68,9 +72,9 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle7.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle7.BackColor = Color.Transparent;
             dataGridViewCellStyle7.ForeColor = Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.ActiveBorder;
             dataGridViewCellStyle7.SelectionForeColor = Color.Black;
             dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
@@ -227,6 +231,28 @@
             Col_Subtotal.MinimumWidth = 6;
             Col_Subtotal.Name = "Col_Subtotal";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(161, 36);
+            label1.Name = "label1";
+            label1.Size = new Size(194, 57);
+            label1.TabIndex = 7;
+            label1.Text = "VENTAS";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(831, 92);
+            label2.Name = "label2";
+            label2.Size = new Size(194, 57);
+            label2.TabIndex = 8;
+            label2.Text = "VENTAS";
+            // 
             // Form2
             // 
             ClientSize = new Size(1806, 948);
@@ -263,5 +289,7 @@
         private DataGridViewTextBoxColumn Col_Cantidad;
         private DataGridViewTextBoxColumn Col_Subtotal;
         private Button button1;
+        private Label label1;
+        private Label label2;
     }
 }
