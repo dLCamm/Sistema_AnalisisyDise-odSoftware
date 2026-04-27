@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sistema.DAL.Data;
+using System;
+using System.Windows.Forms;
 
 namespace Sistema.UI
 {
@@ -16,16 +18,21 @@ namespace Sistema.UI
                 .UseSqlite("Data Source=sistema.db")
                 .Options;
 
-            // Realizar migraciones
-            using (var context = new SistemaDbContext(options))
+            // Inicializar contexto compartido e realizar migraciones
+            Context = new SistemaDbContext(options);
+            try
             {
-                context.Database.Migrate();
+                Context.Database.Migrate();
+
+                // Iniciar WinForms
+                ApplicationConfiguration.Initialize();
+                Application.Run(new Form1());
             }
-
-
-            // Iniciar WinForms
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            finally
+            {
+                Context.Dispose();
+                Context = null;
+            }
         }
     }
 }
