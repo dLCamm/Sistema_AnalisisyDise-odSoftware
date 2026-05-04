@@ -86,6 +86,12 @@ namespace Sistema.BLL.Services
         {
             return _repo.ObtenerPorEstado(EstadoCliente.Inactivo);
         }
+
+        // Buscar cliente por id
+        public Cliente? BuscarCliente(int id)
+        {
+            return _repo.ObtenerPorId(id);
+        }
     }
     
 }

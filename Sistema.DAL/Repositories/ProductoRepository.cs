@@ -25,7 +25,7 @@ namespace Sistema.DAL.Repositories
             _context.SaveChanges();
         }
 
-        public Producto ObtenerPorId(int id)
+        public Producto? ObtenerPorId(int id)
         {
             return _context.Productos.FirstOrDefault(p => p.Id == id);
         }
@@ -34,6 +34,13 @@ namespace Sistema.DAL.Repositories
         {
             _context.Productos.Update(producto);
             _context.SaveChanges();
+        }
+
+        public List<Producto> ObtenerPorIds(List<int> ids)
+        {
+            return _context.Productos
+                .Where(p => ids.Contains(p.Id))
+                .ToList();
         }
     }
 }

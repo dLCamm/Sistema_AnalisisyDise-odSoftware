@@ -12,9 +12,12 @@ namespace Sistema.DAL.Repositories.Interfaces
         void Insertar(Producto producto);
 
         // Funcion para buscar un producto por id
-        Producto ObtenerPorId(int id);
+        Producto? ObtenerPorId(int id);
 
         // Funcion para actualizar un producto
         void Actualizar(Producto producto);
+
+        // Funcion para buscar una lista de productos por una lista de ids
+        List<Producto> ObtenerPorIds(List<int> ids);
     }
 }
