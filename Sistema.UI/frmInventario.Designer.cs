@@ -42,6 +42,8 @@
             label1 = new Label();
             btnAgregarProducto = new Button();
             dgvProductos = new DataGridView();
+            fechaAscToolStripMenuItem = new ToolStripMenuItem();
+            fechaDescToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             menuFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
@@ -92,29 +94,29 @@
             // menuFiltros
             // 
             menuFiltros.ImageScalingSize = new Size(20, 20);
-            menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem });
+            menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(174, 76);
+            menuFiltros.Size = new Size(242, 152);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(173, 24);
+            verTodoToolStripMenuItem.Size = new Size(241, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // stockBajoToolStripMenuItem
             // 
             stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
-            stockBajoToolStripMenuItem.Size = new Size(173, 24);
+            stockBajoToolStripMenuItem.Size = new Size(241, 24);
             stockBajoToolStripMenuItem.Text = "Stock Bajo";
             stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
             // 
             // sinExistenciasToolStripMenuItem
             // 
             sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
-            sinExistenciasToolStripMenuItem.Size = new Size(173, 24);
+            sinExistenciasToolStripMenuItem.Size = new Size(241, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
             // 
@@ -194,6 +196,18 @@
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             dgvProductos.CellFormatting += dgvProductos_CellFormatting;
             // 
+            // fechaAscToolStripMenuItem
+            // 
+            fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
+            fechaAscToolStripMenuItem.Size = new Size(241, 24);
+            fechaAscToolStripMenuItem.Text = "        Fecha: Ascendente";
+            // 
+            // fechaDescToolStripMenuItem
+            // 
+            fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
+            fechaDescToolStripMenuItem.Size = new Size(241, 24);
+            fechaDescToolStripMenuItem.Text = "        Fecha: Descendente";
+            // 
             // frmInventario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -230,5 +244,7 @@
         private Button btnFiltrar;
         private TextBox txtBuscar;
         private TextBox textBox1;
+        private ToolStripMenuItem fechaAscToolStripMenuItem;
+        private ToolStripMenuItem fechaDescToolStripMenuItem;
     }
 }
