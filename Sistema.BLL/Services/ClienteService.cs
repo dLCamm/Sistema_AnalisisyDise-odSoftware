@@ -30,7 +30,6 @@ namespace Sistema.BLL.Services
                 Direccion = nuevocliente.Direccion,
                 Email = nuevocliente.Email,
                 Estado = nuevocliente.Estado,
-                FechaRegistro = DateTime.Now
             };
 
             _repo.Insertar(cliente);

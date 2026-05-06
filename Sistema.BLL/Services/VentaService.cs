@@ -62,12 +62,11 @@ namespace Sistema.BLL.Services
                     producto.Stock -= detalle.Cantidad;
                 }
 
-                // Crear venta con navegacion
+                // Crear venta
                 var venta = new Venta
                 {
                     ClienteId = clienteId,
                     UsuarioId = usuarioId,
-                    Fecha = DateTime.Now,
                     TipoPago = tipoPago,
                     Total = total,
                     Estado = tipoPago == TipoPago.Contado
