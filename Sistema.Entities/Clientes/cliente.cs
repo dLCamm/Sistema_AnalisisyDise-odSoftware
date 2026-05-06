@@ -13,5 +13,5 @@ namespace Sistema.Entities.Clientes
         public string Email { get; set; }
         public EstadoCliente Estado { get; set; }
     }
-  
+
 }
