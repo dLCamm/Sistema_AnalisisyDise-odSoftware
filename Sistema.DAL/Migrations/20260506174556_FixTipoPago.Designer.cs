@@ -11,8 +11,8 @@ using Sistema.DAL.Data;
 namespace Sistema.DAL.Migrations
 {
     [DbContext(typeof(SistemaDbContext))]
-    [Migration("20260427060206_SyncModel")]
-    partial class SyncModel
+    [Migration("20260506174556_FixTipoPago")]
+    partial class FixTipoPago
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,9 +180,10 @@ namespace Sistema.DAL.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TipoPago")
+                    b.Property<string>("TipoPago")
+                        .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(10,2)");
