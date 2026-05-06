@@ -214,6 +214,7 @@
             btnAnular.TabIndex = 16;
             btnAnular.Text = "Anular Producto";
             btnAnular.UseVisualStyleBackColor = false;
+            btnAnular.Click += btnAnular_Click_1;
             // 
             // frmMantenimientoProducto
             // 

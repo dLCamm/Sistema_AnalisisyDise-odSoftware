@@ -63,7 +63,7 @@ namespace Sistema.UI
                 {
                     if (_idParaEditar == null)
                     {
-                        
+
                         var nuevo = new Producto
                         {
                             Nombre = txtNombre.Text,
@@ -78,7 +78,7 @@ namespace Sistema.UI
                     }
                     else
                     {
-                      
+
                         service.ActualizarStock(_idParaEditar.Value, int.Parse(txtStockActual.Text));
                         MessageBox.Show("Stock actualizado con éxito.");
                     }
@@ -105,5 +105,21 @@ namespace Sistema.UI
         }
 
         private void btnCancelar_Click(object sender, EventArgs e) => this.Close();
+
+        private void btnAnular_Click_1(object sender, EventArgs e)
+        {
+            if (_idParaEditar == null) return;
+
+            var confirm = MessageBox.Show("¿Seguro que desea anular este producto?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm == DialogResult.Yes)
+            {
+                using (var service = ServiceFactory.CrearInventarioService())
+                {
+                    service.DesactivarProducto(_idParaEditar.Value);
+                    MessageBox.Show("Producto Anulado.");
+                    this.Close();
+                }
+            }
+        }
     }
 }

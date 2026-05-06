@@ -53,7 +53,7 @@ namespace Sistema.UI
                     {
                         string estadoVisual = "Activo";
                         if (p.Estado == EstadoProducto.Inactivo) estadoVisual = "Anulado";
-                        else if (p.Stock <= 0) estadoVisual = "Sin Existencias";
+                        else if (p.Stock == 0) estadoVisual = "Sin Existencias";
                         else if (p.Stock <= p.StockMinimo) estadoVisual = "Stock Bajo";
 
                         if (filtroActual == "Sin" && p.Stock > 0) continue;
@@ -70,10 +70,13 @@ namespace Sistema.UI
                         dgvProductos.Rows.Add(
                             p.Id,
                             p.Nombre,
-                            estadoVisual,
-                            p.Stock,
                             p.Descripcion,
+                            p.PrecioCompra,
+                            p.PrecioVenta,
+                            p.Stock,
+                            estadoVisual,
                             p.FechaCreacion.ToShortDateString()
+                            
                         );
                     }
                 }
@@ -94,20 +97,26 @@ namespace Sistema.UI
             dgvProductos.Columns["colId"].Visible = false;
 
             dgvProductos.Columns.Add("colNombre", "Producto");
-            dgvProductos.Columns.Add("colStatus", "Estado");
-            dgvProductos.Columns.Add("colStock", "Stock");
             dgvProductos.Columns.Add("colDescripcion", "Descripción");
+            dgvProductos.Columns.Add("colPrecioCompra", "Precio Compra");
+            dgvProductos.Columns.Add("colPrecioVenta", "Precio Venta");
+            dgvProductos.Columns.Add("colStock", "Stock");
+            dgvProductos.Columns.Add("colStatus", "Estado");
             dgvProductos.Columns.Add("colFecha", "Fecha Ingreso");
+            
+            
 
             // Formato y alineación
             dgvProductos.Columns["colStatus"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProductos.Columns["colStock"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProductos.Columns["colFecha"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProductos.Columns["colPrecioVenta"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProductos.Columns["colPrecioCompra"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dgvProductos.Columns["colNombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvProductos.Columns["colDescripcion"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvProductos.Columns["colNombre"].FillWeight = 40;
-            dgvProductos.Columns["colDescripcion"].FillWeight = 60;
+            dgvProductos.Columns["colNombre"].FillWeight = 25;
+            dgvProductos.Columns["colDescripcion"].FillWeight = 40;
         }
 
         private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

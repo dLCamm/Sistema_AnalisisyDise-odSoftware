@@ -241,10 +241,10 @@ namespace Sistema.UI
             string tipoPago = rbCredito!.Checked ? "Crédito" : "Físico";
             int idcliente = cmbCliente.SelectedIndex; // En un caso real, aquí obtendrías el ID real del cliente seleccionado
 
-            var venta = CrearVenta(idcliente, 1, carrito, tipoPago);
+            // var venta = CrearVenta(idcliente, 1, carrito, tipoPago);
 
-            ProcesarPago(venta, tipoPago);
-            RegistrarVenta(venta);
+            // ProcesarPago(venta, tipoPago);
+            // RegistrarVenta(venta);
 
             MessageBox.Show("✅ Venta realizada correctamente");
 
@@ -255,7 +255,7 @@ namespace Sistema.UI
         // =========================
         // BLL SIMULADO
         // =========================
-        private Venta CrearVenta(int clienteId, int usuarioId, List<CartItem> detallesCart, string tipoPago)
+        private Venta CrearVenta(int clienteId, int usuarioId, List<CartItem> detallesCart, TipoPago tipoPago)
         {
             var nuevaventa = new Venta
             {
