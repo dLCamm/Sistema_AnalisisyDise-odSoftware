@@ -5,14 +5,21 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Sistema.Entities.Clientes;
+using Sistema.BLL.Services;
 
 namespace Sistema.UI
 {
     public partial class frmIngresarCliente : Form
     {
-        public frmIngresarCliente()
+        
+
+        private readonly ClienteService _clienteService;
+
+        public frmIngresarCliente(ClienteService clienteService)
         {
             InitializeComponent();
+            _clienteService = clienteService;
         }
 
         private void InitializeComponent()
@@ -180,17 +187,44 @@ namespace Sistema.UI
 
 
 
-        private void btnCancelar_Click(object sender, EventArgs e)
+        private void btnCancelar_Click(object? sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void btnGuardar_Click(object? sender, EventArgs e)
+        {
+            if (txtNombre.Text == "" || txtDescripcion.Text == "" || txtPrecioCompra.Text == "" || txtPrecioVenta.Text == "")
+            {
+                MessageBox.Show("Por favor, complete todos los campos.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+
+                Cliente cliente = new Cliente();
+                cliente.Nombre = txtNombre.Text;
+                cliente.Telefono = txtDescripcion.Text;
+                cliente.Direccion = txtPrecioCompra.Text;
+                cliente.Email = txtPrecioVenta.Text;
+
+                _clienteService.CrearCliente(cliente);
+
+
+                MessageBox.Show("Cliente guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar el cliente: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+            }
 
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void frmIngresarCliente_Load(object sender, EventArgs e)
+        private void frmIngresarCliente_Load(object? sender, EventArgs e)
         {
 
         }
