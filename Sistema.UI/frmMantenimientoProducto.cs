@@ -121,5 +121,10 @@ namespace Sistema.UI
                 }
             }
         }
+
+        private void txtPrecioCompra_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -50,9 +50,10 @@
             txtNombre.BackColor = Color.FromArgb(30, 30, 35);
             txtNombre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtNombre.ForeColor = Color.White;
-            txtNombre.Location = new Point(384, 83);
+            txtNombre.Location = new Point(274, 30);
+            txtNombre.Multiline = true;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(391, 34);
+            txtNombre.Size = new Size(771, 65);
             txtNombre.TabIndex = 0;
             // 
             // label1
@@ -60,7 +61,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(131, 83);
+            label1.Location = new Point(25, 30);
             label1.Name = "label1";
             label1.Size = new Size(247, 31);
             label1.TabIndex = 1;
@@ -71,7 +72,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(131, 146);
+            label2.Location = new Point(129, 149);
             label2.Name = "label2";
             label2.Size = new Size(143, 31);
             label2.TabIndex = 3;
@@ -82,9 +83,10 @@
             txtDescripcion.BackColor = Color.FromArgb(30, 30, 35);
             txtDescripcion.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtDescripcion.ForeColor = Color.White;
-            txtDescripcion.Location = new Point(384, 146);
+            txtDescripcion.Location = new Point(274, 146);
+            txtDescripcion.Multiline = true;
             txtDescripcion.Name = "txtDescripcion";
-            txtDescripcion.Size = new Size(391, 34);
+            txtDescripcion.Size = new Size(771, 120);
             txtDescripcion.TabIndex = 2;
             // 
             // label3
@@ -92,7 +94,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(131, 211);
+            label3.Location = new Point(25, 332);
             label3.Name = "label3";
             label3.Size = new Size(206, 31);
             label3.TabIndex = 5;
@@ -103,17 +105,18 @@
             txtPrecioCompra.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioCompra.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioCompra.ForeColor = Color.White;
-            txtPrecioCompra.Location = new Point(384, 211);
+            txtPrecioCompra.Location = new Point(237, 329);
             txtPrecioCompra.Name = "txtPrecioCompra";
-            txtPrecioCompra.Size = new Size(391, 34);
+            txtPrecioCompra.Size = new Size(243, 34);
             txtPrecioCompra.TabIndex = 4;
+            txtPrecioCompra.TextChanged += txtPrecioCompra_TextChanged;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(131, 331);
+            label4.Location = new Point(153, 414);
             label4.Name = "label4";
             label4.Size = new Size(78, 31);
             label4.TabIndex = 7;
@@ -124,9 +127,9 @@
             txtStockActual.BackColor = Color.FromArgb(30, 30, 35);
             txtStockActual.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtStockActual.ForeColor = Color.White;
-            txtStockActual.Location = new Point(384, 331);
+            txtStockActual.Location = new Point(237, 411);
             txtStockActual.Name = "txtStockActual";
-            txtStockActual.Size = new Size(391, 34);
+            txtStockActual.Size = new Size(243, 34);
             txtStockActual.TabIndex = 6;
             // 
             // label5
@@ -134,7 +137,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(131, 395);
+            label5.Location = new Point(623, 412);
             label5.Name = "label5";
             label5.Size = new Size(163, 31);
             label5.TabIndex = 9;
@@ -145,21 +148,21 @@
             txtStockMinimo.BackColor = Color.FromArgb(30, 30, 35);
             txtStockMinimo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtStockMinimo.ForeColor = Color.White;
-            txtStockMinimo.Location = new Point(384, 395);
+            txtStockMinimo.Location = new Point(802, 409);
             txtStockMinimo.Name = "txtStockMinimo";
-            txtStockMinimo.Size = new Size(391, 34);
+            txtStockMinimo.Size = new Size(243, 34);
             txtStockMinimo.TabIndex = 8;
             // 
             // btnGuardar
             // 
             btnGuardar.BackColor = SystemColors.Highlight;
-            btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatAppearance.BorderColor = Color.White;
             btnGuardar.FlatStyle = FlatStyle.Flat;
-            btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnGuardar.Font = new Font("Arial", 12F);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(262, 541);
+            btnGuardar.Location = new Point(274, 548);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(172, 39);
+            btnGuardar.Size = new Size(187, 67);
             btnGuardar.TabIndex = 12;
             btnGuardar.Text = "Guardar Producto";
             btnGuardar.UseVisualStyleBackColor = false;
@@ -168,13 +171,13 @@
             // btnCancelar
             // 
             btnCancelar.BackColor = Color.Red;
-            btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatAppearance.BorderColor = Color.White;
             btnCancelar.FlatStyle = FlatStyle.Flat;
-            btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCancelar.Font = new Font("Arial", 12F);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(545, 541);
+            btnCancelar.Location = new Point(680, 558);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(94, 39);
+            btnCancelar.Size = new Size(106, 47);
             btnCancelar.TabIndex = 13;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
@@ -185,7 +188,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(131, 272);
+            label7.Location = new Point(604, 330);
             label7.Name = "label7";
             label7.Size = new Size(182, 31);
             label7.TabIndex = 15;
@@ -196,23 +199,23 @@
             txtPrecioVenta.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioVenta.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioVenta.ForeColor = Color.White;
-            txtPrecioVenta.Location = new Point(384, 272);
+            txtPrecioVenta.Location = new Point(802, 327);
             txtPrecioVenta.Name = "txtPrecioVenta";
-            txtPrecioVenta.Size = new Size(391, 34);
+            txtPrecioVenta.Size = new Size(243, 34);
             txtPrecioVenta.TabIndex = 14;
             // 
             // btnAnular
             // 
             btnAnular.BackColor = Color.Red;
-            btnAnular.FlatAppearance.BorderSize = 0;
+            btnAnular.FlatAppearance.BorderColor = Color.White;
             btnAnular.FlatStyle = FlatStyle.Flat;
-            btnAnular.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnAnular.Font = new Font("Arial", 12F);
             btnAnular.ForeColor = Color.White;
-            btnAnular.Location = new Point(747, 541);
+            btnAnular.Location = new Point(898, 629);
             btnAnular.Name = "btnAnular";
-            btnAnular.Size = new Size(145, 39);
+            btnAnular.Size = new Size(188, 55);
             btnAnular.TabIndex = 16;
-            btnAnular.Text = "Anular Producto";
+            btnAnular.Text = "⚠ Anular Producto";
             btnAnular.UseVisualStyleBackColor = false;
             btnAnular.Click += btnAnular_Click_1;
             // 
@@ -220,8 +223,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(904, 653);
+            BackColor = Color.FromArgb(31, 41, 55);
+            ClientSize = new Size(1098, 696);
             Controls.Add(btnAnular);
             Controls.Add(label7);
             Controls.Add(txtPrecioVenta);

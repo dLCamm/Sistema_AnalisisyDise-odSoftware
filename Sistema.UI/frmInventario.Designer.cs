@@ -38,12 +38,13 @@
             verTodoToolStripMenuItem = new ToolStripMenuItem();
             stockBajoToolStripMenuItem = new ToolStripMenuItem();
             sinExistenciasToolStripMenuItem = new ToolStripMenuItem();
+            anuladosToolStripMenuItem = new ToolStripMenuItem();
+            fechaAscToolStripMenuItem = new ToolStripMenuItem();
+            fechaDescToolStripMenuItem = new ToolStripMenuItem();
             txtBuscar = new TextBox();
             label1 = new Label();
             btnAgregarProducto = new Button();
             dgvProductos = new DataGridView();
-            fechaAscToolStripMenuItem = new ToolStripMenuItem();
-            fechaDescToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             menuFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
@@ -51,6 +52,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(31, 41, 55);
             panel1.Controls.Add(textBox1);
             panel1.Controls.Add(btnFiltrar);
             panel1.Controls.Add(txtBuscar);
@@ -66,7 +68,7 @@
             // textBox1
             // 
             textBox1.Anchor = AnchorStyles.Top;
-            textBox1.BackColor = Color.FromArgb(15, 19, 23);
+            textBox1.BackColor = Color.FromArgb(31, 41, 55);
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Font = new Font("Segoe UI", 14F);
             textBox1.ForeColor = SystemColors.Window;
@@ -94,9 +96,9 @@
             // menuFiltros
             // 
             menuFiltros.ImageScalingSize = new Size(20, 20);
-            menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
+            menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, anuladosToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(242, 152);
+            menuFiltros.Size = new Size(242, 148);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
@@ -119,6 +121,25 @@
             sinExistenciasToolStripMenuItem.Size = new Size(241, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
+            // 
+            // anuladosToolStripMenuItem
+            // 
+            anuladosToolStripMenuItem.Name = "anuladosToolStripMenuItem";
+            anuladosToolStripMenuItem.Size = new Size(241, 24);
+            anuladosToolStripMenuItem.Text = "Anulados";
+            anuladosToolStripMenuItem.Click += anuladosToolStripMenuItem_Click;
+            // 
+            // fechaAscToolStripMenuItem
+            // 
+            fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
+            fechaAscToolStripMenuItem.Size = new Size(241, 24);
+            fechaAscToolStripMenuItem.Text = "        Fecha: Ascendente";
+            // 
+            // fechaDescToolStripMenuItem
+            // 
+            fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
+            fechaDescToolStripMenuItem.Size = new Size(241, 24);
+            fechaDescToolStripMenuItem.Text = "        Fecha: Descendente";
             // 
             // txtBuscar
             // 
@@ -165,6 +186,7 @@
             dgvProductos.AllowUserToResizeRows = false;
             dgvProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvProductos.BackgroundColor = Color.FromArgb(15, 19, 23);
+            dgvProductos.BorderStyle = BorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
@@ -183,7 +205,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvProductos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvProductos.EnableHeadersVisualStyles = false;
-            dgvProductos.GridColor = Color.FromArgb(30, 30, 35);
+            dgvProductos.GridColor = Color.FromArgb(70, 70, 75);
             dgvProductos.Location = new Point(0, 69);
             dgvProductos.Name = "dgvProductos";
             dgvProductos.ReadOnly = true;
@@ -195,18 +217,6 @@
             dgvProductos.TabIndex = 3;
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             dgvProductos.CellFormatting += dgvProductos_CellFormatting;
-            // 
-            // fechaAscToolStripMenuItem
-            // 
-            fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
-            fechaAscToolStripMenuItem.Size = new Size(241, 24);
-            fechaAscToolStripMenuItem.Text = "        Fecha: Ascendente";
-            // 
-            // fechaDescToolStripMenuItem
-            // 
-            fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
-            fechaDescToolStripMenuItem.Size = new Size(241, 24);
-            fechaDescToolStripMenuItem.Text = "        Fecha: Descendente";
             // 
             // frmInventario
             // 
@@ -246,5 +256,6 @@
         private TextBox textBox1;
         private ToolStripMenuItem fechaAscToolStripMenuItem;
         private ToolStripMenuItem fechaDescToolStripMenuItem;
+        private ToolStripMenuItem anuladosToolStripMenuItem;
     }
 }
