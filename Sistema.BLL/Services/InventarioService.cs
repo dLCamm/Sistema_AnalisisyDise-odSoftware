@@ -1,4 +1,4 @@
-using Sistema.DAL.Data;
+﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
 using Sistema.Entities.Productos;
 
@@ -139,6 +139,21 @@ namespace Sistema.BLL.Services
                 return;
 
             producto.Estado = EstadoProducto.Inactivo;
+
+            _repo.Actualizar(producto);
+        }
+
+        public void ActivarProducto(int id)
+        {
+            var producto = _repo.ObtenerPorId(id);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            if (producto.Estado == EstadoProducto.Activo)
+                return;
+
+            producto.Estado = EstadoProducto.Activo;
 
             _repo.Actualizar(producto);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Sistema.BLL.Factories;
@@ -14,9 +15,13 @@ namespace Sistema.UI
     {
         private string filtroActual = "Todos";
         private string textoBusqueda = "";
+        private string ordenFecha = "";
+
         public frmInventario()
         {
             InitializeComponent();
+            // Evento Doble click para edición
+            dgvProductos.CellDoubleClick += dgvProductos_CellDoubleClick;
         }
 
         private void RefrescarGrilla()
@@ -25,38 +30,58 @@ namespace Sistema.UI
             {
                 using (var service = ServiceFactory.CrearInventarioService())
                 {
-                    List<Producto> lista;
+                    // 1. OBTENER LISTA BASE Y FILTRAR SEGÚN EL ESTADO
+                    List<Producto> listaCompleta = service.ListarProductos();
+                    IEnumerable<Producto> query;
 
-                    // 1. OBTENER LA LISTA 
-                 
                     if (filtroActual == "Bajo")
-                        lista = service.ObtenerProductosBajoStock();
+                        // Solo activos, con stock mayor a 0 pero menor o igual al mínimo
+                        query = listaCompleta.Where(p => p.Estado == EstadoProducto.Activo && p.Stock > 0 && p.Stock <= p.StockMinimo);
+                    else if (filtroActual == "Sin")
+                        // Solo activos que se quedaron sin nada
+                        query = listaCompleta.Where(p => p.Estado == EstadoProducto.Activo && p.Stock <= 0);
+                    else if (filtroActual == "Anulados")
+                        // Solo los marcados como inactivos
+                        query = listaCompleta.Where(p => p.Estado == EstadoProducto.Inactivo);
                     else if (filtroActual == "Activos")
-                        lista = service.ObtenerProductosActivos();
+                        query = listaCompleta.Where(p => p.Estado == EstadoProducto.Activo);
                     else
-                        lista = service.ListarProductos();
+                        query = listaCompleta;
+
+                    // 2. APLICAR BÚSQUEDA POR TEXTO (Nombre o Descripción)
+                    if (!string.IsNullOrEmpty(textoBusqueda))
+                    {
+                        string bus = textoBusqueda.ToLower();
+                        query = query.Where(p => p.Nombre.ToLower().Contains(bus) ||
+                                               (p.Descripcion ?? "").ToLower().Contains(bus));
+                    }
+
+                    // 3. APLICAR ORDENAMIENTO POR FECHA (Corregido)
+                    if (ordenFecha == "ASC")
+                        query = query.OrderBy(p => p.FechaCreacion);
+                    else if (ordenFecha == "DESC")
+                        query = query.OrderByDescending(p => p.FechaCreacion);
 
                     dgvProductos.Rows.Clear();
 
-                    // 2. RECORRER Y APLICAR FILTROS 
-                    foreach (var p in lista)
+                    
+                    foreach (var p in query)
                     {
-                        // 1. Determinar el estado visual
                         string estadoVisual = "Activo";
-                        if (p.Stock <= 0) estadoVisual = "Sin Existencias";
+                        if (p.Estado == EstadoProducto.Inactivo) estadoVisual = "Anulado";
+                        else if (p.Stock <= 0) estadoVisual = "Sin Existencias";
                         else if (p.Stock <= p.StockMinimo) estadoVisual = "Stock Bajo";
 
-                      
-                        if (filtroActual == "Bajo" && p.Stock <= 0) continue;
-
-                       
-                        if (filtroActual == "Sin" && p.Stock > 0) continue;
-
-                        // Filtro de búsqueda (Buscador)
-                        if (!string.IsNullOrEmpty(textoBusqueda) &&
-                            !p.Nombre.ToLower().Contains(textoBusqueda.ToLower())) continue;
-                    
-                        dgvProductos.Rows.Add(p.Nombre, estadoVisual, p.Stock, p.Descripcion);
+                        dgvProductos.Rows.Add(
+                            p.Id,
+                            p.Nombre,
+                            p.Descripcion,
+                            string.Format("Q{0:N2}", p.PrecioCompra), // Formato Quetzales
+                            string.Format("Q{0:N2}", p.PrecioVenta),  // Formato Quetzales
+                            p.Stock,
+                            estadoVisual,
+                            p.FechaCreacion.ToShortDateString() // Propiedad de Sebastian
+                        );
                     }
                 }
             }
@@ -66,67 +91,101 @@ namespace Sistema.UI
             }
         }
 
-        private void btnAgregarProducto_Click(object sender, EventArgs e)
-        {
-            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto();
-            ventanaModal.ShowDialog();
-            RefrescarGrilla();
-
-        }
-
         private void ConfigurarColumnas()
         {
             dgvProductos.Columns.Clear();
-            dgvProductos.Columns.Add("colNombre", "Producto");
-            dgvProductos.Columns.Add("colStatus", "Estado");
-            dgvProductos.Columns.Add("colStock", "Stock");
-            dgvProductos.Columns.Add("colDescripcion", "Descripción");
+            dgvProductos.RowHeadersVisible = false;
 
-            // Ajustes de tamaño
+            // 1. Columnas base
+            dgvProductos.Columns.Add("colId", "ID");
+            dgvProductos.Columns["colId"].Visible = false;
+
+            dgvProductos.Columns.Add("colNombre", "Producto");
+            dgvProductos.Columns.Add("colDescripcion", "Descripción");
+            dgvProductos.Columns.Add("colPrecioCompra", "Precio Compra");
+            dgvProductos.Columns.Add("colPrecioVenta", "Precio Venta");
+            dgvProductos.Columns.Add("colStock", "Stock");
+            dgvProductos.Columns.Add("colStatus", "Estado");
+            dgvProductos.Columns.Add("colFecha", "Fecha Ingreso");
+
+
+            dgvProductos.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+            Padding margenExtra = new Padding(5, 15, 5, 15);
+            dgvProductos.DefaultCellStyle.Padding = margenExtra;
+
+            // Ajuste automático de altura 
+            dgvProductos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            // --- 3. REPARTO DE ANCHOS ---
+            dgvProductos.Columns["colPrecioCompra"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvProductos.Columns["colPrecioVenta"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvProductos.Columns["colStock"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvProductos.Columns["colStatus"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvProductos.Columns["colFecha"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
             dgvProductos.Columns["colNombre"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvProductos.Columns["colDescripcion"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            dgvProductos.Columns["colNombre"].FillWeight = 40;
+            dgvProductos.Columns["colDescripcion"].FillWeight = 60;
+
+            // --- 4. BLOQUEO DE ORDENAMIENTO Y ALINEACIONES ---
+            foreach (DataGridViewColumn col in dgvProductos.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             dgvProductos.Columns["colStatus"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dgvProductos.Columns["colStock"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProductos.Columns["colFecha"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvProductos.Columns["colPrecioCompra"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvProductos.Columns["colPrecioVenta"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            // Alineación superior 
+            dgvProductos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
+
+            dgvProductos.Columns["colStatus"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopCenter;
+            dgvProductos.Columns["colStock"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopCenter;
+            dgvProductos.Columns["colFecha"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopCenter;
+            dgvProductos.Columns["colPrecioCompra"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            dgvProductos.Columns["colPrecioVenta"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
         }
-            private void frmInventario_Load(object sender, EventArgs e)
+
+        private void dgvProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            ConfigurarColumnas(); 
+            if (e.RowIndex < 0) return;
+            int idSeleccionado = Convert.ToInt32(dgvProductos.Rows[e.RowIndex].Cells["colId"].Value);
+            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto(idSeleccionado);
+            ventanaModal.ShowDialog();
             RefrescarGrilla();
         }
 
-        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void frmInventario_Load(object sender, EventArgs e)
         {
-
+            ConfigurarColumnas();
+            RefrescarGrilla();
         }
 
         private void dgvProductos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
             if (dgvProductos.Columns[e.ColumnIndex].Name == "colStatus" && e.Value != null)
             {
                 string estado = e.Value.ToString();
-
                 if (estado == "Activo")
                     e.CellStyle.ForeColor = Color.FromArgb(70, 120, 255);
                 else if (estado == "Stock Bajo")
                     e.CellStyle.ForeColor = Color.FromArgb(255, 180, 0);
-                else if (estado == "Sin Existencias")
-                    e.CellStyle.ForeColor = Color.FromArgb(180, 180, 180);
+                else if (estado == "Sin Existencias" || estado == "Anulado")
+                    e.CellStyle.ForeColor = Color.Red;
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        // --- MANEJO DE FILTROS Y EVENTOS ---
+
+        private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnRefrescar_Click(object sender, EventArgs e)
-        {
+            textoBusqueda = txtBuscar.Text;
             RefrescarGrilla();
         }
 
@@ -135,14 +194,10 @@ namespace Sistema.UI
             menuFiltros.Show(btnFiltrar, new Point(0, btnFiltrar.Height));
         }
 
-        private void menuFiltros_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
         private void verTodoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             filtroActual = "Todos";
+            ordenFecha = "";
             RefrescarGrilla();
         }
 
@@ -158,10 +213,37 @@ namespace Sistema.UI
             RefrescarGrilla();
         }
 
-        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        private void anuladosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            textoBusqueda = txtBuscar.Text;
+            filtroActual = "Anulados";
             RefrescarGrilla();
         }
+
+        private void fechaDescToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordenFecha = "DESC";
+            RefrescarGrilla();
+        }
+
+        private void fechaAscToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ordenFecha = "ASC";
+            RefrescarGrilla();
+        }
+
+        private void btnAgregarProducto_Click(object sender, EventArgs e)
+        {
+            frmMantenimientoProducto ventanaModal = new frmMantenimientoProducto();
+            ventanaModal.ShowDialog();
+            RefrescarGrilla();
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e) => RefrescarGrilla();
+
+        // --- MÉTODOS REQUERIDOS POR EL DESIGNER 
+        private void panel1_Paint(object sender, PaintEventArgs e) { }
+        private void menuFiltros_Opening(object sender, CancelEventArgs e) { }
+        private void dgvProductos_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void button1_Click(object sender, EventArgs e) { }
     }
 }

@@ -37,13 +37,12 @@
             btnInicio = new Button();
             btnInventario = new Button();
             pnlContenedor = new Panel();
-            panel3 = new Panel();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(7, 2, 108);
+            panel1.BackColor = Color.FromArgb(31, 41, 55);
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnProveedores);
@@ -52,9 +51,9 @@
             panel1.Controls.Add(btnInicio);
             panel1.Controls.Add(btnInventario);
             panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 67);
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(229, 886);
+            panel1.Size = new Size(226, 953);
             panel1.TabIndex = 0;
             // 
             // btnSalir
@@ -162,32 +161,22 @@
             // 
             // pnlContenedor
             // 
-            pnlContenedor.BackColor = Color.FromArgb(15, 19, 23);
-            pnlContenedor.Dock = DockStyle.Fill;
-            pnlContenedor.Location = new Point(229, 67);
+            pnlContenedor.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            pnlContenedor.BackColor = Color.FromArgb(31, 41, 55);
+            pnlContenedor.Location = new Point(232, 0);
             pnlContenedor.Name = "pnlContenedor";
-            pnlContenedor.Size = new Size(1053, 886);
+            pnlContenedor.Size = new Size(1050, 953);
             pnlContenedor.TabIndex = 1;
             pnlContenedor.Paint += pnlContenedor_Paint;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(7, 2, 108);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 0);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1282, 67);
-            panel3.TabIndex = 2;
-            panel3.Paint += panel3_Paint;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1282, 953);
             Controls.Add(pnlContenedor);
             Controls.Add(panel1);
-            Controls.Add(panel3);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
