@@ -1,21 +1,25 @@
-﻿using System;
-using Sistema.Entities.Productos;
+﻿using Sistema.Entities.Productos;
 
-namespace Sistema.Entities.Ventas
+namespace Sistema.Entities.Compras
 {
-    public class DetalleVenta
+    public class DetalleCompra
     {
         public int Id { get; set; }
+
         public int Cantidad { get; set; }
-        public decimal PrecioUnitario { get; set; }
+
+        public decimal PrecioCompra { get; set; }
+
         public decimal Subtotal { get; set; }
 
         // FK
-        public int VentaId { get; set; }
+        public int CompraId { get; set; }
+
         public int ProductoId { get; set; }
 
         // Navegación
-        public Venta Venta { get; set; } = null!;
+        public Compra Compra { get; set; } = null!;
+
         public Producto Producto { get; set; } = null!;
     }
 }

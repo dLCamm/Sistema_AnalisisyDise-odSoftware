@@ -19,7 +19,7 @@ namespace Sistema.Entities.Productos
 
         public int StockMinimo { get; set; }
 
-        public DateTime FechaCreacion { get; set; } = DateTime.Now;
+        public DateTime FechaCreacion { get; private set; } = DateTime.Now;
 
         public EstadoProducto Estado { get; set; }
     }

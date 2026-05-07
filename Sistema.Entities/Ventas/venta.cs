@@ -1,5 +1,4 @@
-﻿using System;
-using Sistema.Entities.Clientes;
+﻿using Sistema.Entities.Clientes;
 using Sistema.Entities.Usuarios;
 
 namespace Sistema.Entities.Ventas
@@ -7,7 +6,7 @@ namespace Sistema.Entities.Ventas
     public class Venta
     {
         public int Id { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; private set; } = DateTime.Now;
         public TipoPago TipoPago { get; set; }
         public decimal Total { get; set; }
         public EstadoVenta Estado { get; set; }
