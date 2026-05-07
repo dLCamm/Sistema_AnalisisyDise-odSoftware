@@ -72,7 +72,6 @@ namespace Sistema.BLL.Services
                 throw new Exception("El stock no puede ser negativo");
 
             producto.Estado = EstadoProducto.Activo;
-            producto.FechaCreacion = DateTime.Now;
 
             _repo.Insertar(producto);
         }
