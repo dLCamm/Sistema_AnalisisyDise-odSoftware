@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Sistema.Entities.Clientes;
+using Sistema.Entities.Compras;
+using Sistema.Entities.Creditos;
 using Sistema.Entities.Productos;
 using Sistema.Entities.Usuarios;
 using Sistema.Entities.Ventas;
@@ -14,6 +16,11 @@ namespace Sistema.DAL.Data
         public DbSet<DetalleVenta> DetalleVentas { get; set; }
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Compra> Compras { get; set; }
+        public DbSet<Credito> Creditos { get; set; }
+        public DbSet<Abono> Abonos { get; set; }
+
+        public DbSet<DetalleCompra> DetalleCompras { get; set; }
 
         public class SistemaDbContextFactory : IDesignTimeDbContextFactory<SistemaDbContext>
         {
@@ -174,6 +181,123 @@ namespace Sistema.DAL.Data
                       .HasConversion<string>();
 
                 entity.Property(u => u.FechaCreacion);
+            });
+
+            // TABLA COMPRAS
+            modelBuilder.Entity<Compra>(entity =>
+            {
+                entity.ToTable("Compras");
+
+                entity.HasKey(c => c.Id);
+
+                entity.Property(c => c.Total)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(c => c.Fecha)
+                    .IsRequired();
+
+                entity.Property(c => c.Estado)
+                    .HasConversion<string>()
+                    .IsRequired();
+
+                entity.HasOne(c => c.Proveedor)
+                    .WithMany(p => p.Compras)
+                    .HasForeignKey(c => c.ProveedorId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(c => c.Detalles)
+                    .WithOne(d => d.Compra)
+                    .HasForeignKey(d => d.CompraId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // TABLA DETALLE COMPRA
+            modelBuilder.Entity<DetalleCompra>(entity =>
+            {
+                entity.ToTable("Detalle_Compras");
+
+                entity.HasKey(d => d.Id);
+
+                entity.Property(d => d.Cantidad)
+                    .IsRequired();
+
+                entity.Property(d => d.PrecioCompra)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.Property(d => d.Subtotal)
+                    .HasColumnType("decimal(18,2)");
+
+                entity.HasOne(d => d.Compra)
+                    .WithMany(c => c.Detalles)
+                    .HasForeignKey(d => d.CompraId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(d => d.Producto)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProductoId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // TABLA CREDITOS
+            modelBuilder.Entity<Credito>(entity =>
+            {
+                entity.ToTable("Creditos");
+
+                entity.HasKey(c => c.Id);
+
+                entity.Property(c => c.TotalCredito)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(c => c.SaldoPendiente)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(c => c.FechaInicio)
+                      .IsRequired();
+
+                entity.Property(c => c.FechaVencimiento)
+                      .IsRequired();
+
+                entity.Property(c => c.Estado)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
+                entity.HasOne(c => c.Cliente)
+                      .WithMany(c => c.Creditos)
+                      .HasForeignKey(c => c.ClienteId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Venta)
+                      .WithOne(v => v.Credito)
+                      .HasForeignKey<Credito>(c => c.VentaId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(c => c.Abonos)
+                      .WithOne(a => a.Credito)
+                      .HasForeignKey(a => a.CreditoId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // TABLA ABONOS
+            modelBuilder.Entity<Abono>(entity =>
+            {
+                entity.ToTable("Abonos");
+
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Monto)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(a => a.Fecha)
+                      .IsRequired();
+
+                entity.HasOne(a => a.Credito)
+                      .WithMany(c => c.Abonos)
+                      .HasForeignKey(a => a.CreditoId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }
