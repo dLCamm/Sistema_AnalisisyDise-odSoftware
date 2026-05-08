@@ -1,5 +1,6 @@
 ﻿using Sistema.Entities.Clientes;
 using Sistema.Entities.Ventas;
+
 namespace Sistema.Entities.Creditos
 {
     public class Credito
@@ -11,6 +12,8 @@ namespace Sistema.Entities.Creditos
         public decimal SaldoPendiente { get; set; }
 
         public DateTime FechaInicio { get; private set; } = DateTime.Now;
+
+        public DateTime FechaVencimiento { get; set; }
 
         public EstadoCredito Estado { get; set; }
 
