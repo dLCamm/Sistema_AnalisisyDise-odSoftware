@@ -9,13 +9,15 @@ namespace Sistema.BLL.Services
         private readonly SistemaDbContext _context;
         private readonly IVentaRepository _repo;
         private readonly IProductoRepository _repoProducto;
+        private readonly IClienteRepository _repoCliente;
 
 
-        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto)
+        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto, IClienteRepository repoCliente)
         {
             _context = context;
             _repo = repo;
             _repoProducto = repoProducto;
+            _repoCliente = repoCliente;
         }
 
         public void RegistrarVenta(int clienteId, int usuarioId, List<DetalleVenta> detalles, TipoPago tipoPago)
@@ -29,12 +31,24 @@ namespace Sistema.BLL.Services
             {
                 decimal total = 0;
 
+                // Validar cliente
+                var clienteExiste = _repoCliente.ObtenerPorId(clienteId);
+                if (clienteExiste == null)
+                    throw new Exception("Cliente no existe");
+
+                // FALTA VALIDAR USUARIO
+                // FALTA VALIDACION VENTAS AL CREDITO
+
                 // Validar productos y calcular subtotales
+                var productoIds = detalles.Select(d => d.ProductoId).ToList();
+
+                var productosLista = _repoProducto.ObtenerPorIds(productoIds);
+
+                var productos = productosLista.ToDictionary(p => p.Id);
+
                 foreach (var detalle in detalles)
                 {
-                    var producto = _repoProducto.ObtenerPorId(detalle.ProductoId);
-
-                    if (producto == null)
+                    if (!productos.TryGetValue(detalle.ProductoId, out var producto))
                         throw new Exception($"Producto {detalle.ProductoId} no existe");
 
                     if (producto.Stock < detalle.Cantidad)
@@ -45,7 +59,6 @@ namespace Sistema.BLL.Services
 
                     total += detalle.Subtotal;
 
-                    // Descontar stock
                     producto.Stock -= detalle.Cantidad;
                 }
 
@@ -54,34 +67,24 @@ namespace Sistema.BLL.Services
                 {
                     ClienteId = clienteId,
                     UsuarioId = usuarioId,
-                    Fecha = DateTime.Now,
                     TipoPago = tipoPago,
                     Total = total,
                     Estado = tipoPago == TipoPago.Contado
                         ? EstadoVenta.Pagada
-                        : EstadoVenta.Pendiente
+                        : EstadoVenta.Pendiente,
+                    Detalles = detalles
                 };
 
-                // Insertamos registro en db para obtener id
                 _repo.InsertarVenta(venta);
+
                 _context.SaveChanges();
 
-                // Metemos id de la venta a los detalles y subimos
-                foreach (var detalle in detalles)
-                {
-                    detalle.VentaId = venta.Id;
-                }
-
-                _repo.InsertarDetalles(detalles);
-                _context.SaveChanges();
-
-                // Terminamos la transaccion
                 transaction.Commit();
             }
             catch
             {
                 transaction.Rollback();
-                throw;
+                throw new Exception("Error en la transaccion");
             }
         }
 

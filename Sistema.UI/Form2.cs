@@ -40,7 +40,8 @@ namespace Sistema.UI
 
                 // Inicializar VentaService con el contexto compartido
                 var ventaRepository = new VentaRepository(Program.Context);
-                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository);
+                
+                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
 
 
             }
@@ -353,35 +354,23 @@ namespace Sistema.UI
             RefrescarListaProductos(filtered);
         }
 
-        private void listCarrito_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            // ya no usado
-        }
-
+    
         private void btnRealizarVenta_Click_1(object? sender, EventArgs e)
         {
 
         }
 
-        private void btnHome_Click(object? sender, EventArgs e)
-        {
-
-        }
+      
+        
 
         private void Form2_Load(object? sender, EventArgs e)
         {
 
         }
 
-        private void listProductos_SelectedIndexChanged(object? sender, EventArgs e)
-        {
+  
 
-        }
 
-        private void panelCantidad_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
@@ -501,7 +490,7 @@ namespace Sistema.UI
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog(); 
             ventanamodal.ResumeLayout();
-            
+
 
         }
 

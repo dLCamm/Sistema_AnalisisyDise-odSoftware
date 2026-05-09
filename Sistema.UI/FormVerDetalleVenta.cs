@@ -29,7 +29,8 @@ namespace Sistema.UI
             idventa = idVenta;
             var ventaRepository = new VentaRepository(Program.Context);
             var productoRepository = new ProductoRepository(Program.Context);
-            _ventaservice = new VentaService(Program.Context, ventaRepository, productoRepository);
+            var clienteRepository = new ClienteRepository(Program.Context);
+            _ventaservice = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
             LlenarTabla();
         }
 

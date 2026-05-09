@@ -11,6 +11,6 @@ namespace Sistema.Entities.Usuarios
         public string Password { get; set; }
         public string Rol { get; set; }
         public EstadoCliente Estado { get; set; }
-        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaCreacion { get; private set; } = DateTime.Now;
     }
 }

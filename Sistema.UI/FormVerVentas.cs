@@ -35,7 +35,8 @@ namespace Sistema.UI
             {
                 var ventaRepository = new VentaRepository(Program.Context);
                 var productoRepository = new ProductoRepository(Program.Context);
-                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository);
+                var clienteRepository = new ClienteRepository(Program.Context);
+                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
             }
             else
             {
