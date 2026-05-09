@@ -187,11 +187,14 @@ namespace Sistema.BLL.Services
                 // devolver saldo
                 credito.SaldoPendiente += abono.Monto;
 
-                // si estaba pagado vuelve a pendiente
-                if (credito.Estado == EstadoCredito.Pagado)
+                // evitar exceder total
+                if (credito.SaldoPendiente > credito.TotalCredito)
                 {
-                    credito.Estado = EstadoCredito.Pendiente;
+                    credito.SaldoPendiente = credito.TotalCredito;
                 }
+
+                // volver a pendiente
+                credito.Estado = EstadoCredito.Pendiente;
 
                 // anular abono
                 abono.Estado = EstadoAbono.Anulado;

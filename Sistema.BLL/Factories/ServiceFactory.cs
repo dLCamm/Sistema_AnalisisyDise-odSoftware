@@ -83,5 +83,15 @@ namespace Sistema.BLL.Factories
                 repoCredito,
                 repoVenta);
         }
+
+        public static CajaService CrearCajaService()
+        {
+            var context = new SistemaDbContext(_options);
+            var repo = new CajaRepository(context);
+
+            return new CajaService(
+                context, 
+                repo);
+        }
     }
 }
