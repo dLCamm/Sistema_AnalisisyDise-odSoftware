@@ -39,5 +39,13 @@ namespace Sistema.DAL.Repositories
         {
             _context.Proveedores.Update(proveedor);
         }
+
+        // OBTENER POR ESTADO
+        public List<Proveedor> ObtenerPorEstado(EstadoProveedor estado)
+        {
+            return _context.Proveedores
+                .Where(p => p.Estado == estado)
+                .ToList();
+        }
     }
 }

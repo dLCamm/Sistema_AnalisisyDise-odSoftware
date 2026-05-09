@@ -11,5 +11,7 @@ namespace Sistema.DAL.Repositories.Interfaces
         void Insertar(Proveedor proveedor);
 
         void Actualizar(Proveedor proveedor);
+
+        List<Proveedor> ObtenerPorEstado(EstadoProveedor estado);
     }
 }
