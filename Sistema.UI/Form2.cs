@@ -261,7 +261,7 @@ namespace Sistema.UI
             {
                 ClienteId = clienteId,
                 UsuarioId = usuarioId,
-                Fecha = DateTime.Now,
+               
                 TipoPago = tipoPago,
                 Total = CalcularTotal()
             };

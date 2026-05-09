@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnCréditos = new Button();
             btnSalir = new Button();
             btnReportes = new Button();
             btnProveedores = new Button();
@@ -43,6 +44,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(btnCréditos);
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnProveedores);
@@ -55,6 +57,21 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(226, 953);
             panel1.TabIndex = 0;
+            // 
+            // btnCréditos
+            // 
+            btnCréditos.FlatAppearance.BorderSize = 0;
+            btnCréditos.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            btnCréditos.FlatStyle = FlatStyle.Flat;
+            btnCréditos.Font = new Font("Segoe UI", 15F);
+            btnCréditos.ForeColor = Color.White;
+            btnCréditos.Location = new Point(0, 489);
+            btnCréditos.Name = "btnCréditos";
+            btnCréditos.Size = new Size(229, 69);
+            btnCréditos.TabIndex = 7;
+            btnCréditos.Text = "💵 Créditos";
+            btnCréditos.UseVisualStyleBackColor = true;
+            btnCréditos.Click += btnCréditos_Click;
             // 
             // btnSalir
             // 
@@ -196,5 +213,6 @@
         private Button btnProveedores;
         private Button btnClientes;
         private Button btnSalir;
+        private Button btnCréditos;
     }
 }
