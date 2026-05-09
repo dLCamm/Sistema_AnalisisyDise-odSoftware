@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Sistema.Entities.Caja;
 using Sistema.Entities.Clientes;
 using Sistema.Entities.Compras;
 using Sistema.Entities.Creditos;
@@ -21,7 +22,8 @@ namespace Sistema.DAL.Data
         public DbSet<Credito> Creditos { get; set; }
         public DbSet<Abono> Abonos { get; set; }
         public DbSet<Proveedor> Proveedores { get; set; }
-        public DbSet<DetalleCompra> DetalleCompras { get; set; }
+        public DbSet<DetalleCompra> DetalleCompras { get; set; }    
+        public DbSet<MovimientoCaja> Caja { get; set; }
 
         public class SistemaDbContextFactory : IDesignTimeDbContextFactory<SistemaDbContext>
         {
@@ -338,6 +340,39 @@ namespace Sistema.DAL.Data
                       .WithOne(c => c.Proveedor)
                       .HasForeignKey(c => c.ProveedorId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // TABLA CAJA
+            modelBuilder.Entity<MovimientoCaja>(entity =>
+            {
+                entity.ToTable("Caja");
+
+                entity.HasKey(c => c.Id);
+
+                entity.Property(c => c.Monto)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(c => c.Descripcion)
+                      .HasMaxLength(250);
+
+                entity.Property(c => c.Fecha)
+                      .IsRequired();
+
+                entity.Property(c => c.Tipo)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
+                entity.Property(c => c.Origen)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
+                entity.Property(c => c.Estado)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
             });
         }
     }
