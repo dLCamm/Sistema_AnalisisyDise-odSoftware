@@ -8,8 +8,11 @@
 
             public DateTime Fecha { get; private set; } = DateTime.Now;
 
-            // FK
-            public int CreditoId { get; set; }
+            public EstadoAbono Estado { get; set; }
+
+
+        // FK
+        public int CreditoId { get; set; }
 
             // Navegación
             public Credito Credito { get; set; } = null!;

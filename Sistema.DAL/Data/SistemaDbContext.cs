@@ -295,6 +295,11 @@ namespace Sistema.DAL.Data
                 entity.Property(a => a.Fecha)
                       .IsRequired();
 
+                entity.Property(a => a.Estado)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
                 entity.HasOne(a => a.Credito)
                       .WithMany(c => c.Abonos)
                       .HasForeignKey(a => a.CreditoId)

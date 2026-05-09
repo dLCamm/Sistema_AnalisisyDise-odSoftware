@@ -152,6 +152,16 @@ namespace Sistema.BLL.Services
 
             credito.Estado = EstadoCredito.Cancelado;
 
+            // cancelar abonos
+            foreach (var abono in credito.Abonos)
+            {
+                abono.Estado = EstadoAbono.Anulado;
+            }
+
+            _repoCredito.Actualizar(credito);
+
+            _context.SaveChanges();
+
             _repoCredito.Actualizar(credito);
 
             _context.SaveChanges();
