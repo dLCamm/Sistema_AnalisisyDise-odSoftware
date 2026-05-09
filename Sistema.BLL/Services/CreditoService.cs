@@ -167,6 +167,48 @@ namespace Sistema.BLL.Services
             _context.SaveChanges();
         }
 
+        // ANULAR ABONO
+        public void AnularAbono(int abonoId)
+        {
+            using var transaction = _context.Database.BeginTransaction();
+
+            try
+            {
+                var abono = _repoCredito.ObtenerAbonoPorId(abonoId);
+
+                if (abono == null)
+                    throw new Exception("Abono no encontrado");
+
+                if (abono.Estado == EstadoAbono.Anulado)
+                    return;
+
+                var credito = abono.Credito;
+
+                // devolver saldo
+                credito.SaldoPendiente += abono.Monto;
+
+                // si estaba pagado vuelve a pendiente
+                if (credito.Estado == EstadoCredito.Pagado)
+                {
+                    credito.Estado = EstadoCredito.Pendiente;
+                }
+
+                // anular abono
+                abono.Estado = EstadoAbono.Anulado;
+
+                _repoCredito.Actualizar(credito);
+
+                _context.SaveChanges();
+
+                transaction.Commit();
+            }
+            catch
+            {
+                transaction.Rollback();
+                throw;
+            }
+        }
+
         public void Dispose()
         {
             _context.Dispose();

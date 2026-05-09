@@ -18,5 +18,7 @@ namespace Sistema.DAL.Repositories.Interfaces
         List<Credito> ObtenerPorEstado(EstadoCredito estado);
 
         void Actualizar(Credito credito);
+
+        Abono? ObtenerAbonoPorId(int id);
     }
 }

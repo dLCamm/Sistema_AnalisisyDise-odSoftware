@@ -52,5 +52,12 @@ namespace Sistema.DAL.Repositories
         {
             _context.Creditos.Update(credito);
         }
+
+        public Abono? ObtenerAbonoPorId(int id)
+        {
+            return _context.Abonos
+                .Include(a => a.Credito)
+                .FirstOrDefault(a => a.Id == id);
+        }
     }
 }
