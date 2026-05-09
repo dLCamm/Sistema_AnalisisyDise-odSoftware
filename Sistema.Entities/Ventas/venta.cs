@@ -1,4 +1,5 @@
 ﻿using Sistema.Entities.Clientes;
+using Sistema.Entities.Creditos;
 using Sistema.Entities.Usuarios;
 
 namespace Sistema.Entities.Ventas
@@ -16,6 +17,7 @@ namespace Sistema.Entities.Ventas
         public int UsuarioId { get; set; }
 
         // Navegación
+        public Credito? Credito { get; set; }
         public Cliente Cliente { get; set; } = null!;
         public Usuario Usuario { get; set; } = null!;
         public ICollection<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
