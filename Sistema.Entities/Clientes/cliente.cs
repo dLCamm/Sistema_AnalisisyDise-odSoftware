@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistema.Entities.Creditos;
+using System;
 
 namespace Sistema.Entities.Clientes
 {
@@ -12,6 +13,8 @@ namespace Sistema.Entities.Clientes
         public DateTime FechaRegistro { get; private set; } = DateTime.Now;
         public string Email { get; set; }
         public EstadoCliente Estado { get; set; }
+
+        public ICollection<Credito> Creditos { get; set; } = new List<Credito>();
     }
   
 }

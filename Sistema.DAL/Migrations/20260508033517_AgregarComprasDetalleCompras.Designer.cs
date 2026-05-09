@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema.DAL.Data;
 
@@ -10,9 +11,11 @@ using Sistema.DAL.Data;
 namespace Sistema.DAL.Migrations
 {
     [DbContext(typeof(SistemaDbContext))]
-    partial class SistemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508033517_AgregarComprasDetalleCompras")]
+    partial class AgregarComprasDetalleCompras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
@@ -112,72 +115,6 @@ namespace Sistema.DAL.Migrations
                     b.ToTable("Detalle_Compras", (string)null);
                 });
 
-            modelBuilder.Entity("Sistema.Entities.Creditos.Abono", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CreditoId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreditoId");
-
-                    b.ToTable("Abonos", (string)null);
-                });
-
-            modelBuilder.Entity("Sistema.Entities.Creditos.Credito", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ClienteId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("FechaInicio")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("FechaVencimiento")
-                        .HasColumnType("TEXT");
-
-                    b.Property<decimal>("SaldoPendiente")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalCredito")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("VentaId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("VentaId")
-                        .IsUnique();
-
-                    b.ToTable("Creditos", (string)null);
-                });
-
             modelBuilder.Entity("Sistema.Entities.Productos.Producto", b =>
                 {
                     b.Property<int>("Id")
@@ -226,32 +163,26 @@ namespace Sistema.DAL.Migrations
 
                     b.Property<string>("Direccion")
                         .IsRequired()
-                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Estado")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Estado")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefono")
                         .IsRequired()
-                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Proveedores", (string)null);
+                    b.ToTable("Proveedor");
                 });
 
             modelBuilder.Entity("Sistema.Entities.Usuarios.Usuario", b =>
@@ -385,36 +316,6 @@ namespace Sistema.DAL.Migrations
                     b.Navigation("Producto");
                 });
 
-            modelBuilder.Entity("Sistema.Entities.Creditos.Abono", b =>
-                {
-                    b.HasOne("Sistema.Entities.Creditos.Credito", "Credito")
-                        .WithMany("Abonos")
-                        .HasForeignKey("CreditoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Credito");
-                });
-
-            modelBuilder.Entity("Sistema.Entities.Creditos.Credito", b =>
-                {
-                    b.HasOne("Sistema.Entities.Clientes.Cliente", "Cliente")
-                        .WithMany("Creditos")
-                        .HasForeignKey("ClienteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Sistema.Entities.Ventas.Venta", "Venta")
-                        .WithOne("Credito")
-                        .HasForeignKey("Sistema.Entities.Creditos.Credito", "VentaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Venta");
-                });
-
             modelBuilder.Entity("Sistema.Entities.Ventas.DetalleVenta", b =>
                 {
                     b.HasOne("Sistema.Entities.Productos.Producto", "Producto")
@@ -453,19 +354,9 @@ namespace Sistema.DAL.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Sistema.Entities.Clientes.Cliente", b =>
-                {
-                    b.Navigation("Creditos");
-                });
-
             modelBuilder.Entity("Sistema.Entities.Compras.Compra", b =>
                 {
                     b.Navigation("Detalles");
-                });
-
-            modelBuilder.Entity("Sistema.Entities.Creditos.Credito", b =>
-                {
-                    b.Navigation("Abonos");
                 });
 
             modelBuilder.Entity("Sistema.Entities.Proveedores.Proveedor", b =>
@@ -475,8 +366,6 @@ namespace Sistema.DAL.Migrations
 
             modelBuilder.Entity("Sistema.Entities.Ventas.Venta", b =>
                 {
-                    b.Navigation("Credito");
-
                     b.Navigation("Detalles");
                 });
 #pragma warning restore 612, 618

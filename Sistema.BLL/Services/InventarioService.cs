@@ -78,6 +78,43 @@ namespace Sistema.BLL.Services
 
 
         // Actualizar datos
+        public void ActualizarProducto(int id, Producto datos)
+        {
+            var producto = _repo.ObtenerPorId(id);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
+
+            // validaciones
+            if (string.IsNullOrWhiteSpace(datos.Nombre))
+                throw new Exception("El nombre es obligatorio");
+
+            if (datos.PrecioCompra < 0)
+                throw new Exception("El precio de compra no puede ser negativo");
+
+            if (datos.PrecioVenta < 0)
+                throw new Exception("El precio de venta no puede ser negativo");
+
+            if (datos.Stock < 0)
+                throw new Exception("El stock no puede ser negativo");
+
+            if (datos.StockMinimo < 0)
+                throw new Exception("El stock mínimo no puede ser negativo");
+
+            // actualizamos el producto
+            producto.Nombre = datos.Nombre;
+            producto.Descripcion = datos.Descripcion;
+            producto.PrecioCompra = datos.PrecioCompra;
+            producto.PrecioVenta = datos.PrecioVenta;
+            producto.Stock = datos.Stock;
+            producto.StockMinimo = datos.StockMinimo;
+            producto.Estado = datos.Estado;
+
+            _repo.Actualizar(producto);
+
+            _context.SaveChanges();
+        }
+
         public void ActualizarStock(int productoId, int cantidad)
         {
             var producto = _repo.ObtenerPorId(productoId);

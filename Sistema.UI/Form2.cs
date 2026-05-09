@@ -261,7 +261,6 @@ namespace Sistema.UI
             {
                 ClienteId = clienteId,
                 UsuarioId = usuarioId,
-               
                 TipoPago = tipoPago,
                 Total = CalcularTotal()
             };
