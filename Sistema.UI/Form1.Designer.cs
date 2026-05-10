@@ -96,7 +96,7 @@
             btnProveedores.Name = "btnProveedores";
             btnProveedores.Size = new Size(229, 70);
             btnProveedores.TabIndex = 4;
-            btnProveedores.Text = "🚚 Proveedores";
+            btnProveedores.Text = "🚚 Compras";
             btnProveedores.UseVisualStyleBackColor = true;
             btnProveedores.Click += btnProveedores_Click;
             // 
