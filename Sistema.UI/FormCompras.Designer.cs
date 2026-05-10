@@ -28,13 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             clm_nombre = new DataGridViewTextBoxColumn();
             clm_descripcion = new DataGridViewTextBoxColumn();
             dataGridView2 = new DataGridView();
+            clm_productoname = new DataGridViewTextBoxColumn();
+            clm_preciocompra = new DataGridViewTextBoxColumn();
+            clm_cantidad = new DataGridViewTextBoxColumn();
+            clm_subtotal = new DataGridViewTextBoxColumn();
+            clm_btndismin = new DataGridViewButtonColumn();
+            clm_btnaumentar = new DataGridViewButtonColumn();
+            clm_eliminar = new DataGridViewButtonColumn();
             label2 = new Label();
-            label4 = new Label();
             label5 = new Label();
             comboBox1 = new ComboBox();
             button1 = new Button();
@@ -42,13 +52,7 @@
             textBox1 = new TextBox();
             button3 = new Button();
             button4 = new Button();
-            clm_productoname = new DataGridViewTextBoxColumn();
-            clm_preciocompra = new DataGridViewTextBoxColumn();
-            clm_cantidad = new DataGridViewTextBoxColumn();
-            clm_subtotal = new DataGridViewTextBoxColumn();
-            clm_btnaumentar = new DataGridViewButtonColumn();
-            clm_btndismin = new DataGridViewButtonColumn();
-            clm_eliminar = new DataGridViewButtonColumn();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -66,17 +70,36 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView1.Location = new Point(28, 155);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(678, 574);
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(678, 627);
             dataGridView1.TabIndex = 9;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             dataGridView1.KeyDown += dataGridView1_KeyDown;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             // 
             // clm_nombre
             // 
@@ -96,14 +119,97 @@
             // 
             // dataGridView2
             // 
+            dataGridView2.BackgroundColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btnaumentar, clm_btndismin, clm_eliminar });
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridView2.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridView2.EnableHeadersVisualStyles = false;
+            dataGridView2.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView2.Location = new Point(737, 155);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersVisible = false;
             dataGridView2.RowHeadersWidth = 51;
-            dataGridView2.Size = new Size(916, 574);
+            dataGridView2.Size = new Size(916, 627);
             dataGridView2.TabIndex = 10;
+            dataGridView2.CellContentClick += dataGridView2_CellContentClick;
+            dataGridView2.CellEndEdit += dataGridView2_CellEndEdit;
+            // 
+            // clm_productoname
+            // 
+            clm_productoname.FillWeight = 33.64486F;
+            clm_productoname.HeaderText = "Producto";
+            clm_productoname.MinimumWidth = 6;
+            clm_productoname.Name = "clm_productoname";
+            clm_productoname.ReadOnly = true;
+            clm_productoname.Width = 200;
+            // 
+            // clm_preciocompra
+            // 
+            clm_preciocompra.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_preciocompra.FillWeight = 33.64486F;
+            clm_preciocompra.HeaderText = "Precio de Compra";
+            clm_preciocompra.MinimumWidth = 6;
+            clm_preciocompra.Name = "clm_preciocompra";
+            // 
+            // clm_cantidad
+            // 
+            clm_cantidad.FillWeight = 33.64486F;
+            clm_cantidad.HeaderText = "Cantidad";
+            clm_cantidad.MinimumWidth = 6;
+            clm_cantidad.Name = "clm_cantidad";
+            clm_cantidad.Width = 90;
+            // 
+            // clm_subtotal
+            // 
+            clm_subtotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_subtotal.FillWeight = 33.64486F;
+            clm_subtotal.HeaderText = "Subtotal";
+            clm_subtotal.MinimumWidth = 6;
+            clm_subtotal.Name = "clm_subtotal";
+            clm_subtotal.ReadOnly = true;
+            // 
+            // clm_btndismin
+            // 
+            clm_btndismin.HeaderText = "";
+            clm_btndismin.MinimumWidth = 6;
+            clm_btndismin.Name = "clm_btndismin";
+            clm_btndismin.Text = "-";
+            clm_btndismin.UseColumnTextForButtonValue = true;
+            clm_btndismin.Width = 60;
+            // 
+            // clm_btnaumentar
+            // 
+            clm_btnaumentar.HeaderText = "";
+            clm_btnaumentar.MinimumWidth = 6;
+            clm_btnaumentar.Name = "clm_btnaumentar";
+            clm_btnaumentar.Text = "+";
+            clm_btnaumentar.UseColumnTextForButtonValue = true;
+            clm_btnaumentar.Width = 60;
+            // 
+            // clm_eliminar
+            // 
+            clm_eliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_eliminar.FillWeight = 33.64486F;
+            clm_eliminar.HeaderText = "Eliminar";
+            clm_eliminar.MinimumWidth = 6;
+            clm_eliminar.Name = "clm_eliminar";
+            clm_eliminar.Text = "Borrar";
+            clm_eliminar.UseColumnTextForButtonValue = true;
             // 
             // label2
             // 
@@ -117,55 +223,47 @@
             label2.TabIndex = 11;
             label2.Text = "Carrito de Compras";
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(743, 743);
-            label4.Name = "label4";
-            label4.Size = new Size(55, 28);
-            label4.TabIndex = 13;
-            label4.Text = "Total";
-            // 
             // label5
             // 
             label5.AutoSize = true;
+            label5.BackColor = SystemColors.ActiveBorder;
             label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(804, 746);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(739, 801);
             label5.Name = "label5";
-            label5.Size = new Size(63, 25);
+            label5.Size = new Size(54, 25);
             label5.TabIndex = 14;
-            label5.Text = "label5";
+            label5.Text = "Total";
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(743, 788);
+            comboBox1.Location = new Point(739, 841);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(200, 28);
+            comboBox1.Size = new Size(262, 28);
             comboBox1.TabIndex = 15;
             comboBox1.Text = "Proveedor";
             // 
             // button1
             // 
-            button1.Location = new Point(963, 788);
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.Location = new Point(1007, 841);
             button1.Name = "button1";
             button1.Size = new Size(166, 29);
             button1.TabIndex = 16;
             button1.Text = "Agregar Proveedor";
-            button1.UseVisualStyleBackColor = true;
+            button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(1496, 124);
+            button2.BackColor = SystemColors.ActiveCaption;
+            button2.Location = new Point(1496, 118);
             button2.Name = "button2";
-            button2.Size = new Size(157, 29);
+            button2.Size = new Size(157, 35);
             button2.TabIndex = 17;
             button2.Text = "Ver Compras";
-            button2.UseVisualStyleBackColor = true;
+            button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
             // textBox1
@@ -179,83 +277,37 @@
             // 
             // button3
             // 
-            button3.Location = new Point(1072, 833);
+            button3.BackColor = SystemColors.ActiveCaption;
+            button3.Location = new Point(1068, 886);
             button3.Name = "button3";
             button3.Size = new Size(213, 47);
             button3.TabIndex = 19;
             button3.Text = "Agregar Compra";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
             // 
             // button4
             // 
-            button4.Location = new Point(497, 122);
+            button4.BackColor = SystemColors.ActiveCaption;
+            button4.Location = new Point(497, 118);
             button4.Name = "button4";
-            button4.Size = new Size(209, 28);
+            button4.Size = new Size(209, 32);
             button4.TabIndex = 20;
             button4.Text = "Agregar Producto";
-            button4.UseVisualStyleBackColor = true;
+            button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
-            // clm_productoname
+            // label3
             // 
-            clm_productoname.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_productoname.FillWeight = 33.64486F;
-            clm_productoname.HeaderText = "Producto";
-            clm_productoname.MinimumWidth = 6;
-            clm_productoname.Name = "clm_productoname";
-            clm_productoname.ReadOnly = true;
-            // 
-            // clm_preciocompra
-            // 
-            clm_preciocompra.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_preciocompra.FillWeight = 33.64486F;
-            clm_preciocompra.HeaderText = "Precio de Compra";
-            clm_preciocompra.MinimumWidth = 6;
-            clm_preciocompra.Name = "clm_preciocompra";
-            clm_preciocompra.ReadOnly = true;
-            // 
-            // clm_cantidad
-            // 
-            clm_cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_cantidad.FillWeight = 33.64486F;
-            clm_cantidad.HeaderText = "Cantidad";
-            clm_cantidad.MinimumWidth = 6;
-            clm_cantidad.Name = "clm_cantidad";
-            // 
-            // clm_subtotal
-            // 
-            clm_subtotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_subtotal.FillWeight = 33.64486F;
-            clm_subtotal.HeaderText = "Subtotal";
-            clm_subtotal.MinimumWidth = 6;
-            clm_subtotal.Name = "clm_subtotal";
-            clm_subtotal.ReadOnly = true;
-            // 
-            // clm_btnaumentar
-            // 
-            clm_btnaumentar.HeaderText = "+";
-            clm_btnaumentar.MinimumWidth = 6;
-            clm_btnaumentar.Name = "clm_btnaumentar";
-            clm_btnaumentar.Text = "+";
-            clm_btnaumentar.ToolTipText = "+";
-            clm_btnaumentar.Width = 60;
-            // 
-            // clm_btndismin
-            // 
-            clm_btndismin.HeaderText = "-";
-            clm_btndismin.MinimumWidth = 6;
-            clm_btndismin.Name = "clm_btndismin";
-            clm_btndismin.Text = "-";
-            clm_btndismin.Width = 60;
-            // 
-            // clm_eliminar
-            // 
-            clm_eliminar.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_eliminar.FillWeight = 33.64486F;
-            clm_eliminar.HeaderText = "Eliminar";
-            clm_eliminar.MinimumWidth = 6;
-            clm_eliminar.Name = "clm_eliminar";
-            clm_eliminar.Text = "Borrar";
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(15, 19, 23);
+            label3.Font = new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Location = new Point(1442, 801);
+            label3.Name = "label3";
+            label3.Size = new Size(211, 20);
+            label3.TabIndex = 21;
+            label3.Text = "*El Precio de compra es editable";
             // 
             // FormCompras
             // 
@@ -263,6 +315,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1688, 947);
+            Controls.Add(label3);
             Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(textBox1);
@@ -270,7 +323,6 @@
             Controls.Add(button1);
             Controls.Add(comboBox1);
             Controls.Add(label5);
-            Controls.Add(label4);
             Controls.Add(label2);
             Controls.Add(dataGridView2);
             Controls.Add(dataGridView1);
@@ -289,7 +341,6 @@
         private DataGridView dataGridView1;
         private DataGridView dataGridView2;
         private Label label2;
-        private Label label4;
         private Label label5;
         private ComboBox comboBox1;
         private Button button1;
@@ -303,8 +354,9 @@
         private DataGridViewTextBoxColumn clm_preciocompra;
         private DataGridViewTextBoxColumn clm_cantidad;
         private DataGridViewTextBoxColumn clm_subtotal;
-        private DataGridViewButtonColumn clm_btnaumentar;
         private DataGridViewButtonColumn clm_btndismin;
+        private DataGridViewButtonColumn clm_btnaumentar;
         private DataGridViewButtonColumn clm_eliminar;
+        private Label label3;
     }
 }

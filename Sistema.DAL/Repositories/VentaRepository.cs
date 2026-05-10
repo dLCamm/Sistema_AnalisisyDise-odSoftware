@@ -30,7 +30,9 @@ namespace Sistema.DAL.Repositories
         public Venta? ObtenerPorId(int id)
         {
             return _context.Ventas
+                .Include(v => v.Cliente)
                 .Include(v => v.Detalles)
+                    .ThenInclude(d => d.Producto) 
                 .FirstOrDefault(v => v.Id == id);
         }
 
@@ -39,6 +41,7 @@ namespace Sistema.DAL.Repositories
         {
             return _context.Ventas
                 .Include(v => v.Detalles)
+                .Include(v => v.Cliente)
                 .ToList();
         }
 

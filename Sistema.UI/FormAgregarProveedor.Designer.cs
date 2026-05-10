@@ -101,6 +101,7 @@
             btnGuardar.TabIndex = 39;
             btnGuardar.Text = "Guardar Proveedor";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // label3
             // 

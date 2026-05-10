@@ -81,10 +81,10 @@ namespace Sistema.BLL.Services
 
                 transaction.Commit();
             }
-            catch
+            catch (Exception ex)
             {
                 transaction.Rollback();
-                throw new Exception("Error en la transaccion");
+                throw new Exception($"Error: {ex.Message} | Inner: {ex.InnerException?.Message}");
             }
         }
 
