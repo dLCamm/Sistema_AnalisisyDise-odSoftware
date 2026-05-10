@@ -28,12 +28,14 @@ namespace Sistema.BLL.Factories
             var repoVenta = new VentaRepository(context);
             var repoProducto = new ProductoRepository(context);
             var repoClientes = new ClienteRepository(context);
+            var servicioCredito = CrearCreditoService();
 
             return new VentaService(
                 context, 
                 repoVenta, 
                 repoProducto, 
-                repoClientes);
+                repoClientes,
+                servicioCredito);
         }
 
         public static ClienteService CrearClienteService()
