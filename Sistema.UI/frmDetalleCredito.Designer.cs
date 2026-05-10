@@ -33,6 +33,7 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlDetallecredito = new Panel();
+            label5 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
@@ -59,6 +60,7 @@
             // pnlDetallecredito
             // 
             pnlDetallecredito.BackColor = Color.FromArgb(31, 41, 55);
+            pnlDetallecredito.Controls.Add(label5);
             pnlDetallecredito.Controls.Add(label3);
             pnlDetallecredito.Controls.Add(label2);
             pnlDetallecredito.Controls.Add(label1);
@@ -68,12 +70,23 @@
             pnlDetallecredito.Size = new Size(709, 559);
             pnlDetallecredito.TabIndex = 0;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(45, 253);
+            label5.Name = "label5";
+            label5.Size = new Size(136, 26);
+            label5.TabIndex = 9;
+            label5.Text = "📞 Teléfono:";
+            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(45, 443);
+            label3.Location = new Point(45, 470);
             label3.Name = "label3";
             label3.Size = new Size(268, 26);
             label3.TabIndex = 8;
@@ -84,7 +97,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(45, 314);
+            label2.Location = new Point(45, 367);
             label2.Name = "label2";
             label2.Size = new Size(224, 26);
             label2.TabIndex = 7;
@@ -95,18 +108,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(45, 176);
+            label1.Location = new Point(45, 137);
             label1.Name = "label1";
             label1.Size = new Size(86, 26);
             label1.TabIndex = 6;
-            label1.Text = "👤 DPI:";
+            label1.Text = "💳 DPI:";
             // 
             // labelCreditos
             // 
             labelCreditos.AutoSize = true;
             labelCreditos.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCreditos.ForeColor = Color.White;
-            labelCreditos.Location = new Point(45, 46);
+            labelCreditos.Location = new Point(45, 22);
             labelCreditos.Name = "labelCreditos";
             labelCreditos.Size = new Size(121, 26);
             labelCreditos.TabIndex = 5;
@@ -339,5 +352,6 @@
         private Label label2;
         private Label label1;
         private Label label4;
+        private Label label5;
     }
 }

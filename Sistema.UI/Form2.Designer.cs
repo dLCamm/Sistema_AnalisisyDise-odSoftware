@@ -13,10 +13,12 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panelMain = new Panel();
+            label2 = new Label();
+            label1 = new Label();
             button1 = new Button();
             dataGridView1 = new DataGridView();
             txtBuscar = new TextBox();
@@ -33,8 +35,6 @@
             Col_Producto = new DataGridViewTextBoxColumn();
             Col_Cantidad = new DataGridViewTextBoxColumn();
             Col_Subtotal = new DataGridViewTextBoxColumn();
-            label1 = new Label();
-            label2 = new Label();
             panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panelPago.SuspendLayout();
@@ -58,6 +58,28 @@
             panelMain.TabIndex = 0;
             panelMain.Paint += panelMain_Paint;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(831, 92);
+            label2.Name = "label2";
+            label2.Size = new Size(194, 57);
+            label2.TabIndex = 8;
+            label2.Text = "VENTAS";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(161, 36);
+            label1.Name = "label1";
+            label1.Size = new Size(194, 57);
+            label1.TabIndex = 7;
+            label1.Text = "VENTAS";
+            // 
             // button1
             // 
             button1.BackColor = Color.SteelBlue;
@@ -72,30 +94,30 @@
             // 
             // dataGridView1
             // 
-            dataGridViewCellStyle7.BackColor = Color.Transparent;
-            dataGridViewCellStyle7.ForeColor = Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.ActiveBorder;
-            dataGridViewCellStyle7.SelectionForeColor = Color.Black;
-            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.BackColor = Color.Transparent;
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ActiveBorder;
+            dataGridViewCellStyle1.SelectionForeColor = Color.Black;
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.BackgroundColor = SystemColors.ActiveCaption;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle8.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.LightSteelBlue;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle9.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle9.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.LightSteelBlue;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.GridColor = Color.DarkBlue;
             dataGridView1.Location = new Point(831, 157);
             dataGridView1.Name = "dataGridView1";
@@ -164,6 +186,7 @@
             rbCredito.Size = new Size(120, 20);
             rbCredito.TabIndex = 2;
             rbCredito.Text = "Crédito Cliente";
+            rbCredito.CheckedChanged += rbCredito_CheckedChanged;
             // 
             // rbFisico
             // 
@@ -230,28 +253,6 @@
             Col_Subtotal.HeaderText = "Subtotal";
             Col_Subtotal.MinimumWidth = 6;
             Col_Subtotal.Name = "Col_Subtotal";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(161, 36);
-            label1.Name = "label1";
-            label1.Size = new Size(194, 57);
-            label1.TabIndex = 7;
-            label1.Text = "VENTAS";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(831, 92);
-            label2.Name = "label2";
-            label2.Size = new Size(194, 57);
-            label2.TabIndex = 8;
-            label2.Text = "VENTAS";
             // 
             // Form2
             // 

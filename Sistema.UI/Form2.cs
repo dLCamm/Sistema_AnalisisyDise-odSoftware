@@ -27,7 +27,7 @@ namespace Sistema.UI
             dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
             btnRealizarVenta!.Click += BtnRealizarVenta_Click;
 
-            
+
 
             // Añadimos al panel principal (si existe)
             if (panelMain != null)
@@ -441,6 +441,11 @@ namespace Sistema.UI
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog(); ventanamodal.ResumeLayout();
 
+        }
+
+        private void rbCredito_CheckedChanged(object sender, EventArgs e)
+        {
+          
         }
 
         // panelCantidad and related controls removed. Quantity changes handled via grid Inc/Dec buttons.

@@ -14,5 +14,10 @@ namespace Sistema.UI
         {
             InitializeComponent();
         }
+
+        private void btnCancelarCr_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
