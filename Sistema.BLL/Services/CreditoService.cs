@@ -1,5 +1,6 @@
 ﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
+using Sistema.Entities.Caja;
 using Sistema.Entities.Creditos;
 using Sistema.Entities.Ventas;
 using System;
@@ -14,15 +15,18 @@ namespace Sistema.BLL.Services
 
         private readonly ICreditoRepository _repoCredito;
         private readonly IVentaRepository _repoVenta;
+        private readonly CajaService _cajaService;
 
         public CreditoService(
             SistemaDbContext context,
             ICreditoRepository repoCredito,
-            IVentaRepository repoVenta)
+            IVentaRepository repoVenta,
+            CajaService cajaService)
         {
             _context = context;
             _repoCredito = repoCredito;
             _repoVenta = repoVenta;
+            _cajaService = cajaService;
         }
 
         // CREAR CRÉDITO
@@ -51,24 +55,23 @@ namespace Sistema.BLL.Services
                 VentaId = venta.Id,
                 ClienteId = venta.ClienteId,
                 TotalCredito = venta.Total,
-                SaldoPendiente = venta.Total - abonoInicial,
+                SaldoPendiente = venta.Total,
                 FechaVencimiento = fechaVencimiento,
-                Estado = abonoInicial == venta.Total
-                    ? EstadoCredito.Pagado
-                    : EstadoCredito.Pendiente
+                Estado = EstadoCredito.Pendiente
             };
 
-            // crear abono inicial
+            _repoCredito.Insertar(credito);
+
+            // abono inicial
             if (abonoInicial > 0)
             {
-                credito.Abonos.Add(new Abono
-                {
-                    Monto = abonoInicial,
-                    Estado = EstadoAbono.Activo
-                });
-            }
+                _context.SaveChanges();
 
-            _repoCredito.Insertar(credito);
+                RegistrarAbono(
+                    credito.Id,
+                    abonoInicial,
+                    false);
+            }
 
             if (guardarCambios)
             {
@@ -123,6 +126,18 @@ namespace Sistema.BLL.Services
                 _repoCredito.InsertarAbono(abono);
 
                 _repoCredito.Actualizar(credito);
+
+                // guardamos para obtener el creditoId
+                _context.SaveChanges();
+
+                // creamos un movimiento de caja
+                _cajaService.RegistrarIngreso(
+                    monto,
+                    OrigenMovimientoCaja.Abono,
+                    $"Abono crédito #{credito.Id}",
+                    abono.Id,
+                    null,
+                    false);
 
                 if (guardarCambios)
                 {
@@ -254,6 +269,11 @@ namespace Sistema.BLL.Services
                 // anular abono
                 abono.Estado = EstadoAbono.Anulado;
 
+                // anular movimiento de caja
+                _cajaService.AnularMovimientoPorReferencia(
+                    OrigenMovimientoCaja.Abono,
+                    abono.Id,
+                    false);
                 _repoCredito.Actualizar(credito);
 
                 _context.SaveChanges();

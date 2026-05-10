@@ -1,5 +1,6 @@
 ﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
+using Sistema.Entities.Caja;
 using Sistema.Entities.Ventas;
 
 namespace Sistema.BLL.Services
@@ -12,9 +13,10 @@ namespace Sistema.BLL.Services
         private readonly IClienteRepository _repoCliente;
         private readonly IUsuarioRepository _repoUsuario;
         private readonly CreditoService _creditoService;
+        private readonly CajaService _cajaService;
 
 
-        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto, IClienteRepository repoCliente, IUsuarioRepository repoUsuario,CreditoService creditoService)
+        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto, IClienteRepository repoCliente, IUsuarioRepository repoUsuario,CreditoService creditoService, CajaService cajaService)
         {
             _context = context;
             _repo = repo;
@@ -22,6 +24,7 @@ namespace Sistema.BLL.Services
             _repoCliente = repoCliente;
             _repoUsuario = repoUsuario;
             _creditoService = creditoService;
+            _cajaService = cajaService;
         }
 
         public void RegistrarVenta(
@@ -128,6 +131,18 @@ namespace Sistema.BLL.Services
                     Detalles = detalles
                 };
 
+                // CREAR MOVIMIENTO CAJA SI ES AL CONTADO
+                if (tipoPago == TipoPago.Contado)
+                {
+                    _cajaService.RegistrarIngreso(
+                        total,
+                        OrigenMovimientoCaja.Venta,
+                        $"Ingreso por venta #{venta.Id}",
+                        venta.Id,
+                        usuarioId,
+                        false);
+                }
+
                 _repo.InsertarVenta(venta);
 
                 // NECESITAMOS venta.Id
@@ -220,6 +235,12 @@ namespace Sistema.BLL.Services
                     _creditoService.CancelarCreditoPorVenta(
                         venta.Id,
                         false);
+                }
+
+                // ANULAR MOVIMIENTO CAJA SI ES AL CONTADO
+                else if(venta.TipoPago == TipoPago.Contado)
+                {
+                    _cajaService.AnularMovimientoPorReferencia(OrigenMovimientoCaja.Venta, venta.Id, false);
                 }
 
                 // ANULAR VENTA

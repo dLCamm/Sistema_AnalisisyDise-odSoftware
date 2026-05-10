@@ -23,7 +23,9 @@ namespace Sistema.BLL.Services
             decimal monto,
             OrigenMovimientoCaja origen,
             string descripcion,
-            int? usuarioId = null)
+            int referenciaId,
+            int? usuarioId = null,
+            bool guardarCambios = true)
         {
             if (monto <= 0)
                 throw new Exception("Monto inválido");
@@ -34,13 +36,17 @@ namespace Sistema.BLL.Services
                 Monto = monto,
                 Origen = origen,
                 Descripcion = descripcion,
+                ReferenciaId = referenciaId,
                 Estado = EstadoMovimientoCaja.Activo,
                 UsuarioId = usuarioId
             };
 
             _repo.Insertar(movimiento);
 
-            _context.SaveChanges();
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
         }
 
         // EGRESO
@@ -48,8 +54,9 @@ namespace Sistema.BLL.Services
             decimal monto,
             OrigenMovimientoCaja origen,
             string descripcion,
-            int referenciaID,
-            int? usuarioId = null)
+            int referenciaId,
+            int? usuarioId = null,
+            bool guardarCambios = true)
         {
             if (monto <= 0)
                 throw new Exception("Monto inválido");
@@ -60,14 +67,17 @@ namespace Sistema.BLL.Services
                 Monto = monto,
                 Origen = origen,
                 Descripcion = descripcion,
-                ReferenciaId = referenciaID,
+                ReferenciaId = referenciaId,
                 Estado = EstadoMovimientoCaja.Activo,
                 UsuarioId = usuarioId
             };
 
             _repo.Insertar(movimiento);
 
-            // NO SE HACE SAVECHANGES TENERLO EN CUENTA
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
         }
 
         // OBTENER MOVIMIENTO
@@ -143,27 +153,31 @@ namespace Sistema.BLL.Services
             _context.SaveChanges();
         }
 
-        public void AnularPorOrigen(
+        public void AnularMovimientoPorReferencia(
             OrigenMovimientoCaja origen,
-            int referenciaId)
+            int referenciaId,
+            bool guardarCambios = true)
         {
-            var movimiento = _repo.ObtenerPorReferencia(
+            var movimientos = _repo.ObtenerPorReferencia(
                 origen,
                 referenciaId);
 
-            if (movimiento == null)
+            if (!movimientos.Any())
                 return;
 
-            if (movimiento.Estado ==
-                EstadoMovimientoCaja.Anulado)
-                return;
+            foreach (var movimiento in movimientos)
+            {
+                movimiento.Estado =
+                    EstadoMovimientoCaja.Anulado;
 
-            movimiento.Estado =
-                EstadoMovimientoCaja.Anulado;
+                _repo.Actualizar(movimiento);
+            }
 
-            _repo.Actualizar(movimiento);
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
         }
-
         // FILTRAR POR ORIGEN
         public List<MovimientoCaja> FiltrarPorOrigen(OrigenMovimientoCaja origen)
         {

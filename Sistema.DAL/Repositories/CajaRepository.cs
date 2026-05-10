@@ -89,14 +89,16 @@ namespace Sistema.DAL.Repositories
                 .Sum(c => c.Monto);
         }
 
-        public MovimientoCaja? ObtenerPorReferencia(
+        public List<MovimientoCaja> ObtenerPorReferencia(
             OrigenMovimientoCaja origen,
             int referenciaId)
         {
             return _context.Caja
-                .FirstOrDefault(c =>
+                .Where(c =>
                     c.Origen == origen &&
-                    c.ReferenciaId == referenciaId);
+                    c.ReferenciaId == referenciaId &&
+                    c.Estado == EstadoMovimientoCaja.Activo)
+                .ToList();
         }
     }
 }

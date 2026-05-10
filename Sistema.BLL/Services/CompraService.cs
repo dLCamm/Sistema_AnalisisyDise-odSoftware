@@ -190,7 +190,7 @@ namespace Sistema.BLL.Services
                 _repoCompra.Actualizar(compra);
 
                 // anular movimiento de caja
-                _cajaService.AnularPorOrigen(OrigenMovimientoCaja.Compra,compra.Id);
+                _cajaService.AnularMovimientoPorReferencia(OrigenMovimientoCaja.Compra,compra.Id, false);
 
                 _context.SaveChanges();
 

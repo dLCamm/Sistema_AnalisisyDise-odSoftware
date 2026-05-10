@@ -30,6 +30,7 @@ namespace Sistema.BLL.Factories
             var repoClientes = new ClienteRepository(context);
             var repoUsuario = new UsuarioRepository(context);
             var servicioCredito = CrearCreditoService();
+            var servicioCaja = CrearCajaService();
 
             return new VentaService(
                 context,
@@ -37,7 +38,8 @@ namespace Sistema.BLL.Factories
                 repoProducto,
                 repoClientes,
                 repoUsuario,
-                servicioCredito);
+                servicioCredito,
+                servicioCaja);
         }
 
         public static ClienteService CrearClienteService()
@@ -83,11 +85,13 @@ namespace Sistema.BLL.Factories
 
             var repoCredito = new CreditoRepository(context);
             var repoVenta = new VentaRepository(context);
+            var cajaService = CrearCajaService();
 
             return new CreditoService(
                 context,
                 repoCredito,
-                repoVenta);
+                repoVenta,
+                cajaService);
         }
 
         public static CajaService CrearCajaService()
