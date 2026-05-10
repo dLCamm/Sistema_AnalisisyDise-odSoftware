@@ -4,17 +4,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Sistema.BLL.Services;
 using Sistema.Entities.Ventas;
-using Sistema.DAL.Data;
-using Sistema.DAL.Repositories;
-using Sistema.DAL.Repositories.Interfaces;
-
+using Sistema.BLL.Factories;
 
 namespace Sistema.UI
 {
     public partial class FormVerVentas : Form
     {
-
-        private VentaService _ventaService;
 
 
         public FormVerVentas()
@@ -31,19 +26,7 @@ namespace Sistema.UI
             clm_id.DataPropertyName = "clm_id";
 
 
-            if (Program.Context != null)
-            {
-                var ventaRepository = new VentaRepository(Program.Context);
-                var productoRepository = new ProductoRepository(Program.Context);
-                var clienteRepository = new ClienteRepository(Program.Context);
-                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
-            }
-            else
-            {
-                MessageBox.Show("Error al inicializar el servicio de ventas. Contexto no disponible.");
-                this.Close();
-                return;
-            }
+            
             Ver_todas_ventas(this, EventArgs.Empty);
         }
 
@@ -55,10 +38,13 @@ namespace Sistema.UI
                 Ver_todas_ventas(this, EventArgs.Empty);
                 return;
             }
+            using (var service = ServiceFactory.CrearVentaService())
+            {
 
-            var ventas = _ventaService.ListarVentas().Where(p => p.Cliente.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
-            FormVerVentas_Load(ventas);
+                var ventas = service.ListarVentas().Where(p => p.Cliente.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+                FormVerVentas_Load(ventas);
+            }
 
         }
 
@@ -105,9 +91,12 @@ namespace Sistema.UI
                 {
                     try
                     {
-                        _ventaService.AnularVenta(idVenta);
-                        MessageBox.Show("Venta anulada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Ver_todas_ventas(this, EventArgs.Empty); // Recargar la lista de ventas
+                        using (var _ventaService = ServiceFactory.CrearVentaService())
+                        {
+                            _ventaService.AnularVenta(idVenta);
+                            MessageBox.Show("Venta anulada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Ver_todas_ventas(this, EventArgs.Empty); // Recargar la lista de ventas
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -121,8 +110,11 @@ namespace Sistema.UI
 
         private void Ver_todas_ventas(object sender, EventArgs e)
         {
-            var ventas = _ventaService.ListarVentas();
-            FormVerVentas_Load(ventas);
+            using (var _ventaService = ServiceFactory.CrearVentaService())
+            {
+                var ventas = _ventaService.ListarVentas();
+                FormVerVentas_Load(ventas);
+            }
         }
 
 
@@ -154,11 +146,15 @@ namespace Sistema.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DateTime fechaInicio = dateTimePicker1.Value.Date;
-            DateTime fechaFin = dateTimePicker2.Value.Date.AddDays(1).AddTicks(-1);
-            var ventas = _ventaService.ListarVentas().Where(v => v.Fecha >= fechaInicio && v.Fecha <= fechaFin)
-                .ToList();
-            FormVerVentas_Load(ventas);
+            using (var _ventaService = ServiceFactory.CrearVentaService())
+            {
+                DateTime fechaInicio = dateTimePicker1.Value.Date;
+                DateTime fechaFin = dateTimePicker2.Value.Date.AddDays(1).AddTicks(-1);
+
+                var ventas = _ventaService.ListarVentas().Where(v => v.Fecha >= fechaInicio && v.Fecha <= fechaFin)
+                    .ToList();
+                FormVerVentas_Load(ventas);
+            }
 
         }
     }

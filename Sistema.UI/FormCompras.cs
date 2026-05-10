@@ -1,7 +1,8 @@
 ﻿using Sistema.BLL.Services;
 using Sistema.DAL.Repositories;
 using Sistema.Entities.Productos;
-using Sistema.Entities.Ventas;
+using Sistema.Entities.Proveedores;
+using Sistema.Entities.Compras;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,9 @@ namespace Sistema.UI
         private InventarioService _inventarioService;
         private List<Producto> productosAll;
         private string resultado = string.Empty;
+        private List<Proveedor> proveedoresAll;
+        private ProveedorService _proveedorService;
+        private CompraService _compraService;
         public FormCompras()
         {
             InitializeComponent();
@@ -25,8 +29,12 @@ namespace Sistema.UI
             {
 
                 // Inicializar InventarioService con el contexto compartido
+                var compraRepository = new CompraRepository(Program.Context);
                 var productoRepository = new ProductoRepository(Program.Context);
+                var proveedorRepository = new ProveedorRepository(Program.Context);
+                _proveedorService = new ProveedorService(Program.Context, proveedorRepository);
                 _inventarioService = new InventarioService(Program.Context, productoRepository);
+                _compraService = new CompraService(Program.Context, compraRepository, productoRepository, proveedorRepository);
             }
             else
             {
@@ -34,13 +42,14 @@ namespace Sistema.UI
             }
 
             this.Load += Ventas_Load;
-           
+
         }
 
         private void Ventas_Load(object? sender, EventArgs e)
         {
 
             CargarProductos();
+            LlenarcomboboxProveedores();
 
         }
 
@@ -69,16 +78,11 @@ namespace Sistema.UI
         {
             if (e.KeyCode == Keys.Enter && dataGridView1.CurrentRow != null)
             {
-                var productoSeleccionado = dataGridView1.CurrentRow.Tag as Producto;
-                if (productoSeleccionado != null && !carrito.Any(x => x.Producto.Id == productoSeleccionado.Id))
-                
-                {
-                    agregarprecionew(sender, e); // Abrir ventana para ingresar precio
-                    
-                }
+
                 AñadirProductoSeleccionadoDesdeLista();
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+
             }
         }
 
@@ -89,8 +93,7 @@ namespace Sistema.UI
             if (e.RowIndex < 0) return;
             var row = dataGridView1!.Rows[e.RowIndex];
             var prod = row.Tag as Producto;
-            if (!carrito.Any(x => x.Producto.Id == prod.Id)) {
-                agregarprecionew(sender, e);}
+
             if (prod != null)
             {
                 AgregarProductoAlCarrito(prod);
@@ -164,7 +167,7 @@ namespace Sistema.UI
             RefrescarListaProductos(filtered);
         }
 
-       
+
 
         private void AñadirProductoSeleccionadoDesdeLista()
         {
@@ -174,24 +177,13 @@ namespace Sistema.UI
                 var prod = row.Tag as Producto;
                 if (prod != null)
                 {
-                    
+
                     AgregarProductoAlCarrito(prod);
                 }
             }
         }
 
-        private void agregarprecionew(object sender, EventArgs e)
-        {
-            using (Formnuevoprecio ventana = new Formnuevoprecio())
-            {
-                // Esto detiene la ejecución hasta que se cierre la ventana
-                if (ventana.ShowDialog() == DialogResult.OK)
-                {
-                    resultado = ventana.DatoIngresado;
-
-                }
-            }
-        }
+       
 
         private void AgregarProductoAlCarrito(Producto prod)
         {
@@ -210,25 +202,38 @@ namespace Sistema.UI
             RefrescarCarrito(carrito.Count - 1);
         }
 
-        private void RefrescarCarrito(int index)
+        private void RefrescarCarrito(int? preserveIndex = null)
         {
-            var item = carrito[index];
-            if (index < dataGridView2.Rows.Count)
+            // Usamos dataGridView1 como representación del carrito
+            int? current = preserveIndex;
+
+            if (!current.HasValue && dataGridView2!.CurrentCell != null)
+                current = dataGridView2.CurrentCell.RowIndex;
+
+            dataGridView2.Rows.Clear();
+
+            for (int i = 0; i < carrito.Count; i++)
             {
-                // Actualizar fila existente
-                var row = dataGridView2.Rows[index];
-                row.Cells["clm_productoname"].Value = item.Producto.Nombre;
-                row.Cells["clm_preciocompra"].Value = resultado;
-                row.Cells["clm_cantidad"].Value = item.Cantidad;
-                row.Cells["clm_subtotal"].Value = item.Subtotal;
-                resultado = string.Empty; // Limpiar resultado después de usarlo
+                var item = carrito[i];
+                var nombre = item.Producto?.Nombre ?? "(sin nombre)";
+                var precioCompra = $"Q{item.Producto.PrecioCompra:0.00}";
+                var cantidad = item.Cantidad.ToString();
+                var subtotal = $"Q{item.Subtotal:0.00}";
+
+                // Añadimos en el orden de columnas: Producto, Precio Unitario, Cantidad, Subtotal
+                int rowIndex = dataGridView2.Rows.Add(nombre, precioCompra, cantidad, subtotal);
+                dataGridView2.Rows[rowIndex].Tag = item;
             }
-            else
+
+            // El total se calcula a partir del modelo
+            label5!.Text = $"Total: Q{CalcularTotal():0.00}";
+
+            if (current.HasValue && current.Value >= 0 && current.Value < dataGridView2.Rows.Count)
             {
-                // Agregar nueva fila
-                dataGridView2.Rows.Add(item.Producto.Nombre, item.Cantidad, resultado, item.Subtotal);
+                dataGridView2.ClearSelection();
+                dataGridView2.Rows[current.Value].Selected = true;
+                dataGridView2.CurrentCell = dataGridView2.Rows[current.Value].Cells[0];
             }
-            label5.Text = $"Total: {CalcularTotal():C}";
         }
 
         private decimal CalcularTotal()
@@ -236,8 +241,176 @@ namespace Sistema.UI
             return carrito.Sum(x => x.Subtotal);
         }
 
-      
-        
+        internal class CartItem
+        {
+            public Producto Producto { get; }
+            public int Cantidad { get; set; }
 
+            public decimal PrecioCompra => Producto?.PrecioCompra ?? 0m;
+
+            public decimal Subtotal => PrecioCompra * Cantidad;
+
+            public CartItem(Producto producto, int cantidad)
+            {
+                Producto = producto;
+                Cantidad = cantidad;
+
+            }
+        }
+
+        //Para manejar los botones de la tabla del carrito
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = dataGridView2!.Rows[e.RowIndex];
+            var item = row.Tag as CartItem;
+            if (item == null) return;
+            var col = dataGridView2.Columns[e.ColumnIndex];
+            if (col.Name == "clm_btndismin")
+            {
+                if (item.Cantidad > 1) item.Cantidad--;
+                else carrito.Remove(item);
+                int? preserve = carrito.Count == 0 ? (int?)null : Math.Min(e.RowIndex, carrito.Count - 1);
+                BeginInvoke(new Action(() => RefrescarCarrito(preserve)));
+            }
+            else if (col.Name == "clm_btnaumentar")
+            {
+                item.Cantidad++;
+                int? preserve = e.RowIndex;
+                BeginInvoke(new Action(() => RefrescarCarrito(preserve)));
+            }
+            else if (col.Name == "clm_eliminar")
+            {
+                carrito.Remove(item);
+                int? preserve = carrito.Count == 0 ? (int?)null : Math.Min(e.RowIndex, carrito.Count - 1);
+                BeginInvoke(new Action(() => RefrescarCarrito(preserve)));
+            }
+        }
+
+        //Para manejar la edicion de cantidad y de Precio Compra en el carrito
+
+        private void dataGridView2_CellEndEdit(object? sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+            var col = dataGridView2.Columns[e.ColumnIndex];
+            if (col.Name == "clm_preciocompra")
+            {
+                var row = dataGridView2.Rows[e.RowIndex];
+                var item = row.Tag as CartItem;
+                if (item == null) return;
+                var cell = row.Cells[e.ColumnIndex];
+                var raw = cell?.Value?.ToString();
+                if (string.IsNullOrWhiteSpace(raw))
+                {
+                    // restaurar
+                    BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                    return;
+                }
+                if (decimal.TryParse(raw, out decimal newPrice))
+                {
+                    if (newPrice < 0)
+                    {
+                        // precio no puede ser negativo, restaurar
+                        BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                    }
+                    else
+                    {
+                        item.Producto.PrecioCompra = newPrice;
+                        BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                    }
+                }
+                else
+                {
+                    // valor inválido, restaurar
+                    BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                }
+            }
+            else if (col.Name == "clm_cantidad")
+            {
+
+                var row = dataGridView2.Rows[e.RowIndex];
+                var item = row.Tag as CartItem;
+                if (item == null) return;
+
+                var cell = row.Cells[e.ColumnIndex];
+                var raw = cell?.Value?.ToString();
+                if (string.IsNullOrWhiteSpace(raw))
+                {
+                    // restaurar
+                    BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                    return;
+                }
+
+                if (int.TryParse(raw, out int newQty))
+                {
+                    if (newQty <= 0)
+                    {
+                        carrito.Remove(item);
+                        int? preserve = carrito.Count == 0 ? (int?)null : Math.Min(e.RowIndex, carrito.Count - 1);
+                        BeginInvoke(new Action(() => RefrescarCarrito(preserve)));
+                    }
+                    else
+                    {
+                        item.Cantidad = newQty;
+                        BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                    }
+                }
+                else
+                {
+                    // valor inválido, restaurar
+                    BeginInvoke(new Action(() => RefrescarCarrito(e.RowIndex)));
+                }
+            }
+            else { return; }
+        }
+
+        private void LlenarcomboboxProveedores()
+        {
+            try
+            {
+                comboBox1.Items.Clear();
+                List<Proveedor> proveedoresactivos = _proveedorService.ListarProveedores();
+                comboBox1.DataSource = proveedoresactivos;
+                comboBox1.DisplayMember = "Nombre";
+                comboBox1.ValueMember = "Id";
+                comboBox1.SelectedIndex = -1;
+                comboBox1.Text = "Seleccionar Proveedor";
+
+            }
+            catch { }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (carrito.Count == 0)
+            {
+                MessageBox.Show("El carrito está vacío. Agregue productos antes de realizar la compra.", "Carrito Vacío", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Seleccione un proveedor para realizar la compra.", "Proveedor No Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            var proveedor = comboBox1.SelectedItem as Proveedor;
+            try
+            {
+                _compraService.RegistrarCompra(proveedor.Id, carrito.Select(i => new DetalleCompra
+                {
+                    ProductoId = i.Producto.Id,
+                    Cantidad = i.Cantidad,
+                    PrecioCompra = i.PrecioCompra
+                }).ToList());
+                MessageBox.Show("Compra registrada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                carrito.Clear();
+                RefrescarCarrito();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al registrar la compra: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
     }
 }
