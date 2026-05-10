@@ -1,10 +1,17 @@
-﻿using System.ComponentModel;
-using System.Globalization;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Linq;
-using Sistema.Entities.Ventas;
+﻿using Sistema.BLL.Services;
+using Sistema.DAL.Data;
+using Sistema.DAL.Repositories;
+using Sistema.DAL.Repositories.Interfaces;
 using Sistema.Entities.Productos;
+using Sistema.Entities.Ventas;
+using System.ComponentModel;
+using System.Drawing;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Forms;
+using Sistema.Entities.Clientes;
+
+
 
 namespace Sistema.UI
 {
@@ -13,13 +20,40 @@ namespace Sistema.UI
         private List<CartItem> carrito = new List<CartItem>();
         private List<Producto> productosAll = new List<Producto>();
         private Button btnVerVentas = null!;
+        private ClienteService _clienteService;
+        private InventarioService _inventarioService;
+        private VentaService _ventaService;
 
         public Form2()
         {
             InitializeComponent();
+            
+            // Inicializar ClienteService con el contexto compartido
+            if (Program.Context != null)
+            {
+                var clienteRepository = new ClienteRepository(Program.Context);
+                _clienteService = new ClienteService(Program.Context, clienteRepository);
+                
+                // Inicializar InventarioService con el contexto compartido
+                var productoRepository = new ProductoRepository(Program.Context);
+                _inventarioService = new InventarioService(Program.Context, productoRepository);
+
+                // Inicializar VentaService con el contexto compartido
+                var ventaRepository = new VentaRepository(Program.Context);
+                
+                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
+
+
+            }
+            else
+            {
+                throw new InvalidOperationException("El contexto de base de datos no está disponible.");
+            }
+            
             this.Load += Ventas_Load;
-            listProductos!.DoubleClick += ListProductos_DoubleClick;
+            
             listProductos!.KeyDown += ListProductos_KeyDown;
+            listProductos.CellDoubleClick += ListProductos_CellDoubleClick;
             // Configurar DataGridView como carrito
             ConfigurarDataGridCarrito();
             dataGridView1!.CellContentClick += dataGridView1_CellContentClick_1;
@@ -76,33 +110,57 @@ namespace Sistema.UI
         // =========================
         private void CargarProductos()
         {
-            productosAll = new List<Producto>
+            try
             {
-                new Producto { Id = 1, Nombre = "Block", PrecioVenta = 500m },
-                new Producto { Id = 2, Nombre = "Cemento", PrecioVenta = 50m },
-                new Producto { Id = 3, Nombre = "Pintura", PrecioVenta = 120m },
-                new Producto { Id = 4, Nombre = "Arena", PrecioVenta = 30m }
-            };
+                // Cargar productos activos desde la base de datos a través del InventarioService
+                productosAll = _inventarioService.ObtenerProductosActivos();
+                
+                if (productosAll.Count == 0)
+                {
+                    MessageBox.Show("No hay productos activos en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar productos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                productosAll = new List<Producto>();
+            }
 
-            listProductos.DataSource = new BindingList<Producto>(productosAll);
-            listProductos.DisplayMember = "Nombre";
+            RefrescarListaProductos(productosAll);
         }
 
         private void CargarClientes()
         {
-            cmbCliente!.Items.Clear();
-            cmbCliente.Items.Add("Cliente General");
-            cmbCliente.Items.Add("Empresa ABC");
-            cmbCliente.Items.Add("Juan Pérez");
+            try
+            {
+                cmbCliente!.Items.Clear();
+
+                // Cargar clientes activos desde la base de datos
+                var clientesActivos = _clienteService.ObtenerClientesActivos();
+
+      
+
+                cmbCliente.DataSource = clientesActivos;
+                cmbCliente.DisplayMember = "Nombre";
+                cmbCliente.ValueMember = "Id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                if (cmbCliente.Items.Count > 0)
+                {
+                    cmbCliente.SelectedIndex = 0;
+                }
+            }
         }
+
+        
 
         // =========================
         // AGREGAR PRODUCTO
         // =========================
-        private void ListProductos_DoubleClick(object? sender, EventArgs e)
-        {
-            AñadirProductoSeleccionadoDesdeLista();
-        }
+       
 
         private void ListProductos_KeyDown(object? sender, KeyEventArgs e)
         {
@@ -116,20 +174,14 @@ namespace Sistema.UI
 
         private void AñadirProductoSeleccionadoDesdeLista()
         {
-            if (listProductos!.SelectedItem is Producto prod)
+            if (listProductos!.SelectedRows.Count > 0)
             {
-                var existente = carrito.FirstOrDefault(x => x.Producto.Id == prod.Id);
-
-                if (existente != null)
+                var row = listProductos.SelectedRows[0];
+                var prod = row.Tag as Producto;
+                if (prod != null)
                 {
-                    existente.Cantidad++;
+                    AgregarProductoAlCarrito(prod);
                 }
-                else
-                {
-                    carrito.Add(new CartItem(prod, 1));
-                }
-
-                RefrescarCarrito(carrito.Count - 1);
             }
         }
 
@@ -226,69 +278,64 @@ namespace Sistema.UI
         // =========================
         private void BtnRealizarVenta_Click(object? sender, EventArgs e)
         {
-            if (carrito.Count == 0)
+            try
             {
-                MessageBox.Show("Agrega productos primero");
-                return;
+                if (carrito.Count == 0)
+                {
+                    MessageBox.Show("Agrega productos primero");
+                    return;
+                }
+
+                if (cmbCliente!.SelectedItem == null)
+                {
+                    MessageBox.Show("Selecciona un cliente");
+                    return;
+                }
+
+                if (rbCredito!.Checked == false && rbFisico!.Checked == false)
+                {
+                    MessageBox.Show("Selecciona un tipo de pago");
+                    return;
+                }
+
+                // Mapear a enum TipoPago en lugar de usar string
+                TipoPago tipoPago = rbCredito!.Checked ? TipoPago.Credito : TipoPago.Contado;
+                int idcliente = (int)cmbCliente.SelectedValue; // En un caso real, aquí obtendrías el ID real del cliente seleccionado
+
+                List<DetalleVenta> detalles = carrito.Select(ci => new DetalleVenta
+                {
+
+                    Producto = ci.Producto,
+                    ProductoId = ci.Producto.Id,
+                    Cantidad = ci.Cantidad,
+                    PrecioUnitario = ci.PrecioUnitario
+                }).ToList();
+
+
+                _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago);
+
+
+
+
+                MessageBox.Show("✅ Venta realizada correctamente");
+
+                carrito.Clear();
+                RefrescarCarrito();
+                CargarProductos();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            if (cmbCliente!.SelectedItem == null)
-            {
-                MessageBox.Show("Selecciona un cliente");
-                return;
             }
-
-            string tipoPago = rbCredito!.Checked ? "Crédito" : "Físico";
-            int idcliente = cmbCliente.SelectedIndex; // En un caso real, aquí obtendrías el ID real del cliente seleccionado
-
-            // var venta = CrearVenta(idcliente, 1, carrito, tipoPago);
-
-            // ProcesarPago(venta, tipoPago);
-            // RegistrarVenta(venta);
-
-            MessageBox.Show("✅ Venta realizada correctamente");
-
-            carrito.Clear();
-            RefrescarCarrito();
-        }
 
         // =========================
         // BLL SIMULADO
         // =========================
-        private Venta CrearVenta(int clienteId, int usuarioId, List<CartItem> detallesCart, TipoPago tipoPago)
-        {
-            var nuevaventa = new Venta
-            {
-                ClienteId = clienteId,
-                UsuarioId = usuarioId,
-                TipoPago = tipoPago,
-                Total = CalcularTotal()
-            };
+        
 
-            var detalles = detallesCart.Select(ci => new DetalleVenta
-            {
-                Venta = nuevaventa,
-                VentaId = nuevaventa.Id,
-                Producto = ci.Producto,
-                ProductoId = ci.Producto.Id,
-                Cantidad = ci.Cantidad,
-                PrecioUnitario = ci.PrecioUnitario
-            }).ToList();
-
-            nuevaventa.Detalles = detalles;
-            return nuevaventa;
-        }
-
-        private void ProcesarPago(Venta venta, string tipoPago)
-        {
-            // Aquí luego conectas con tu BLL real
-        }
-
-        private void RegistrarVenta(Venta venta)
-        {
-            // Aquí luego conectas con DB
-        }
-
+       
         private void txtBuscar_TextChanged(object? sender, EventArgs e)
         {
             var term = txtBuscar.Text?.Trim() ?? string.Empty;
@@ -296,7 +343,7 @@ namespace Sistema.UI
             // Ignorar placeholder
             if (string.IsNullOrWhiteSpace(term) || term == "Añadir Producto")
             {
-                listProductos.DataSource = new BindingList<Producto>(productosAll);
+                RefrescarListaProductos(productosAll);
                 return;
             }
 
@@ -304,42 +351,26 @@ namespace Sistema.UI
                 .Where(p => p.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
                 .ToList();
 
-            listProductos.DataSource = new BindingList<Producto>(filtered);
-            listProductos.DisplayMember = "Nombre";
-
-            if (filtered.Count > 0)
-                listProductos.SelectedIndex = 0;
+            RefrescarListaProductos(filtered);
         }
 
-        private void listCarrito_SelectedIndexChanged(object? sender, EventArgs e)
-        {
-            // ya no usado
-        }
-
+    
         private void btnRealizarVenta_Click_1(object? sender, EventArgs e)
         {
 
         }
 
-        private void btnHome_Click(object? sender, EventArgs e)
-        {
-
-        }
+      
+        
 
         private void Form2_Load(object? sender, EventArgs e)
         {
 
         }
 
-        private void listProductos_SelectedIndexChanged(object? sender, EventArgs e)
-        {
+  
 
-        }
 
-        private void panelCantidad_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
@@ -404,6 +435,24 @@ namespace Sistema.UI
             dataGridView1.Columns["PrecioUnitario"].ReadOnly = true;
             dataGridView1.Columns["Subtotal"].ReadOnly = true;
             dataGridView1.Columns["Cantidad"].ReadOnly = false;
+
+            // Configurar DataGridView de productos
+            listProductos!.Rows.Clear();
+            listProductos.Columns.Clear();
+            listProductos.AllowUserToAddRows = false;
+            listProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            listProductos.MultiSelect = false;
+            listProductos.ReadOnly = true;
+            
+            listProductos.Columns.Add("Nombre", "Nombre Producto");
+            listProductos.Columns.Add("CantidadDisponible", "Cantidad Disponible");
+            listProductos.Columns.Add("PrecioUnitario", "Precio Unitario");
+            listProductos.Columns.Add("Descripcion", "Descripción");
+            
+            listProductos.Columns["Nombre"].Width = 150;
+            listProductos.Columns["CantidadDisponible"].Width = 120;
+            listProductos.Columns["PrecioUnitario"].Width = 120;
+            listProductos.Columns["Descripcion"].Width = 200;
         }
 
         private void DataGridView1_SelectionChanged(object? sender, EventArgs e)
@@ -436,10 +485,17 @@ namespace Sistema.UI
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            frmIngresarCliente ventanamodal = new frmIngresarCliente();
+            frmIngresarCliente ventanamodal = new frmIngresarCliente(_clienteService);
 
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
-            ventanamodal.ShowDialog(); ventanamodal.ResumeLayout();
+            ventanamodal.ShowDialog(); 
+            ventanamodal.ResumeLayout();
+
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
 
@@ -449,6 +505,53 @@ namespace Sistema.UI
         }
 
         // panelCantidad and related controls removed. Quantity changes handled via grid Inc/Dec buttons.
+
+        private void RefrescarListaProductos(List<Producto> productos)
+        {
+            listProductos!.Rows.Clear();
+            foreach (var prod in productos)
+            {
+                int rowIndex = listProductos.Rows.Add(
+                    prod.Nombre,
+                    prod.Stock,
+                    $"Q{prod.PrecioVenta:0.00}",
+                    prod.Descripcion ?? ""
+                );
+                listProductos.Rows[rowIndex].Tag = prod;
+            }
+            if (productos.Count > 0 && listProductos.Rows.Count > 0)
+            {
+                listProductos.ClearSelection();
+                listProductos.Rows[0].Selected = true;
+            }
+        }
+
+        private void ListProductos_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            var row = listProductos!.Rows[e.RowIndex];
+            var prod = row.Tag as Producto;
+            if (prod != null)
+            {
+                AgregarProductoAlCarrito(prod);
+            }
+        }
+
+        private void AgregarProductoAlCarrito(Producto prod)
+        {
+            var existente = carrito.FirstOrDefault(x => x.Producto.Id == prod.Id);
+
+            if (existente != null)
+            {
+                existente.Cantidad++;
+            }
+            else
+            {
+                carrito.Add(new CartItem(prod, 1));
+            }
+
+            RefrescarCarrito(carrito.Count - 1);
+        }
     }
 
     // =========================
@@ -468,6 +571,4 @@ namespace Sistema.UI
             Cantidad = cantidad;
         }
     }
-
-    
 }
