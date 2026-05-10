@@ -1,9 +1,6 @@
 ﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
 using Sistema.Entities.Usuarios;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Sistema.DAL.Repositories
 {

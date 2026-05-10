@@ -28,7 +28,9 @@ namespace Sistema.BLL.Services
         // CREAR CRÉDITO
         public void CrearCredito(
             int ventaId,
-            DateTime fechaVencimiento)
+            DateTime fechaVencimiento,
+            decimal abonoInicial = 0,
+            bool guardarCambios = true)
         {
             var venta = _repoVenta.ObtenerPorId(ventaId);
 
@@ -38,27 +40,51 @@ namespace Sistema.BLL.Services
             if (venta.TipoPago != TipoPago.Credito)
                 throw new Exception("La venta no es a crédito");
 
+            if (abonoInicial < 0)
+                throw new Exception("Abono inválido");
+
+            if (abonoInicial > venta.Total)
+                throw new Exception("El abono excede el total");
+
             var credito = new Credito
             {
                 VentaId = venta.Id,
                 ClienteId = venta.ClienteId,
                 TotalCredito = venta.Total,
-                SaldoPendiente = venta.Total,
+                SaldoPendiente = venta.Total - abonoInicial,
                 FechaVencimiento = fechaVencimiento,
-                Estado = EstadoCredito.Pendiente
+                Estado = abonoInicial == venta.Total
+                    ? EstadoCredito.Pagado
+                    : EstadoCredito.Pendiente
             };
+
+            // crear abono inicial
+            if (abonoInicial > 0)
+            {
+                credito.Abonos.Add(new Abono
+                {
+                    Monto = abonoInicial,
+                    Estado = EstadoAbono.Activo
+                });
+            }
 
             _repoCredito.Insertar(credito);
 
-            _context.SaveChanges();
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
         }
 
         // REGISTRAR ABONO
         public void RegistrarAbono(
             int creditoId,
-            decimal monto)
+            decimal monto,
+            bool guardarCambios = true)
         {
-            using var transaction = _context.Database.BeginTransaction();
+            using var transaction = guardarCambios
+                ? _context.Database.BeginTransaction()
+                : null;
 
             try
             {
@@ -82,7 +108,8 @@ namespace Sistema.BLL.Services
                 var abono = new Abono
                 {
                     CreditoId = creditoId,
-                    Monto = monto
+                    Monto = monto,
+                    Estado = EstadoAbono.Activo
                 };
 
                 credito.SaldoPendiente -= monto;
@@ -97,13 +124,16 @@ namespace Sistema.BLL.Services
 
                 _repoCredito.Actualizar(credito);
 
-                _context.SaveChanges();
+                if (guardarCambios)
+                {
+                    _context.SaveChanges();
 
-                transaction.Commit();
+                    transaction?.Commit();
+                }
             }
             catch
             {
-                transaction.Rollback();
+                transaction?.Rollback();
                 throw;
             }
         }
