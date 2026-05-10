@@ -485,7 +485,7 @@ namespace Sistema.UI
 
         private void btnAgregarCliente_Click(object sender, EventArgs e)
         {
-            frmIngresarCliente ventanamodal = new frmIngresarCliente(_clienteService);
+            frmIngresarCliente ventanamodal = new frmIngresarCliente();
 
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog(); 
