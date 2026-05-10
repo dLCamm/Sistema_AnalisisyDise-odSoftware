@@ -1,4 +1,4 @@
-﻿using Sistema.DAL.Data;
+﻿        using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
 using Sistema.Entities.Caja;
 
@@ -48,6 +48,7 @@ namespace Sistema.BLL.Services
             decimal monto,
             OrigenMovimientoCaja origen,
             string descripcion,
+            int referenciaID,
             int? usuarioId = null)
         {
             if (monto <= 0)
@@ -59,13 +60,14 @@ namespace Sistema.BLL.Services
                 Monto = monto,
                 Origen = origen,
                 Descripcion = descripcion,
+                ReferenciaId = referenciaID,
                 Estado = EstadoMovimientoCaja.Activo,
                 UsuarioId = usuarioId
             };
 
             _repo.Insertar(movimiento);
 
-            _context.SaveChanges();
+            // NO SE HACE SAVECHANGES TENERLO EN CUENTA
         }
 
         // OBTENER MOVIMIENTO
@@ -139,6 +141,27 @@ namespace Sistema.BLL.Services
             _repo.Actualizar(movimiento);
 
             _context.SaveChanges();
+        }
+
+        public void AnularPorOrigen(
+            OrigenMovimientoCaja origen,
+            int referenciaId)
+        {
+            var movimiento = _repo.ObtenerPorReferencia(
+                origen,
+                referenciaId);
+
+            if (movimiento == null)
+                return;
+
+            if (movimiento.Estado ==
+                EstadoMovimientoCaja.Anulado)
+                return;
+
+            movimiento.Estado =
+                EstadoMovimientoCaja.Anulado;
+
+            _repo.Actualizar(movimiento);
         }
 
         // FILTRAR POR ORIGEN

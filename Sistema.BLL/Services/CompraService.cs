@@ -1,5 +1,6 @@
 ﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
+using Sistema.Entities.Caja;
 using Sistema.Entities.Compras;
 using Sistema.Entities.Proveedores;
 
@@ -12,17 +13,20 @@ namespace Sistema.BLL.Services
         private readonly ICompraRepository _repoCompra;
         private readonly IProductoRepository _repoProducto;
         private readonly IProveedorRepository _repoProveedor;
+        private readonly CajaService _cajaService;
 
         public CompraService(
             SistemaDbContext context,
             ICompraRepository repoCompra,
             IProductoRepository repoProducto,
-            IProveedorRepository repoProveedor)
+            IProveedorRepository repoProveedor,
+            CajaService cajaService)
         {
             _context = context;
             _repoCompra = repoCompra;
             _repoProducto = repoProducto;
             _repoProveedor = repoProveedor;
+            _cajaService = cajaService;
         }
 
         // REGISTRAR COMPRA
@@ -89,7 +93,16 @@ namespace Sistema.BLL.Services
 
                 _context.SaveChanges();
 
+                _cajaService.RegistrarEgreso(
+                    total,
+                    OrigenMovimientoCaja.Compra,
+                    $"Compra #{compra.Id} al proveedor {proveedor.Nombre}",
+                    compra.Id);
+
+                _context.SaveChanges();
+
                 transaction.Commit();
+
             }
             catch
             {
@@ -171,9 +184,13 @@ namespace Sistema.BLL.Services
                     producto.Stock -= detalle.Cantidad;
                 }
 
+                // anular compra    
                 compra.Estado = EstadoCompra.Anulada;
 
                 _repoCompra.Actualizar(compra);
+
+                // anular movimiento de caja
+                _cajaService.AnularPorOrigen(OrigenMovimientoCaja.Compra,compra.Id);
 
                 _context.SaveChanges();
 

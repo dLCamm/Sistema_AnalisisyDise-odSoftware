@@ -373,6 +373,58 @@ namespace Sistema.DAL.Data
                       .HasConversion<string>()
                       .HasMaxLength(20)
                       .IsRequired();
+
+                entity.Property(c => c.ReferenciaId)
+                      .IsRequired();
+
+                entity.HasOne(c => c.Usuario)
+                      .WithMany()
+                      .HasForeignKey(c => c.UsuarioId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // ÍNDICES
+                entity.HasIndex(c => c.Fecha);
+
+                entity.HasIndex(c => c.Tipo);
+
+                entity.HasIndex(c => c.Origen);
+
+                entity.HasIndex(c => c.Estado);
+            });
+
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.ToTable("Usuarios");
+
+                entity.HasKey(u => u.Id);
+
+                entity.Property(u => u.Nombre)
+                      .HasMaxLength(100)
+                      .IsRequired();
+
+                entity.Property(u => u.Username)
+                      .HasMaxLength(50)
+                      .IsRequired();
+
+                entity.HasIndex(u => u.Username)
+                      .IsUnique();
+
+                entity.Property(u => u.Password)
+                      .HasMaxLength(255)
+                      .IsRequired();
+
+                entity.Property(u => u.Rol)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
+                entity.Property(u => u.Estado)
+                      .HasConversion<string>()
+                      .HasMaxLength(20)
+                      .IsRequired();
+
+                entity.Property(u => u.FechaCreacion)
+                      .IsRequired();
             });
         }
     }

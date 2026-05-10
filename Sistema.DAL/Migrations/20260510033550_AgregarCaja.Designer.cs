@@ -11,7 +11,7 @@ using Sistema.DAL.Data;
 namespace Sistema.DAL.Migrations
 {
     [DbContext(typeof(SistemaDbContext))]
-    [Migration("20260509194247_AgregarCaja")]
+    [Migration("20260510033550_AgregarCaja")]
     partial class AgregarCaja
     {
         /// <inheritdoc />
@@ -47,6 +47,9 @@ namespace Sistema.DAL.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("ReferenciaId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -56,6 +59,16 @@ namespace Sistema.DAL.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Estado");
+
+                    b.HasIndex("Fecha");
+
+                    b.HasIndex("Origen");
+
+                    b.HasIndex("Tipo");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Caja", (string)null);
                 });
@@ -396,6 +409,16 @@ namespace Sistema.DAL.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Ventas", (string)null);
+                });
+
+            modelBuilder.Entity("Sistema.Entities.Caja.MovimientoCaja", b =>
+                {
+                    b.HasOne("Sistema.Entities.Usuarios.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Sistema.Entities.Compras.Compra", b =>

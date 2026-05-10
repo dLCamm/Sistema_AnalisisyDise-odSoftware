@@ -10,14 +10,16 @@ namespace Sistema.BLL.Services
         private readonly IVentaRepository _repo;
         private readonly IProductoRepository _repoProducto;
         private readonly IClienteRepository _repoCliente;
+        private readonly CreditoService _creditoService;
 
 
-        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto, IClienteRepository repoCliente)
+        public VentaService(SistemaDbContext context, IVentaRepository repo, IProductoRepository repoProducto, IClienteRepository repoCliente, CreditoService creditoService)
         {
             _context = context;
             _repo = repo;
             _repoProducto = repoProducto;
             _repoCliente = repoCliente;
+            _creditoService = creditoService;
         }
 
         public void RegistrarVenta(int clienteId, int usuarioId, List<DetalleVenta> detalles, TipoPago tipoPago)
@@ -80,6 +82,7 @@ namespace Sistema.BLL.Services
                 _context.SaveChanges();
 
                 transaction.Commit();
+
             }
             catch
             {

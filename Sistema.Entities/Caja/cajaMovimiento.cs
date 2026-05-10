@@ -1,4 +1,6 @@
-﻿namespace Sistema.Entities.Caja
+﻿using Sistema.Entities.Usuarios;
+
+namespace Sistema.Entities.Caja
 {
     public class MovimientoCaja
     {
@@ -10,13 +12,18 @@
 
         public OrigenMovimientoCaja Origen { get; set; }
 
+        public int ReferenciaId { get; set; }
+
         public string Descripcion { get; set; } = string.Empty;
 
         public DateTime Fecha { get; private set; } = DateTime.Now;
 
         public EstadoMovimientoCaja Estado { get; set; }
 
-        // Usuario que realizo el movimiento
+        // FK
         public int? UsuarioId { get; set; }
+
+        // Navegación
+        public Usuario? Usuario { get; set; }
     }
 }

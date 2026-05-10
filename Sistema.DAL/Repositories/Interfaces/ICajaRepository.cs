@@ -25,5 +25,9 @@ namespace Sistema.DAL.Repositories.Interfaces
         decimal ObtenerTotalIngresosActivos();
 
         decimal ObtenerTotalEgresosActivos();
+
+        MovimientoCaja? ObtenerPorReferencia(
+            OrigenMovimientoCaja origen,
+            int referenciaId);
     }
 }

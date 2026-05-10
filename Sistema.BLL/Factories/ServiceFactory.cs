@@ -63,12 +63,14 @@ namespace Sistema.BLL.Factories
             var repoCompra = new CompraRepository(context);
             var repoProducto = new ProductoRepository(context);
             var repoProveedor = new ProveedorRepository(context);
+            var cajaService = CrearCajaService();
 
             return new CompraService(
                 context,
                 repoCompra,
                 repoProducto,
-                repoProveedor);
+                repoProveedor,
+                cajaService);
         }
 
         public static CreditoService CrearCreditoService()
