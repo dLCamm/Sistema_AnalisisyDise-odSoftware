@@ -172,13 +172,24 @@ namespace Sistema.BLL.Services
             return credito.Abonos.ToList();
         }
 
-        // CANCELAR
-        public void CancelarCredito(int id)
+        // CANCELAR CRÉDITO
+        public void CancelarCredito(
+            int id,
+            bool guardarCambios = true)
         {
             var credito = _repoCredito.ObtenerPorId(id);
 
             if (credito == null)
                 throw new Exception("Crédito no encontrado");
+
+            if (credito.Estado == EstadoCredito.Cancelado)
+                return;
+
+            if (credito.Estado == EstadoCredito.Pagado)
+            {
+                throw new Exception(
+                    "No se puede cancelar un crédito pagado");
+            }
 
             credito.Estado = EstadoCredito.Cancelado;
 
@@ -190,11 +201,25 @@ namespace Sistema.BLL.Services
 
             _repoCredito.Actualizar(credito);
 
-            _context.SaveChanges();
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
+        }
 
-            _repoCredito.Actualizar(credito);
+        public void CancelarCreditoPorVenta(
+            int ventaId,
+            bool guardarCambios = true)
+        {
+            var credito =
+                _repoCredito.ObtenerPorVentaId(ventaId);
 
-            _context.SaveChanges();
+            if (credito == null)
+                return;
+
+            CancelarCredito(
+                credito.Id,
+                guardarCambios);
         }
 
         // ANULAR ABONO

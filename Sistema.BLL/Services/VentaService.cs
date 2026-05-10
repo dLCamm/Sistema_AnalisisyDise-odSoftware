@@ -188,7 +188,8 @@ namespace Sistema.BLL.Services
         // Anular venta
         public void AnularVenta(int id)
         {
-            using var transaction = _context.Database.BeginTransaction();
+            using var transaction =
+                _context.Database.BeginTransaction();
 
             try
             {
@@ -200,10 +201,12 @@ namespace Sistema.BLL.Services
                 if (venta.Estado == EstadoVenta.Anulado)
                     return;
 
-                // devolver stock
+                // DEVOLVER STOCK
                 foreach (var detalle in venta.Detalles)
                 {
-                    var producto = _repoProducto.ObtenerPorId(detalle.ProductoId);
+                    var producto =
+                        _repoProducto.ObtenerPorId(
+                            detalle.ProductoId);
 
                     if (producto != null)
                     {
@@ -211,6 +214,15 @@ namespace Sistema.BLL.Services
                     }
                 }
 
+                // CANCELAR CRÉDITO SI EXISTE
+                if (venta.TipoPago == TipoPago.Credito)
+                {
+                    _creditoService.CancelarCreditoPorVenta(
+                        venta.Id,
+                        false);
+                }
+
+                // ANULAR VENTA
                 venta.Estado = EstadoVenta.Anulado;
 
                 _repo.Actualizar(venta);
