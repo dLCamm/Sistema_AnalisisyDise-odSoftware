@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema.DAL.Data;
 
@@ -10,9 +11,11 @@ using Sistema.DAL.Data;
 namespace Sistema.DAL.Migrations
 {
     [DbContext(typeof(SistemaDbContext))]
-    partial class SistemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260510033550_AgregarCaja")]
+    partial class AgregarCaja
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.5");
@@ -321,19 +324,14 @@ namespace Sistema.DAL.Migrations
                     b.Property<DateTime>("FechaCreacion")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Rol")
                         .IsRequired()
-                        .HasMaxLength(20)
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
@@ -342,9 +340,6 @@ namespace Sistema.DAL.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Username")
-                        .IsUnique();
 
                     b.ToTable("Usuarios", (string)null);
                 });

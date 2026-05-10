@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Sistema.Entities.Usuarios
 {
-    public enum EstadoUsuario
+    public enum RolUsuario
     {
-        Activo,
-        Inactivo
+        Administrador,
+        Cajero,
+        Inventario
     }
 }
