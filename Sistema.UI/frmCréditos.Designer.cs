@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label1 = new Label();
+            menuFiltroscreditos = new Button();
             txtBuscarCredito = new TextBox();
             btnNuevoCredito = new Button();
             labelCreditos = new Label();
             dgvCreditos = new DataGridView();
-            menuFiltroscreditos = new Button();
-            label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreditos).BeginInit();
             SuspendLayout();
@@ -53,14 +53,38 @@
             panel1.Size = new Size(1216, 76);
             panel1.TabIndex = 0;
             // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Top;
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic", 16F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(320, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(52, 35);
+            label1.TabIndex = 7;
+            label1.Text = "🔎";
+            // 
+            // menuFiltroscreditos
+            // 
+            menuFiltroscreditos.Anchor = AnchorStyles.Top;
+            menuFiltroscreditos.Font = new Font("Segoe UI", 10F);
+            menuFiltroscreditos.ImageAlign = ContentAlignment.MiddleLeft;
+            menuFiltroscreditos.Location = new Point(840, 24);
+            menuFiltroscreditos.Name = "menuFiltroscreditos";
+            menuFiltroscreditos.Size = new Size(97, 32);
+            menuFiltroscreditos.TabIndex = 6;
+            menuFiltroscreditos.Text = "Filtrar ▽";
+            menuFiltroscreditos.UseVisualStyleBackColor = true;
+            // 
             // txtBuscarCredito
             // 
             txtBuscarCredito.Anchor = AnchorStyles.Top;
-            txtBuscarCredito.Font = new Font("Segoe UI", 12F);
+            txtBuscarCredito.Font = new Font("Segoe UI", 16F);
             txtBuscarCredito.ForeColor = Color.Black;
-            txtBuscarCredito.Location = new Point(421, 21);
+            txtBuscarCredito.Location = new Point(378, 16);
             txtBuscarCredito.Name = "txtBuscarCredito";
-            txtBuscarCredito.Size = new Size(375, 34);
+            txtBuscarCredito.Size = new Size(444, 43);
             txtBuscarCredito.TabIndex = 6;
             txtBuscarCredito.TextChanged += txtBuscarCredito_TextChanged;
             // 
@@ -102,30 +126,7 @@
             dgvCreditos.RowHeadersWidth = 51;
             dgvCreditos.Size = new Size(1216, 518);
             dgvCreditos.TabIndex = 1;
-            // 
-            // menuFiltroscreditos
-            // 
-            menuFiltroscreditos.Anchor = AnchorStyles.Top;
-            menuFiltroscreditos.Font = new Font("Segoe UI", 10F);
-            menuFiltroscreditos.ImageAlign = ContentAlignment.MiddleLeft;
-            menuFiltroscreditos.Location = new Point(814, 21);
-            menuFiltroscreditos.Name = "menuFiltroscreditos";
-            menuFiltroscreditos.Size = new Size(97, 32);
-            menuFiltroscreditos.TabIndex = 6;
-            menuFiltroscreditos.Text = "Filtrar ▽";
-            menuFiltroscreditos.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top;
-            label1.AutoSize = true;
-            label1.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(376, 24);
-            label1.Name = "label1";
-            label1.Size = new Size(39, 26);
-            label1.TabIndex = 7;
-            label1.Text = "🔎";
+            dgvCreditos.CellContentClick += dgvCreditos_CellContentClick;
             // 
             // frmCréditos
             // 

@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            label2 = new Label();
             btnFiltrar = new Button();
             menuFiltros = new ContextMenuStrip(components);
             verTodoToolStripMenuItem = new ToolStripMenuItem();
@@ -44,7 +45,6 @@
             label1 = new Label();
             btnAgregarProducto = new Button();
             dgvProductos = new DataGridView();
-            label2 = new Label();
             panel1.SuspendLayout();
             menuFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
@@ -65,13 +65,25 @@
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
             // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic", 15F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(363, 19);
+            label2.Name = "label2";
+            label2.Size = new Size(48, 32);
+            label2.TabIndex = 8;
+            label2.Text = "🔎";
+            // 
             // btnFiltrar
             // 
             btnFiltrar.Anchor = AnchorStyles.Top;
             btnFiltrar.ContextMenuStrip = menuFiltros;
             btnFiltrar.Font = new Font("Segoe UI", 10F);
             btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrar.Location = new Point(882, 21);
+            btnFiltrar.Location = new Point(898, 21);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(97, 32);
             btnFiltrar.TabIndex = 5;
@@ -130,11 +142,11 @@
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
-            txtBuscar.Font = new Font("Segoe UI", 12F);
+            txtBuscar.Font = new Font("Segoe UI", 16F);
             txtBuscar.ForeColor = Color.Black;
-            txtBuscar.Location = new Point(490, 21);
+            txtBuscar.Location = new Point(417, 13);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(375, 34);
+            txtBuscar.Size = new Size(464, 43);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
@@ -205,18 +217,6 @@
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             dgvProductos.CellFormatting += dgvProductos_CellFormatting;
             // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top;
-            label2.AutoSize = true;
-            label2.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(445, 24);
-            label2.Name = "label2";
-            label2.Size = new Size(39, 26);
-            label2.TabIndex = 8;
-            label2.Text = "🔎";
-            // 
             // frmInventario
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -251,10 +251,10 @@
         private ToolStripMenuItem stockBajoToolStripMenuItem;
         private ToolStripMenuItem sinExistenciasToolStripMenuItem;
         private Button btnFiltrar;
-        private TextBox txtBuscar;
         private ToolStripMenuItem fechaAscToolStripMenuItem;
         private ToolStripMenuItem fechaDescToolStripMenuItem;
         private ToolStripMenuItem anuladosToolStripMenuItem;
         private Label label2;
+        private TextBox txtBuscar;
     }
 }

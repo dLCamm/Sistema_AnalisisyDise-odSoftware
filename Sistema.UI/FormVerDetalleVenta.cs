@@ -25,7 +25,7 @@ namespace Sistema.UI
             clm_Cantidad.DataPropertyName = "clm_Cantidad";
             clm_PrecioUnitario.DataPropertyName = "clm_PrecioUnitario";
             clm_Subtotal.DataPropertyName = "clm_Subtotal";
-            
+
             idventa = idVenta;
             var ventaRepository = new VentaRepository(Program.Context);
             var productoRepository = new ProductoRepository(Program.Context);
@@ -37,7 +37,7 @@ namespace Sistema.UI
         private void LlenarTabla()
         {
             var detalleventa = _ventaservice.ObtenerVenta(idventa);
-          
+
             label5.Text = detalleventa.Fecha.ToString("dd/MM/yyyy HH:mm");
             label6.Text = detalleventa.Cliente.Nombre;
             label7.Text = detalleventa.Estado.ToString();
@@ -50,7 +50,7 @@ namespace Sistema.UI
                 clm_PrecioUnitario = v.PrecioUnitario,
                 clm_Subtotal = v.Subtotal
             }).ToList();
-           
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -59,6 +59,11 @@ namespace Sistema.UI
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FormVerDetalleVenta_Load(object sender, EventArgs e)
         {
 
         }
