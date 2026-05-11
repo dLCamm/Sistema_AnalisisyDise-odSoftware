@@ -84,7 +84,7 @@
             // 
             // button1
             // 
-            button1.BackColor = Color.SteelBlue;
+            button1.BackColor = SystemColors.ActiveCaption;
             button1.Cursor = Cursors.AppStarting;
             button1.Location = new Point(1404, 113);
             button1.Name = "button1";
@@ -109,7 +109,7 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
             dataGridViewCellStyle2.ForeColor = Color.White;
             dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
             dataGridViewCellStyle2.SelectionForeColor = Color.White;
@@ -152,7 +152,7 @@
             listProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
             dataGridViewCellStyle4.ForeColor = Color.White;
             dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
             dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
@@ -249,9 +249,8 @@
             // 
             // btnRealizarVenta
             // 
-            btnRealizarVenta.BackColor = Color.RoyalBlue;
-            btnRealizarVenta.FlatStyle = FlatStyle.Flat;
-            btnRealizarVenta.ForeColor = Color.White;
+            btnRealizarVenta.BackColor = SystemColors.ActiveCaption;
+            btnRealizarVenta.ForeColor = Color.Black;
             btnRealizarVenta.Location = new Point(1068, 873);
             btnRealizarVenta.Name = "btnRealizarVenta";
             btnRealizarVenta.Size = new Size(300, 40);

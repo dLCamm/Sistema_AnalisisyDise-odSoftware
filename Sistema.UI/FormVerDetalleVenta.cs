@@ -1,13 +1,13 @@
-﻿using Sistema.BLL.Services;
-using Sistema.DAL.Repositories;
+﻿using Sistema.BLL.Factories;
+using Sistema.Entities.Ventas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Reflection.Emit;
 using System.Text;
 using System.Windows.Forms;
-using Sistema.Entities.Ventas;
 
 namespace Sistema.UI
 {
@@ -15,7 +15,7 @@ namespace Sistema.UI
 
     {
         private int idventa;
-        private VentaService _ventaservice;
+      
         public FormVerDetalleVenta(int idVenta)
         {
 
@@ -27,29 +27,29 @@ namespace Sistema.UI
             clm_Subtotal.DataPropertyName = "clm_Subtotal";
 
             idventa = idVenta;
-            var ventaRepository = new VentaRepository(Program.Context);
-            var productoRepository = new ProductoRepository(Program.Context);
-            var clienteRepository = new ClienteRepository(Program.Context);
-            _ventaservice = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
             LlenarTabla();
         }
 
         private void LlenarTabla()
-        {
-            var detalleventa = _ventaservice.ObtenerVenta(idventa);
 
-            label5.Text = detalleventa.Fecha.ToString("dd/MM/yyyy HH:mm");
-            label6.Text = detalleventa.Cliente.Nombre;
-            label7.Text = detalleventa.Estado.ToString();
-            label8.Text = detalleventa.Total.ToString("C");
-            ICollection<DetalleVenta> detalles = detalleventa.Detalles;
-            dataGridView1.DataSource = detalles.Select(v => new
+        {
+            using (var _ventaservice = ServiceFactory.CrearVentaService())
             {
-                clm_Producto = v.Producto.Nombre,
-                clm_Cantidad = v.Cantidad,
-                clm_PrecioUnitario = v.PrecioUnitario,
-                clm_Subtotal = v.Subtotal
-            }).ToList();
+                var detalleventa = _ventaservice.ObtenerVenta(idventa);
+
+                label5.Text = detalleventa.Fecha.ToString("dd/MM/yyyy HH:mm");
+                label6.Text = detalleventa.Cliente.Nombre;
+                label7.Text = detalleventa.Estado.ToString();
+                label8.Text = detalleventa.Total.ToString("C");
+                ICollection<DetalleVenta> detalles = detalleventa.Detalles;
+                dataGridView1.DataSource = detalles.Select(v => new
+                {
+                    clm_Producto = v.Producto.Nombre,
+                    clm_Cantidad = v.Cantidad,
+                    clm_PrecioUnitario = v.PrecioUnitario,
+                    clm_Subtotal = v.Subtotal
+                }).ToList();
+            }
 
         }
 

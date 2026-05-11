@@ -1,7 +1,4 @@
-﻿using Sistema.BLL.Services;
-using Sistema.DAL.Data;
-using Sistema.DAL.Repositories;
-using Sistema.DAL.Repositories.Interfaces;
+﻿
 using Sistema.Entities.Productos;
 using Sistema.Entities.Ventas;
 using System.ComponentModel;
@@ -10,6 +7,8 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Sistema.Entities.Clientes;
+using Sistema.BLL.Factories;
+using System.Runtime.CompilerServices;
 
 
 
@@ -20,38 +19,16 @@ namespace Sistema.UI
         private List<CartItem> carrito = new List<CartItem>();
         private List<Producto> productosAll = new List<Producto>();
         private Button btnVerVentas = null!;
-        private ClienteService _clienteService;
-        private InventarioService _inventarioService;
-        private VentaService _ventaService;
+   
 
         public Form2()
         {
             InitializeComponent();
+
             
-            // Inicializar ClienteService con el contexto compartido
-            if (Program.Context != null)
-            {
-                var clienteRepository = new ClienteRepository(Program.Context);
-                _clienteService = new ClienteService(Program.Context, clienteRepository);
-                
-                // Inicializar InventarioService con el contexto compartido
-                var productoRepository = new ProductoRepository(Program.Context);
-                _inventarioService = new InventarioService(Program.Context, productoRepository);
 
-                // Inicializar VentaService con el contexto compartido
-                var ventaRepository = new VentaRepository(Program.Context);
-                
-                _ventaService = new VentaService(Program.Context, ventaRepository, productoRepository, clienteRepository);
-
-
-            }
-            else
-            {
-                throw new InvalidOperationException("El contexto de base de datos no está disponible.");
-            }
-            
             this.Load += Ventas_Load;
-            
+
             listProductos!.KeyDown += ListProductos_KeyDown;
             listProductos.CellDoubleClick += ListProductos_CellDoubleClick;
             // Configurar DataGridView como carrito
@@ -113,8 +90,11 @@ namespace Sistema.UI
             try
             {
                 // Cargar productos activos desde la base de datos a través del InventarioService
-                productosAll = _inventarioService.ObtenerProductosActivos();
-                
+                using (var service = ServiceFactory.CrearInventarioService())
+                {
+                    productosAll = service.ObtenerProductosActivos();
+                }
+
                 if (productosAll.Count == 0)
                 {
                     MessageBox.Show("No hay productos activos en la base de datos.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -133,34 +113,33 @@ namespace Sistema.UI
         {
             try
             {
-                cmbCliente!.Items.Clear();
+                using (var service = ServiceFactory.CrearClienteService())
+                {
+                    var clientesActivos = service.ObtenerClientesActivos();
 
-                // Cargar clientes activos desde la base de datos
-                var clientesActivos = _clienteService.ObtenerClientesActivos();
-
-      
-
-                cmbCliente.DataSource = clientesActivos;
-                cmbCliente.DisplayMember = "Nombre";
-                cmbCliente.ValueMember = "Id";
+                    cmbCliente.DataSource = clientesActivos;
+                    cmbCliente.DisplayMember = "Nombre";
+                    cmbCliente.ValueMember = "Id";
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
+
                 if (cmbCliente.Items.Count > 0)
                 {
-                    cmbCliente.SelectedIndex = 0;
+                    MessageBox.Show($"Error al cargar clientes: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
             }
         }
 
-        
+
 
         // =========================
         // AGREGAR PRODUCTO
         // =========================
-       
+
 
         private void ListProductos_KeyDown(object? sender, KeyEventArgs e)
         {
@@ -305,14 +284,15 @@ namespace Sistema.UI
                 List<DetalleVenta> detalles = carrito.Select(ci => new DetalleVenta
                 {
 
-                    Producto = ci.Producto,
+                    
                     ProductoId = ci.Producto.Id,
                     Cantidad = ci.Cantidad,
                     PrecioUnitario = ci.PrecioUnitario
                 }).ToList();
 
-
-                _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago);
+                using (var _ventaService = ServiceFactory.CrearVentaService())
+                { _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago); }
+                
 
 
 
@@ -328,14 +308,14 @@ namespace Sistema.UI
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            }
+        }
 
         // =========================
         // BLL SIMULADO
         // =========================
-        
 
-       
+
+
         private void txtBuscar_TextChanged(object? sender, EventArgs e)
         {
             var term = txtBuscar.Text?.Trim() ?? string.Empty;
@@ -354,21 +334,21 @@ namespace Sistema.UI
             RefrescarListaProductos(filtered);
         }
 
-    
+
         private void btnRealizarVenta_Click_1(object? sender, EventArgs e)
         {
 
         }
 
-      
-        
+
+
 
         private void Form2_Load(object? sender, EventArgs e)
         {
 
         }
 
-  
+
 
 
 
@@ -443,12 +423,12 @@ namespace Sistema.UI
             listProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             listProductos.MultiSelect = false;
             listProductos.ReadOnly = true;
-            
+
             listProductos.Columns.Add("Nombre", "Nombre Producto");
             listProductos.Columns.Add("CantidadDisponible", "Cantidad Disponible");
             listProductos.Columns.Add("PrecioUnitario", "Precio Unitario");
             listProductos.Columns.Add("Descripcion", "Descripción");
-            
+
             listProductos.Columns["Nombre"].Width = 150;
             listProductos.Columns["CantidadDisponible"].Width = 120;
             listProductos.Columns["PrecioUnitario"].Width = 120;
@@ -488,7 +468,7 @@ namespace Sistema.UI
             frmIngresarCliente ventanamodal = new frmIngresarCliente();
 
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
-            ventanamodal.ShowDialog(); 
+            ventanamodal.ShowDialog();
             ventanamodal.ResumeLayout();
 
 
