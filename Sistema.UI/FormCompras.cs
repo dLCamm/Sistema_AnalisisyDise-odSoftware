@@ -10,37 +10,25 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.CompilerServices;
+using Sistema.BLL.Factories;
 
 namespace Sistema.UI
 {
     public partial class FormCompras : Form
     {
         private List<CartItem> carrito = new List<CartItem>();
-        private InventarioService _inventarioService;
+       
         private List<Producto> productosAll;
         private string resultado = string.Empty;
         private List<Proveedor> proveedoresAll;
-        private ProveedorService _proveedorService;
-        private CompraService _compraService;
+        
         public FormCompras()
         {
             InitializeComponent();
-            if (Program.Context != null)
-            {
-
-                // Inicializar InventarioService con el contexto compartido
-                var compraRepository = new CompraRepository(Program.Context);
-                var productoRepository = new ProductoRepository(Program.Context);
-                var proveedorRepository = new ProveedorRepository(Program.Context);
-                _proveedorService = new ProveedorService(Program.Context, proveedorRepository);
-                _inventarioService = new InventarioService(Program.Context, productoRepository);
-                _compraService = new CompraService(Program.Context, compraRepository, productoRepository, proveedorRepository);
-            }
-            else
-            {
-                throw new InvalidOperationException("El contexto de base de datos no está disponible.");
-            }
-
+            
+            
+            
             this.Load += Ventas_Load;
 
         }
@@ -57,8 +45,10 @@ namespace Sistema.UI
         {
             try
             {
-                // Cargar productos activos desde la base de datos a través del InventarioService
-                productosAll = _inventarioService.ObtenerProductosActivos();
+                using (var service = ServiceFactory.CrearInventarioService())
+                {
+                    productosAll = service.ObtenerProductosActivos();
+                }
 
                 if (productosAll.Count == 0)
                 {
@@ -369,14 +359,15 @@ namespace Sistema.UI
         {
             try
             {
-                comboBox1.Items.Clear();
-                List<Proveedor> proveedoresactivos = _proveedorService.ListarProveedores();
-                comboBox1.DataSource = proveedoresactivos;
-                comboBox1.DisplayMember = "Nombre";
-                comboBox1.ValueMember = "Id";
-                comboBox1.SelectedIndex = -1;
-                comboBox1.Text = "Seleccionar Proveedor";
-
+                using (var _proveedorService = ServiceFactory.CrearProveedorService())
+                {
+                    var proveedoresactivos = _proveedorService.ListarActivos();
+                    comboBox1.DataSource = proveedoresactivos;
+                    comboBox1.DisplayMember = "Nombre";
+                    comboBox1.ValueMember = "Id";
+                    comboBox1.SelectedIndex = -1;
+                    comboBox1.Text = "Seleccionar Proveedor";
+                }
             }
             catch { }
         }
@@ -396,15 +387,18 @@ namespace Sistema.UI
             var proveedor = comboBox1.SelectedItem as Proveedor;
             try
             {
-                _compraService.RegistrarCompra(proveedor.Id, carrito.Select(i => new DetalleCompra
+                using (var _compraService = ServiceFactory.CrearCompraService())
                 {
-                    ProductoId = i.Producto.Id,
-                    Cantidad = i.Cantidad,
-                    PrecioCompra = i.PrecioCompra
-                }).ToList());
-                MessageBox.Show("Compra registrada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                carrito.Clear();
-                RefrescarCarrito();
+                    _compraService.RegistrarCompra(proveedor.Id, carrito.Select(i => new DetalleCompra
+                    {
+                        ProductoId = i.Producto.Id,
+                        Cantidad = i.Cantidad,
+                        PrecioCompra = i.PrecioCompra
+                    }).ToList());
+                    MessageBox.Show("Compra registrada exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    carrito.Clear();
+                    RefrescarCarrito();
+                }
             }
             catch (Exception ex)
             {
