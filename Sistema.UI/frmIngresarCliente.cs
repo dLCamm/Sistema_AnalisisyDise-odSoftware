@@ -61,11 +61,10 @@ namespace Sistema.UI
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.Red;
+            btnCancelar.BackColor = Color.LightCoral;
             btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancelar.ForeColor = Color.White;
+            btnCancelar.ForeColor = Color.Black;
             btnCancelar.Location = new Point(455, 338);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 39);
@@ -76,11 +75,10 @@ namespace Sistema.UI
             // 
             // btnGuardar
             // 
-            btnGuardar.BackColor = SystemColors.Highlight;
+            btnGuardar.BackColor = SystemColors.ActiveCaption;
             btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnGuardar.ForeColor = Color.White;
+            btnGuardar.ForeColor = Color.Black;
             btnGuardar.Location = new Point(236, 338);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(172, 39);
@@ -134,7 +132,7 @@ namespace Sistema.UI
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(15, 19, 23);
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(124, 66);
@@ -166,7 +164,7 @@ namespace Sistema.UI
             // 
             // frmIngresarCliente
             // 
-            BackColor = Color.FromArgb(15, 19, 23);
+            BackColor = Color.FromArgb(31, 41, 55);
             ClientSize = new Size(892, 427);
             Controls.Add(label8);
             Controls.Add(label7);

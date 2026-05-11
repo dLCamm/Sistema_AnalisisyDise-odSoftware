@@ -44,13 +44,14 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.White;
-            label8.Location = new Point(272, 35);
+            label8.Location = new Point(280, 29);
             label8.Name = "label8";
-            label8.Size = new Size(318, 31);
+            label8.Size = new Size(257, 76);
             label8.TabIndex = 43;
-            label8.Text = "Ingreso de Nuevo Proveedor";
+            label8.Text = "Ingreso de Nuevo \r\nProveedor";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -148,7 +149,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.FromArgb(15, 19, 23);
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
             label1.Location = new Point(101, 144);
@@ -171,7 +172,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(15, 19, 23);
+            BackColor = Color.FromArgb(31, 41, 55);
             ClientSize = new Size(862, 535);
             Controls.Add(label8);
             Controls.Add(label7);

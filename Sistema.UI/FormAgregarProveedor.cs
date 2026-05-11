@@ -5,31 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Sistema.BLL.Services;
-using Sistema.DAL.Repositories;
 using Sistema.Entities.Proveedores;
+using Sistema.BLL.Factories;
+
 
 
 namespace Sistema.UI
 {
     public partial class FormAgregarProveedor : Form
     {
-        private ProveedorService _proveedorService;
         public FormAgregarProveedor()
         {
             InitializeComponent();
-            if (Program.Context != null)
-            {
-                var proveedorRepository = new ProveedorRepository(Program.Context);
-                _proveedorService = new ProveedorService(Program.Context, proveedorRepository);
-
-            }
-            else
-            {
-                MessageBox.Show("Error al inicializar el servicio de ventas. Contexto no disponible.");
-                this.Close();
-                return;
-            }
+            
             
         }
 
@@ -43,8 +31,12 @@ namespace Sistema.UI
         {
             try
             {
-                _proveedorService.RegistrarProveedor(txtNombre.Text, txtDescripcion.Text, txtPrecioCompra.Text, txtPrecioVenta.Text);
-                MessageBox.Show("Proveedor guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                using (var _proveedorService = ServiceFactory.CrearProveedorService())
+                {
+                    _proveedorService.RegistrarProveedor(txtNombre.Text, txtDescripcion.Text, txtPrecioCompra.Text, txtPrecioVenta.Text);
+                    MessageBox.Show("Proveedor guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
             }
             catch (Exception ex)
             {
@@ -53,6 +45,7 @@ namespace Sistema.UI
                 return;
 
             }
+            this.Close();
         }
     }
 }
