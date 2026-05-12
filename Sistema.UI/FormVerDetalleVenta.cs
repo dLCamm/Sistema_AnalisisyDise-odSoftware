@@ -15,7 +15,7 @@ namespace Sistema.UI
 
     {
         private int idventa;
-      
+
         public FormVerDetalleVenta(int idVenta)
         {
 
@@ -63,9 +63,26 @@ namespace Sistema.UI
 
         }
 
-        private void FormVerDetalleVenta_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            
+            var confirmResult = MessageBox.Show("¿Estás seguro de que deseas anular esta venta?", "Confirmar Anulación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
+                {
+                    using (var _ventaService = ServiceFactory.CrearVentaService())
+                    {
+                        _ventaService.AnularVenta(idventa);
+                        MessageBox.Show("Venta anulada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al anular la venta: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
