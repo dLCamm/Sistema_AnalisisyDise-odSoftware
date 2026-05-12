@@ -346,7 +346,7 @@ namespace Sistema.UI
                     }
                 }
 
-                MessageBox.Show("✅ Venta y Crédito realizados con éxito");
+                MessageBox.Show("✅ Venta realizada con éxito");
                 carrito.Clear();
                 RefrescarCarrito();
 
