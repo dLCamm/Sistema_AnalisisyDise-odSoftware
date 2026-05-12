@@ -26,7 +26,7 @@ namespace Sistema.UI
             clm_id.DataPropertyName = "clm_id";
 
 
-            
+
             Ver_todas_ventas(this, EventArgs.Empty);
         }
 
@@ -155,6 +155,11 @@ namespace Sistema.UI
                     .ToList();
                 FormVerVentas_Load(ventas);
             }
+
+        }
+
+        private void FormVerVentas_Load(object sender, EventArgs e)
+        {
 
         }
     }

@@ -257,57 +257,7 @@ namespace Sistema.UI
         // =========================
         private void BtnRealizarVenta_Click(object? sender, EventArgs e)
         {
-            try
-            {
-                if (carrito.Count == 0)
-                {
-                    MessageBox.Show("Agrega productos primero");
-                    return;
-                }
-
-                if (cmbCliente!.SelectedItem == null)
-                {
-                    MessageBox.Show("Selecciona un cliente");
-                    return;
-                }
-
-                if (rbCredito!.Checked == false && rbFisico!.Checked == false)
-                {
-                    MessageBox.Show("Selecciona un tipo de pago");
-                    return;
-                }
-
-                // Mapear a enum TipoPago en lugar de usar string
-                TipoPago tipoPago = rbCredito!.Checked ? TipoPago.Credito : TipoPago.Contado;
-                int idcliente = (int)cmbCliente.SelectedValue; // En un caso real, aquí obtendrías el ID real del cliente seleccionado
-
-                List<DetalleVenta> detalles = carrito.Select(ci => new DetalleVenta
-                {
-
-                    
-                    ProductoId = ci.Producto.Id,
-                    Cantidad = ci.Cantidad,
-                    PrecioUnitario = ci.PrecioUnitario
-                }).ToList();
-
-                using (var _ventaService = ServiceFactory.CrearVentaService())
-                { _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago); }
-                
-
-
-
-
-                MessageBox.Show("✅ Venta realizada correctamente");
-
-                carrito.Clear();
-                RefrescarCarrito();
-                CargarProductos();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            
         }
 
         // =========================
@@ -337,6 +287,75 @@ namespace Sistema.UI
 
         private void btnRealizarVenta_Click_1(object? sender, EventArgs e)
         {
+            try
+            {
+                // 1. Validaciones básicas
+                if (carrito.Count == 0) { MessageBox.Show("Agrega productos"); return; }
+                if (cmbCliente.SelectedValue == null) { MessageBox.Show("Selecciona cliente"); return; }
+
+                // 2. Captura de datos (CORREGIDO: Sin duplicar idcliente)
+                int idcliente = Convert.ToInt32(cmbCliente.SelectedValue);
+                TipoPago tipoPago = rbCredito.Checked ? TipoPago.Credito : TipoPago.Contado;
+
+                // 3. Datos para el crédito
+                DateTime fechaVence = DateTime.Now;
+                decimal abonoInicial = 0;
+
+                if (tipoPago == TipoPago.Credito)
+                {
+                    using (var frmManto = new frmMantenomientoCredito())
+                    {
+                        if (frmManto.ShowDialog() != DialogResult.OK) return;
+                        fechaVence = frmManto.FechaVencimiento;
+                        abonoInicial = frmManto.AbonoInicial;
+                    }
+                }
+
+                // 4. Procesar con los servicios
+                using (var _ventaService = ServiceFactory.CrearVentaService())
+                {
+                    // Mapeamos el carrito a la entidad
+                    var detalles = carrito.Select(ci => new DetalleVenta
+                    {
+                        ProductoId = ci.Producto.Id,
+                        Cantidad = ci.Cantidad,
+                        PrecioUnitario = ci.PrecioUnitario
+                    }).ToList();
+
+                    // REGISTRO DE VENTA: Usamos el ID 1 que acabamos de crear en la BD
+                    _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago);
+
+                    // 5. Lógica de Crédito (Si aplica)
+                    if (tipoPago == TipoPago.Credito)
+                    {
+                        var ventaReciente = _ventaService.ListarVentas()
+                            .OrderByDescending(v => v.Id)
+                            .First(v => v.ClienteId == idcliente);
+
+                        using (var _creditoService = ServiceFactory.CrearCreditoService())
+                        {
+                            _creditoService.CrearCredito(ventaReciente.Id, fechaVence);
+
+                            if (abonoInicial > 0)
+                            {
+                                var credito = _creditoService.ListarCreditos()
+                                    .First(c => c.VentaId == ventaReciente.Id);
+                                _creditoService.RegistrarAbono(credito.Id, abonoInicial);
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show("✅ Venta y Crédito realizados con éxito");
+                carrito.Clear();
+                RefrescarCarrito();
+
+            }
+            catch (Exception ex)
+            {
+                // El InnerException te dirá si algo más falla en la BD
+                MessageBox.Show($"Error: {ex.Message} \nDetalle: {ex.InnerException?.Message}");
+            }
 
         }
 

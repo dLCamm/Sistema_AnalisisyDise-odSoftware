@@ -29,14 +29,13 @@
         private void InitializeComponent()
         {
             label4 = new Label();
-            txtFechaEmision = new TextBox();
             label1 = new Label();
-            txtFechaVencimiento = new TextBox();
+            txtAbonoInicial = new TextBox();
             labelnCreditos = new Label();
             btnCancelarCr = new Button();
             btnGuardarCredito = new Button();
             panel1 = new Panel();
-            label2 = new Label();
+            dtpFechaVencimiento = new DateTimePicker();
             label3 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -52,16 +51,6 @@
             label4.TabIndex = 11;
             label4.Text = "📅 Fecha de Vencimiento:";
             // 
-            // txtFechaEmision
-            // 
-            txtFechaEmision.BackColor = Color.FromArgb(30, 30, 35);
-            txtFechaEmision.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtFechaEmision.ForeColor = Color.White;
-            txtFechaEmision.Location = new Point(360, 122);
-            txtFechaEmision.Name = "txtFechaEmision";
-            txtFechaEmision.Size = new Size(280, 34);
-            txtFechaEmision.TabIndex = 10;
-            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -73,15 +62,15 @@
             label1.TabIndex = 14;
             label1.Text = "💵 Abono Inicial:";
             // 
-            // txtFechaVencimiento
+            // txtAbonoInicial
             // 
-            txtFechaVencimiento.BackColor = Color.FromArgb(30, 30, 35);
-            txtFechaVencimiento.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtFechaVencimiento.ForeColor = Color.White;
-            txtFechaVencimiento.Location = new Point(360, 48);
-            txtFechaVencimiento.Name = "txtFechaVencimiento";
-            txtFechaVencimiento.Size = new Size(280, 34);
-            txtFechaVencimiento.TabIndex = 13;
+            txtAbonoInicial.BackColor = Color.FromArgb(30, 30, 35);
+            txtAbonoInicial.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtAbonoInicial.ForeColor = Color.White;
+            txtAbonoInicial.Location = new Point(360, 122);
+            txtAbonoInicial.Name = "txtAbonoInicial";
+            txtAbonoInicial.Size = new Size(294, 34);
+            txtAbonoInicial.TabIndex = 13;
             // 
             // labelnCreditos
             // 
@@ -126,39 +115,35 @@
             btnGuardarCredito.TabIndex = 16;
             btnGuardarCredito.Text = "Guardar";
             btnGuardarCredito.UseVisualStyleBackColor = false;
+            btnGuardarCredito.Click += btnGuardarCredito_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.DarkSlateGray;
+            panel1.Controls.Add(dtpFechaVencimiento);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(label2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label4);
-            panel1.Controls.Add(txtFechaVencimiento);
-            panel1.Controls.Add(txtFechaEmision);
+            panel1.Controls.Add(txtAbonoInicial);
             panel1.ForeColor = Color.FromArgb(15, 19, 23);
             panel1.Location = new Point(38, 68);
             panel1.Name = "panel1";
             panel1.Size = new Size(787, 206);
             panel1.TabIndex = 23;
             // 
-            // label2
+            // dtpFechaVencimiento
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(646, 60);
-            label2.Name = "label2";
-            label2.Size = new Size(80, 20);
-            label2.TabIndex = 15;
-            label2.Text = "(Opcional)";
+            dtpFechaVencimiento.Location = new Point(360, 53);
+            dtpFechaVencimiento.Name = "dtpFechaVencimiento";
+            dtpFechaVencimiento.Size = new Size(294, 27);
+            dtpFechaVencimiento.TabIndex = 17;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(646, 136);
+            label3.Location = new Point(675, 136);
             label3.Name = "label3";
             label3.Size = new Size(80, 20);
             label3.TabIndex = 16;
@@ -189,14 +174,13 @@
 
         #endregion
         private Label label4;
-        private TextBox txtFechaEmision;
         private Label label1;
-        private TextBox txtFechaVencimiento;
+        private TextBox txtAbonoInicial;
         private Label labelnCreditos;
         private Button btnCancelarCr;
         private Button btnGuardarCredito;
         private Panel panel1;
         private Label label3;
-        private Label label2;
+        private DateTimePicker dtpFechaVencimiento;
     }
 }

@@ -28,30 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            btnFiltrosrCredito = new Button();
             label1 = new Label();
-            menuFiltroscreditos = new Button();
             txtBuscarCredito = new TextBox();
-            btnNuevoCredito = new Button();
             labelCreditos = new Label();
             dgvCreditos = new DataGridView();
+            menuFiltroscreditos = new ContextMenuStrip(components);
+            verTodoToolStripMenuItem = new ToolStripMenuItem();
+            pendientesToolStripMenuItem = new ToolStripMenuItem();
+            pagadosToolStripMenuItem = new ToolStripMenuItem();
+            vencidosToolStripMenuItem = new ToolStripMenuItem();
+            canceladosToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreditos).BeginInit();
+            menuFiltroscreditos.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(btnFiltrosrCredito);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(menuFiltroscreditos);
             panel1.Controls.Add(txtBuscarCredito);
-            panel1.Controls.Add(btnNuevoCredito);
             panel1.Controls.Add(labelCreditos);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1216, 76);
             panel1.TabIndex = 0;
+            // 
+            // btnFiltrosrCredito
+            // 
+            btnFiltrosrCredito.Anchor = AnchorStyles.Top;
+            btnFiltrosrCredito.Font = new Font("Segoe UI", 10F);
+            btnFiltrosrCredito.ImageAlign = ContentAlignment.MiddleLeft;
+            btnFiltrosrCredito.Location = new Point(848, 20);
+            btnFiltrosrCredito.Name = "btnFiltrosrCredito";
+            btnFiltrosrCredito.Size = new Size(97, 32);
+            btnFiltrosrCredito.TabIndex = 6;
+            btnFiltrosrCredito.Text = "Filtrar ▽";
+            btnFiltrosrCredito.UseVisualStyleBackColor = true;
+            btnFiltrosrCredito.Click += btnFiltrarCredito_Click;
             // 
             // label1
             // 
@@ -65,18 +85,6 @@
             label1.TabIndex = 7;
             label1.Text = "🔎";
             // 
-            // menuFiltroscreditos
-            // 
-            menuFiltroscreditos.Anchor = AnchorStyles.Top;
-            menuFiltroscreditos.Font = new Font("Segoe UI", 10F);
-            menuFiltroscreditos.ImageAlign = ContentAlignment.MiddleLeft;
-            menuFiltroscreditos.Location = new Point(840, 24);
-            menuFiltroscreditos.Name = "menuFiltroscreditos";
-            menuFiltroscreditos.Size = new Size(97, 32);
-            menuFiltroscreditos.TabIndex = 6;
-            menuFiltroscreditos.Text = "Filtrar ▽";
-            menuFiltroscreditos.UseVisualStyleBackColor = true;
-            // 
             // txtBuscarCredito
             // 
             txtBuscarCredito.Anchor = AnchorStyles.Top;
@@ -86,24 +94,7 @@
             txtBuscarCredito.Name = "txtBuscarCredito";
             txtBuscarCredito.Size = new Size(444, 43);
             txtBuscarCredito.TabIndex = 6;
-            txtBuscarCredito.TextChanged += txtBuscarCredito_TextChanged;
-            // 
-            // btnNuevoCredito
-            // 
-            btnNuevoCredito.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnNuevoCredito.BackColor = Color.RoyalBlue;
-            btnNuevoCredito.Cursor = Cursors.Hand;
-            btnNuevoCredito.FlatAppearance.BorderSize = 0;
-            btnNuevoCredito.FlatStyle = FlatStyle.Flat;
-            btnNuevoCredito.Font = new Font("Segoe UI", 13F);
-            btnNuevoCredito.ForeColor = Color.White;
-            btnNuevoCredito.Location = new Point(991, 12);
-            btnNuevoCredito.Name = "btnNuevoCredito";
-            btnNuevoCredito.Size = new Size(213, 46);
-            btnNuevoCredito.TabIndex = 5;
-            btnNuevoCredito.Text = "+Nuevo Crédito";
-            btnNuevoCredito.UseVisualStyleBackColor = false;
-            btnNuevoCredito.Click += btnNuevoCredito_Click;
+            txtBuscarCredito.TextChanged += txtBuscarCredito_TextChanged_1;
             // 
             // labelCreditos
             // 
@@ -120,13 +111,63 @@
             // 
             dgvCreditos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dgvCreditos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvCreditos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvCreditos.Dock = DockStyle.Fill;
+            dgvCreditos.GridColor = Color.DimGray;
             dgvCreditos.Location = new Point(0, 76);
             dgvCreditos.Name = "dgvCreditos";
             dgvCreditos.RowHeadersWidth = 51;
             dgvCreditos.Size = new Size(1216, 518);
             dgvCreditos.TabIndex = 1;
-            dgvCreditos.CellContentClick += dgvCreditos_CellContentClick;
+            // 
+            // menuFiltroscreditos
+            // 
+            menuFiltroscreditos.ImageScalingSize = new Size(20, 20);
+            menuFiltroscreditos.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, pendientesToolStripMenuItem, pagadosToolStripMenuItem, vencidosToolStripMenuItem, canceladosToolStripMenuItem });
+            menuFiltroscreditos.Name = "contextMenuStrip1";
+            menuFiltroscreditos.Size = new Size(155, 124);
+            // 
+            // verTodoToolStripMenuItem
+            // 
+            verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
+            verTodoToolStripMenuItem.Size = new Size(210, 24);
+            verTodoToolStripMenuItem.Text = "Ver Todo";
+            verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
+            // 
+            // pendientesToolStripMenuItem
+            // 
+            pendientesToolStripMenuItem.Name = "pendientesToolStripMenuItem";
+            pendientesToolStripMenuItem.Size = new Size(210, 24);
+            pendientesToolStripMenuItem.Text = "Pendientes";
+            pendientesToolStripMenuItem.Click += pendientesToolStripMenuItem_Click;
+            // 
+            // pagadosToolStripMenuItem
+            // 
+            pagadosToolStripMenuItem.Name = "pagadosToolStripMenuItem";
+            pagadosToolStripMenuItem.Size = new Size(210, 24);
+            pagadosToolStripMenuItem.Text = "Pagados";
+            pagadosToolStripMenuItem.Click += pagadosToolStripMenuItem_Click;
+            // 
+            // vencidosToolStripMenuItem
+            // 
+            vencidosToolStripMenuItem.Name = "vencidosToolStripMenuItem";
+            vencidosToolStripMenuItem.Size = new Size(210, 24);
+            vencidosToolStripMenuItem.Text = "Vencidos";
+            vencidosToolStripMenuItem.Click += vencidosToolStripMenuItem_Click;
+            // 
+            // canceladosToolStripMenuItem
+            // 
+            canceladosToolStripMenuItem.Name = "canceladosToolStripMenuItem";
+            canceladosToolStripMenuItem.Size = new Size(210, 24);
+            canceladosToolStripMenuItem.Text = "Cancelados";
+            canceladosToolStripMenuItem.Click += canceladosToolStripMenuItem_Click;
             // 
             // frmCréditos
             // 
@@ -142,6 +183,7 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCreditos).EndInit();
+            menuFiltroscreditos.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -149,10 +191,15 @@
 
         private Panel panel1;
         private Label labelCreditos;
-        private Button btnNuevoCredito;
         private TextBox txtBuscarCredito;
         private DataGridView dgvCreditos;
-        private Button menuFiltroscreditos;
         private Label label1;
+        private ContextMenuStrip menuFiltroscreditos;
+        private ToolStripMenuItem verTodoToolStripMenuItem;
+        private ToolStripMenuItem pendientesToolStripMenuItem;
+        private ToolStripMenuItem pagadosToolStripMenuItem;
+        private ToolStripMenuItem vencidosToolStripMenuItem;
+        private Button btnFiltrosrCredito;
+        private ToolStripMenuItem canceladosToolStripMenuItem;
     }
 }

@@ -1,176 +1,217 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Sistema.BLL.Factories; // Asegúrate de que esta ruta sea la correcta
-using Sistema.BLL.Services;
+using Sistema.BLL.Factories;
+using Sistema.Entities.Ventas;
 using Sistema.Entities.Creditos;
 
 namespace Sistema.UI
 {
     public partial class frmCréditos : Form
     {
-        // API para el placeholder (CueBanner)
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
-        private const int EM_SETCUEBANNER = 0x1501;
+        private string textoBusqueda = "";
+        private string filtroEstado = "Todos"; // Controla qué mostrar en la grilla
 
         public frmCréditos()
         {
             InitializeComponent();
-            ConfigurarPlaceholders();
-            ConfigurarDataGridView();
 
-            // Suscribir eventos manualmente por seguridad
-            this.txtBuscarCredito.TextChanged += new EventHandler(txtBuscarCredito_TextChanged);
-            this.dgvCreditos.CellDoubleClick += new DataGridViewCellEventHandler(dgvCreditos_CellDoubleClick);
+            // 1. Vinculación de Eventos
+            this.Load += frmCréditos_Load;
+            this.txtBuscarCredito.TextChanged += txtBuscarCredito_TextChanged_1;
+            this.dgvCreditos.CellDoubleClick += dgvCreditos_CellDoubleClick;
+            this.dgvCreditos.CellFormatting += dgvCreditos_CellFormatting;
+
+            // Placeholder para la búsqueda
+            txtBuscarCredito.PlaceholderText = "Buscar por nombre de cliente...";
         }
 
         private void frmCréditos_Load(object sender, EventArgs e)
         {
+            ConfigurarColumnas();
             RefrescarGrilla();
         }
 
-        private void ConfigurarPlaceholders()
+        private void ConfigurarColumnas()
         {
-            SendMessage(txtBuscarCredito.Handle, EM_SETCUEBANNER, 0, "Buscar por cliente o DPI...");
-        }
-
-        private void ConfigurarDataGridView()
-        {
-            dgvCreditos.AutoGenerateColumns = false;
-            dgvCreditos.ReadOnly = true;
+            dgvCreditos.Columns.Clear();
+            dgvCreditos.RowHeadersVisible = false;
             dgvCreditos.AllowUserToAddRows = false;
+            dgvCreditos.ReadOnly = true;
             dgvCreditos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCreditos.MultiSelect = false;
-            dgvCreditos.RowHeadersVisible = false;
-            dgvCreditos.BackgroundColor = Color.FromArgb(30, 30, 40); // Ajusta al color de tu UI
 
-            dgvCreditos.Columns.Clear();
+            dgvCreditos.BorderStyle = BorderStyle.None;
+            dgvCreditos.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dgvCreditos.BackgroundColor = Color.FromArgb(15, 19, 23);
+            dgvCreditos.GridColor = Color.FromArgb(45, 45, 48);
+            dgvCreditos.EnableHeadersVisualStyles = false;
 
-            // Columna Invisible para el ID (para poder abrir el detalle)
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Id",
-                Name = "colId",
-                Visible = false
-            });
+            DataGridViewCellStyle estiloCeldas = new DataGridViewCellStyle();
+            estiloCeldas.BackColor = Color.FromArgb(15, 19, 23);
+            estiloCeldas.ForeColor = Color.White;
+            estiloCeldas.SelectionBackColor = Color.FromArgb(40, 45, 50);
+            estiloCeldas.SelectionForeColor = Color.White;
+            estiloCeldas.Font = new Font("Segoe UI", 13F, FontStyle.Regular);
+            estiloCeldas.WrapMode = DataGridViewTriState.True;
+            estiloCeldas.Padding = new Padding(5, 10, 5, 10);
 
-            // Columnas solicitadas
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "NombreCliente",
-                HeaderText = "Cliente",
-                Width = 200
-            });
+            dgvCreditos.DefaultCellStyle = estiloCeldas;
+            dgvCreditos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
 
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "DpiCliente",
-                HeaderText = "DPI",
-                Width = 120
-            });
+            dgvCreditos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dgvCreditos.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(25, 25, 30);
+            dgvCreditos.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dgvCreditos.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            dgvCreditos.ColumnHeadersHeight = 45;
 
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "FechaEmision",
-                HeaderText = "Emisión",
-                Width = 100
-            });
+            dgvCreditos.Columns.Add("colId", "ID");
+            dgvCreditos.Columns["colId"].Visible = false;
+            dgvCreditos.Columns.Add("colDPI", "DPI");
+            dgvCreditos.Columns.Add("colCliente", "Cliente");
+            dgvCreditos.Columns.Add("colEmision", "Emisión");
+            dgvCreditos.Columns.Add("colVencimiento", "Vencimiento");
+            dgvCreditos.Columns.Add("colTotal", "Total Crédito");
+            dgvCreditos.Columns.Add("colSaldo", "Saldo Pendiente");
+            dgvCreditos.Columns.Add("colEstado", "Estado");
 
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Total",
-                HeaderText = "Total Crédito",
-                Width = 110,
-                DefaultCellStyle = { Format = "Q#,##0.00" }
-            });
+            dgvCreditos.Columns["colDPI"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCreditos.Columns["colCliente"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dgvCreditos.Columns["colCliente"].FillWeight = 150;
 
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Saldo",
-                HeaderText = "Saldo Pendiente",
-                Width = 110,
-                DefaultCellStyle = { Format = "Q#,##0.00" }
-            });
+            string[] celdasAuto = { "colEmision", "colVencimiento", "colTotal", "colSaldo", "colEstado" };
+            foreach (string col in celdasAuto)
+                dgvCreditos.Columns[col].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
-            dgvCreditos.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "EstadoStr",
-                HeaderText = "Estado",
-                Width = 100
-            });
+            foreach (DataGridViewColumn col in dgvCreditos.Columns) { col.SortMode = DataGridViewColumnSortMode.NotSortable; }
+
+            dgvCreditos.DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
+            dgvCreditos.Columns["colTotal"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            dgvCreditos.Columns["colSaldo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopRight;
+            dgvCreditos.Columns["colEstado"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopCenter;
         }
 
-        public void RefrescarGrilla()
+        private void RefrescarGrilla()
         {
             try
             {
                 using (var service = ServiceFactory.CrearCreditoService())
                 {
                     var lista = service.ListarCreditos();
-                    string busqueda = txtBuscarCredito.Text.ToLower().Trim();
+                    DateTime hoy = DateTime.Now.Date;
 
-                    // Filtrado por Cliente o DPI
-                    var filtrados = lista.Where(c =>
-                        c.Cliente.Nombre.ToLower().Contains(busqueda)
-                    // || c.Cliente.Dpi.Contains(busqueda) // <-- Código de DPI comentado
-                    );
+                    var query = lista.AsEnumerable();
 
-                    // Mapeo a objeto anónimo para la grilla
-                    dgvCreditos.DataSource = filtrados.Select(c => new
+                    // --- BÚSQUEDA ---
+                    if (!string.IsNullOrEmpty(textoBusqueda))
                     {
-                        c.Id,
-                        NombreCliente = c.Cliente.Nombre,
-                        DpiCliente = "---", // c.Cliente.Dpi,
-                        FechaEmision = c.FechaInicio.ToShortDateString(),
-                        Total = c.TotalCredito,
-                        Saldo = c.SaldoPendiente,
-                        // Lógica para estado Vencido (Si saldo > 0 y ya pasó la fecha)
-                        EstadoStr = (c.SaldoPendiente > 0 && c.FechaVencimiento < DateTime.Now)
-                                    ? "Vencido"
-                                    : c.Estado.ToString()
-                    }).ToList();
+                        string bus = textoBusqueda.ToLower().Trim();
+                        query = query.Where(c => c.Venta?.Cliente?.Nombre != null &&
+                                               c.Venta.Cliente.Nombre.ToLower().Contains(bus));
+                    }
+
+                    // --- FILTROS DE ESTADO ---
+                    if (filtroEstado == "Pendiente")
+                        query = query.Where(c => c.Estado == EstadoCredito.Pendiente && c.FechaVencimiento.Date >= hoy);
+                    else if (filtroEstado == "Pagado")
+                        query = query.Where(c => c.Estado == EstadoCredito.Pagado);
+                    else if (filtroEstado == "Cancelado")
+                        query = query.Where(c => c.Estado == EstadoCredito.Cancelado);
+                    else if (filtroEstado == "Vencido")
+                        query = query.Where(c => c.SaldoPendiente > 0 && c.FechaVencimiento.Date < hoy && c.Estado != EstadoCredito.Cancelado);
+
+                    dgvCreditos.Rows.Clear();
+
+                    foreach (var c in query)
+                    {
+                        string mostrarEstado = c.Estado.ToString();
+
+                        // Lógica visual para Vencidos
+                        if (c.SaldoPendiente > 0 && c.FechaVencimiento.Date < hoy && c.Estado != EstadoCredito.Cancelado)
+                            mostrarEstado = "Vencido";
+
+                        dgvCreditos.Rows.Add(
+                            c.Id,
+                            "---",
+                            c.Venta?.Cliente?.Nombre ?? "Consumidor Final",
+                            c.FechaInicio.ToShortDateString(),
+                            c.FechaVencimiento.ToShortDateString(),
+                            string.Format("Q{0:N2}", c.TotalCredito),
+                            string.Format("Q{0:N2}", c.SaldoPendiente),
+                            mostrarEstado
+                        );
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los créditos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al cargar créditos: " + ex.Message);
             }
         }
 
-        private void txtBuscarCredito_TextChanged(object sender, EventArgs e)
+        private void dgvCreditos_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            RefrescarGrilla();
+            if (dgvCreditos.Columns[e.ColumnIndex].Name == "colEstado" && e.Value != null)
+            {
+                string estado = e.Value.ToString();
+                if (estado == "Pendiente") e.CellStyle.ForeColor = Color.FromArgb(255, 180, 0);
+                else if (estado == "Vencido") e.CellStyle.ForeColor = Color.Red;
+                else if (estado == "Pagado") e.CellStyle.ForeColor = Color.FromArgb(70, 255, 120);
+                else if (estado == "Cancelado") e.CellStyle.ForeColor = Color.Gray;
+            }
         }
 
         private void dgvCreditos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            // Validar que no sea el encabezado
-            if (e.RowIndex >= 0)
-            {
-                int idCredito = (int)dgvCreditos.Rows[e.RowIndex].Cells["colId"].Value;
+            if (e.RowIndex < 0) return;
+            int idSeleccionado = Convert.ToInt32(dgvCreditos.Rows[e.RowIndex].Cells["colId"].Value);
 
-                // Abrir el detalle pasando el ID al constructor
-                frmDetalleCredito frmDetalle = new frmDetalleCredito(idCredito);
-                frmDetalle.ShowDialog();
-
-                // Al regresar, refrescamos por si se hicieron abonos o anulaciones
-                RefrescarGrilla();
-            }
+            frmDetalleCredito ventanaModal = new frmDetalleCredito(idSeleccionado);
+            ventanaModal.ShowDialog();
+            RefrescarGrilla();
         }
 
-        private void btnNuevoCredito_Click(object sender, EventArgs e)
+        private void txtBuscarCredito_TextChanged_1(object sender, EventArgs e)
         {
-            // Aquí llamarías a tu form de ventas o creación de crédito
+            textoBusqueda = txtBuscarCredito.Text;
+            RefrescarGrilla();
         }
 
-        private void dgvCreditos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btnFiltrarCredito_Click(object sender, EventArgs e)
         {
+            menuFiltroscreditos.Show(btnFiltrosrCredito, new Point(0, btnFiltrosrCredito.Height));
+        }
 
+        private void verTodoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filtroEstado = "Todos";
+            RefrescarGrilla();
+        }
+
+        private void pendientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filtroEstado = "Pendiente";
+            RefrescarGrilla();
+        }
+
+        private void pagadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filtroEstado = "Pagado";
+            RefrescarGrilla();
+        }
+
+        private void vencidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filtroEstado = "Vencido";
+            RefrescarGrilla();
+        }
+
+        private void canceladosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            filtroEstado = "Cancelado";
+            RefrescarGrilla();
         }
     }
 }

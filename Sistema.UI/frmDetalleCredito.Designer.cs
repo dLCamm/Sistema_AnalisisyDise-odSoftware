@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlDetallecredito = new Panel();
+            txtDetalleVencimiento = new TextBox();
+            txtDetalleEmision = new TextBox();
+            txtDetalleTelefono = new TextBox();
+            txtDetalleDpi = new TextBox();
+            txtDetalleCliente = new TextBox();
             label5 = new Label();
             label3 = new Label();
             label2 = new Label();
@@ -56,11 +61,6 @@
             btnGuardarAbono = new Button();
             txtCantidadAbono = new TextBox();
             label6 = new Label();
-            txtDetalleCliente = new TextBox();
-            txtDetalleDpi = new TextBox();
-            txtDetalleTelefono = new TextBox();
-            txtDetalleEmision = new TextBox();
-            txtDetalleVencimiento = new TextBox();
             pnlDetallecredito.SuspendLayout();
             pnlResumen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDetalleAbonos).BeginInit();
@@ -87,6 +87,56 @@
             pnlDetallecredito.Size = new Size(709, 559);
             pnlDetallecredito.TabIndex = 0;
             pnlDetallecredito.Paint += pnlDetallecredito_Paint;
+            // 
+            // txtDetalleVencimiento
+            // 
+            txtDetalleVencimiento.BackColor = Color.FromArgb(30, 30, 35);
+            txtDetalleVencimiento.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtDetalleVencimiento.ForeColor = Color.White;
+            txtDetalleVencimiento.Location = new Point(45, 511);
+            txtDetalleVencimiento.Name = "txtDetalleVencimiento";
+            txtDetalleVencimiento.Size = new Size(390, 34);
+            txtDetalleVencimiento.TabIndex = 18;
+            // 
+            // txtDetalleEmision
+            // 
+            txtDetalleEmision.BackColor = Color.FromArgb(30, 30, 35);
+            txtDetalleEmision.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtDetalleEmision.ForeColor = Color.White;
+            txtDetalleEmision.Location = new Point(45, 411);
+            txtDetalleEmision.Name = "txtDetalleEmision";
+            txtDetalleEmision.Size = new Size(390, 34);
+            txtDetalleEmision.TabIndex = 17;
+            // 
+            // txtDetalleTelefono
+            // 
+            txtDetalleTelefono.BackColor = Color.FromArgb(30, 30, 35);
+            txtDetalleTelefono.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtDetalleTelefono.ForeColor = Color.White;
+            txtDetalleTelefono.Location = new Point(45, 305);
+            txtDetalleTelefono.Name = "txtDetalleTelefono";
+            txtDetalleTelefono.Size = new Size(390, 34);
+            txtDetalleTelefono.TabIndex = 16;
+            // 
+            // txtDetalleDpi
+            // 
+            txtDetalleDpi.BackColor = Color.FromArgb(30, 30, 35);
+            txtDetalleDpi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtDetalleDpi.ForeColor = Color.White;
+            txtDetalleDpi.Location = new Point(45, 192);
+            txtDetalleDpi.Name = "txtDetalleDpi";
+            txtDetalleDpi.Size = new Size(390, 34);
+            txtDetalleDpi.TabIndex = 15;
+            // 
+            // txtDetalleCliente
+            // 
+            txtDetalleCliente.BackColor = Color.FromArgb(30, 30, 35);
+            txtDetalleCliente.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtDetalleCliente.ForeColor = Color.White;
+            txtDetalleCliente.Location = new Point(45, 76);
+            txtDetalleCliente.Name = "txtDetalleCliente";
+            txtDetalleCliente.Size = new Size(622, 34);
+            txtDetalleCliente.TabIndex = 14;
             // 
             // label5
             // 
@@ -160,24 +210,24 @@
             dgvDetalleAbonos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvDetalleAbonos.BackgroundColor = Color.FromArgb(31, 41, 55);
             dgvDetalleAbonos.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dgvDetalleAbonos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvDetalleAbonos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDetalleAbonos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDetalleAbonos.Columns.AddRange(new DataGridViewColumn[] { colAbono, colfecha });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 13F);
-            dataGridViewCellStyle6.ForeColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle6.SelectionForeColor = Color.White;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dgvDetalleAbonos.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvDetalleAbonos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDetalleAbonos.EnableHeadersVisualStyles = false;
             dgvDetalleAbonos.GridColor = Color.FromArgb(70, 70, 75);
             dgvDetalleAbonos.Location = new Point(3, 3);
@@ -189,7 +239,6 @@
             dgvDetalleAbonos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvDetalleAbonos.Size = new Size(748, 553);
             dgvDetalleAbonos.TabIndex = 4;
-            dgvDetalleAbonos.CellContentClick += dgvDetalleAbonos_CellContentClick;
             // 
             // colAbono
             // 
@@ -224,24 +273,24 @@
             dgvTotales.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvTotales.BackgroundColor = Color.FromArgb(31, 41, 55);
             dgvTotales.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dgvTotales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvTotales.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvTotales.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvTotales.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, colSaldoPendiente, dataGridViewTextBoxColumn2 });
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 13F);
-            dataGridViewCellStyle8.ForeColor = Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle8.SelectionForeColor = Color.White;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
-            dgvTotales.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 13F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgvTotales.DefaultCellStyle = dataGridViewCellStyle4;
             dgvTotales.EnableHeadersVisualStyles = false;
             dgvTotales.GridColor = Color.FromArgb(70, 70, 75);
             dgvTotales.Location = new Point(3, 3);
@@ -253,7 +302,6 @@
             dgvTotales.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvTotales.Size = new Size(748, 128);
             dgvTotales.TabIndex = 5;
-            dgvTotales.CellContentClick += dgvTotales_CellContentClick;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -355,7 +403,6 @@
             pnlNuevoAbono.Size = new Size(412, 134);
             pnlNuevoAbono.TabIndex = 10;
             pnlNuevoAbono.Visible = false;
-            pnlNuevoAbono.Paint += pnlNuevoAbono_Paint;
             // 
             // btnCancelarAb
             // 
@@ -400,7 +447,6 @@
             txtCantidadAbono.Name = "txtCantidadAbono";
             txtCantidadAbono.Size = new Size(210, 34);
             txtCantidadAbono.TabIndex = 11;
-            txtCantidadAbono.TextChanged += txtCantidadAbono_TextChanged;
             // 
             // label6
             // 
@@ -413,56 +459,6 @@
             label6.Size = new Size(106, 28);
             label6.TabIndex = 12;
             label6.Text = "Cantidad:";
-            // 
-            // txtDetalleCliente
-            // 
-            txtDetalleCliente.BackColor = Color.FromArgb(30, 30, 35);
-            txtDetalleCliente.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtDetalleCliente.ForeColor = Color.White;
-            txtDetalleCliente.Location = new Point(45, 76);
-            txtDetalleCliente.Name = "txtDetalleCliente";
-            txtDetalleCliente.Size = new Size(622, 34);
-            txtDetalleCliente.TabIndex = 14;
-            // 
-            // txtDetalleDpi
-            // 
-            txtDetalleDpi.BackColor = Color.FromArgb(30, 30, 35);
-            txtDetalleDpi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtDetalleDpi.ForeColor = Color.White;
-            txtDetalleDpi.Location = new Point(45, 192);
-            txtDetalleDpi.Name = "txtDetalleDpi";
-            txtDetalleDpi.Size = new Size(390, 34);
-            txtDetalleDpi.TabIndex = 15;
-            // 
-            // txtDetalleTelefono
-            // 
-            txtDetalleTelefono.BackColor = Color.FromArgb(30, 30, 35);
-            txtDetalleTelefono.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtDetalleTelefono.ForeColor = Color.White;
-            txtDetalleTelefono.Location = new Point(45, 305);
-            txtDetalleTelefono.Name = "txtDetalleTelefono";
-            txtDetalleTelefono.Size = new Size(390, 34);
-            txtDetalleTelefono.TabIndex = 16;
-            // 
-            // txtDetalleEmision
-            // 
-            txtDetalleEmision.BackColor = Color.FromArgb(30, 30, 35);
-            txtDetalleEmision.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtDetalleEmision.ForeColor = Color.White;
-            txtDetalleEmision.Location = new Point(45, 411);
-            txtDetalleEmision.Name = "txtDetalleEmision";
-            txtDetalleEmision.Size = new Size(390, 34);
-            txtDetalleEmision.TabIndex = 17;
-            // 
-            // txtDetalleVencimiento
-            // 
-            txtDetalleVencimiento.BackColor = Color.FromArgb(30, 30, 35);
-            txtDetalleVencimiento.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            txtDetalleVencimiento.ForeColor = Color.White;
-            txtDetalleVencimiento.Location = new Point(45, 511);
-            txtDetalleVencimiento.Name = "txtDetalleVencimiento";
-            txtDetalleVencimiento.Size = new Size(390, 34);
-            txtDetalleVencimiento.TabIndex = 18;
             // 
             // frmDetalleCredito
             // 
@@ -506,9 +502,6 @@
         private Panel pnlTotales;
         private Button btnAgregarAbono;
         private Button btnCancelarCredito;
-        private DataGridView dgvDetalleAbonos;
-        private DataGridViewTextBoxColumn colAbono;
-        private DataGridViewTextBoxColumn colfecha;
         private DataGridView dgvTotales;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn colSaldoPendiente;
@@ -530,5 +523,8 @@
         private TextBox txtDetalleTelefono;
         private TextBox txtDetalleDpi;
         private TextBox txtDetalleCliente;
+        private DataGridView dgvDetalleAbonos;
+        private DataGridViewTextBoxColumn colAbono;
+        private DataGridViewTextBoxColumn colfecha;
     }
 }
