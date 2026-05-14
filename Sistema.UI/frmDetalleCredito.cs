@@ -157,7 +157,7 @@ namespace Sistema.UI
 
         private void btnCancelarCredito_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("¿Desea anular el crédito completo? Esto anulará todos los abonos realizados.", "¡Atención!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var result = MessageBox.Show("¿Desea cancelar el crédito completo? Esto anulará todos los abonos realizados.", "¡Atención!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.Yes)
             {
                 try

@@ -96,48 +96,48 @@
             menuFiltros.ImageScalingSize = new Size(20, 20);
             menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, anuladosToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(242, 148);
+            menuFiltros.Size = new Size(210, 148);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(241, 24);
+            verTodoToolStripMenuItem.Size = new Size(209, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // stockBajoToolStripMenuItem
             // 
             stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
-            stockBajoToolStripMenuItem.Size = new Size(241, 24);
+            stockBajoToolStripMenuItem.Size = new Size(209, 24);
             stockBajoToolStripMenuItem.Text = "Stock Bajo";
             stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
             // 
             // sinExistenciasToolStripMenuItem
             // 
             sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
-            sinExistenciasToolStripMenuItem.Size = new Size(241, 24);
+            sinExistenciasToolStripMenuItem.Size = new Size(209, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
             // 
             // anuladosToolStripMenuItem
             // 
             anuladosToolStripMenuItem.Name = "anuladosToolStripMenuItem";
-            anuladosToolStripMenuItem.Size = new Size(241, 24);
+            anuladosToolStripMenuItem.Size = new Size(209, 24);
             anuladosToolStripMenuItem.Text = "Anulados";
             anuladosToolStripMenuItem.Click += anuladosToolStripMenuItem_Click;
             // 
             // fechaAscToolStripMenuItem
             // 
             fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
-            fechaAscToolStripMenuItem.Size = new Size(241, 24);
-            fechaAscToolStripMenuItem.Text = "        Fecha: Ascendente";
+            fechaAscToolStripMenuItem.Size = new Size(209, 24);
+            fechaAscToolStripMenuItem.Text = "Fecha: Ascendente";
             // 
             // fechaDescToolStripMenuItem
             // 
             fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
-            fechaDescToolStripMenuItem.Size = new Size(241, 24);
-            fechaDescToolStripMenuItem.Text = "        Fecha: Descendente";
+            fechaDescToolStripMenuItem.Size = new Size(209, 24);
+            fechaDescToolStripMenuItem.Text = "Fecha: Descendente";
             // 
             // txtBuscar
             // 
