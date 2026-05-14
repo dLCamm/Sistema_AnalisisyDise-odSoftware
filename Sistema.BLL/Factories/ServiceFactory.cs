@@ -25,12 +25,27 @@ namespace Sistema.BLL.Factories
         public static VentaService CrearVentaService()
         {
             var context = new SistemaDbContext(_options);
+
             var repoVenta = new VentaRepository(context);
             var repoProducto = new ProductoRepository(context);
             var repoClientes = new ClienteRepository(context);
             var repoUsuario = new UsuarioRepository(context);
-            var servicioCredito = CrearCreditoService();
-            var servicioCaja = CrearCajaService();
+
+            // CAJA MANUAL
+            var repoCaja = new CajaRepository(context);
+
+            var servicioCaja = new CajaService(
+                context,
+                repoCaja);
+
+            // CRÉDITO MANUAL
+            var repoCredito = new CreditoRepository(context);
+
+            var servicioCredito = new CreditoService(
+                context,
+                repoCredito,
+                repoVenta,
+                servicioCaja);
 
             return new VentaService(
                 context,
@@ -69,7 +84,12 @@ namespace Sistema.BLL.Factories
             var repoCompra = new CompraRepository(context);
             var repoProducto = new ProductoRepository(context);
             var repoProveedor = new ProveedorRepository(context);
-            var cajaService = CrearCajaService();
+
+            var repoCaja = new CajaRepository(context);
+
+            var cajaService = new CajaService(
+                context,
+                repoCaja);
 
             return new CompraService(
                 context,
@@ -85,7 +105,12 @@ namespace Sistema.BLL.Factories
 
             var repoCredito = new CreditoRepository(context);
             var repoVenta = new VentaRepository(context);
-            var cajaService = CrearCajaService();
+
+            var repoCaja = new CajaRepository(context);
+
+            var cajaService = new CajaService(
+                context,
+                repoCaja);
 
             return new CreditoService(
                 context,

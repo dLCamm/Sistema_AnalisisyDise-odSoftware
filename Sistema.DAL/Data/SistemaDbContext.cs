@@ -141,6 +141,9 @@ namespace Sistema.DAL.Data
 
                 entity.HasKey(c => c.Id);
 
+                entity.Property(c => c.DPI)
+                      .IsRequired();
+
                 entity.Property(c => c.Nombre)
                       .IsRequired()
                       .HasMaxLength(100);
