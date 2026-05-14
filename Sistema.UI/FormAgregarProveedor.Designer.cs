@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using Sistema.Entities.Clientes;
-using Sistema.BLL.Services;
-using Sistema.BLL.Factories;
-
-namespace Sistema.UI
+﻿namespace Sistema.UI
 {
-    public partial class frmIngresarCliente : Form
+    partial class FormAgregarProveedor
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-
-        
-
-        public frmIngresarCliente()
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            InitializeComponent();
-        
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
+            label8 = new Label();
             label7 = new Label();
             txtPrecioVenta = new TextBox();
             btnCancelar = new Button();
@@ -35,18 +39,29 @@ namespace Sistema.UI
             txtDescripcion = new TextBox();
             label1 = new Label();
             txtNombre = new TextBox();
-            label8 = new Label();
             SuspendLayout();
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.White;
+            label8.Location = new Point(280, 29);
+            label8.Name = "label8";
+            label8.Size = new Size(257, 76);
+            label8.TabIndex = 43;
+            label8.Text = "Ingreso de Nuevo \r\nProveedor";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(124, 255);
+            label7.Location = new Point(101, 333);
             label7.Name = "label7";
             label7.Size = new Size(208, 31);
-            label7.TabIndex = 31;
+            label7.TabIndex = 42;
             label7.Text = "Correo Electronico";
             // 
             // txtPrecioVenta
@@ -54,36 +69,38 @@ namespace Sistema.UI
             txtPrecioVenta.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioVenta.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioVenta.ForeColor = Color.White;
-            txtPrecioVenta.Location = new Point(377, 255);
+            txtPrecioVenta.Location = new Point(354, 333);
             txtPrecioVenta.Name = "txtPrecioVenta";
             txtPrecioVenta.Size = new Size(391, 34);
-            txtPrecioVenta.TabIndex = 30;
+            txtPrecioVenta.TabIndex = 41;
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.LightCoral;
+            btnCancelar.BackColor = Color.Red;
             btnCancelar.FlatAppearance.BorderSize = 0;
+            btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(455, 338);
+            btnCancelar.ForeColor = Color.White;
+            btnCancelar.Location = new Point(432, 416);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 39);
-            btnCancelar.TabIndex = 29;
+            btnCancelar.TabIndex = 40;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
             // btnGuardar
             // 
-            btnGuardar.BackColor = SystemColors.ActiveCaption;
+            btnGuardar.BackColor = SystemColors.Highlight;
             btnGuardar.FlatAppearance.BorderSize = 0;
+            btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnGuardar.ForeColor = Color.Black;
-            btnGuardar.Location = new Point(236, 338);
+            btnGuardar.ForeColor = Color.White;
+            btnGuardar.Location = new Point(213, 416);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(172, 39);
-            btnGuardar.TabIndex = 28;
-            btnGuardar.Text = "Guardar Cliente";
+            btnGuardar.TabIndex = 39;
+            btnGuardar.Text = "Guardar Proveedor";
             btnGuardar.UseVisualStyleBackColor = false;
             btnGuardar.Click += btnGuardar_Click;
             // 
@@ -92,10 +109,10 @@ namespace Sistema.UI
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(124, 194);
+            label3.Location = new Point(101, 272);
             label3.Name = "label3";
             label3.Size = new Size(113, 31);
-            label3.TabIndex = 21;
+            label3.TabIndex = 38;
             label3.Text = "Dirección";
             // 
             // txtPrecioCompra
@@ -103,20 +120,20 @@ namespace Sistema.UI
             txtPrecioCompra.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioCompra.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioCompra.ForeColor = Color.White;
-            txtPrecioCompra.Location = new Point(377, 194);
+            txtPrecioCompra.Location = new Point(354, 272);
             txtPrecioCompra.Name = "txtPrecioCompra";
             txtPrecioCompra.Size = new Size(391, 34);
-            txtPrecioCompra.TabIndex = 20;
+            txtPrecioCompra.TabIndex = 37;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(124, 129);
+            label2.Location = new Point(101, 207);
             label2.Name = "label2";
             label2.Size = new Size(104, 31);
-            label2.TabIndex = 19;
+            label2.TabIndex = 36;
             label2.Text = "Telefono";
             // 
             // txtDescripcion
@@ -124,10 +141,10 @@ namespace Sistema.UI
             txtDescripcion.BackColor = Color.FromArgb(30, 30, 35);
             txtDescripcion.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtDescripcion.ForeColor = Color.White;
-            txtDescripcion.Location = new Point(377, 129);
+            txtDescripcion.Location = new Point(354, 207);
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(391, 34);
-            txtDescripcion.TabIndex = 18;
+            txtDescripcion.TabIndex = 35;
             // 
             // label1
             // 
@@ -135,37 +152,28 @@ namespace Sistema.UI
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(124, 66);
+            label1.Location = new Point(101, 144);
             label1.Name = "label1";
-            label1.Size = new Size(178, 31);
-            label1.TabIndex = 17;
-            label1.Text = "Nombre Cliente";
+            label1.Size = new Size(216, 31);
+            label1.TabIndex = 34;
+            label1.Text = "Nombre Proveedor";
             // 
             // txtNombre
             // 
             txtNombre.BackColor = Color.FromArgb(30, 30, 35);
             txtNombre.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtNombre.ForeColor = Color.White;
-            txtNombre.Location = new Point(377, 66);
+            txtNombre.Location = new Point(354, 144);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(391, 34);
-            txtNombre.TabIndex = 16;
+            txtNombre.TabIndex = 33;
             // 
-            // label8
+            // FormAgregarProveedor
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(309, 18);
-            label8.Name = "label8";
-            label8.Size = new Size(277, 31);
-            label8.TabIndex = 32;
-            label8.Text = "Ingreso de Nuevo Cliente";
-            // 
-            // frmIngresarCliente
-            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 41, 55);
-            ClientSize = new Size(892, 427);
+            ClientSize = new Size(862, 535);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(txtPrecioVenta);
@@ -177,58 +185,24 @@ namespace Sistema.UI
             Controls.Add(txtDescripcion);
             Controls.Add(label1);
             Controls.Add(txtNombre);
-            Name = "frmIngresarCliente";
-            Load += frmIngresarCliente_Load;
+            Name = "FormAgregarProveedor";
+            Text = "FormAgregarProveedor";
             ResumeLayout(false);
             PerformLayout();
-
         }
 
+        #endregion
 
-
-        private void btnCancelar_Click(object? sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnGuardar_Click(object? sender, EventArgs e)
-        {
-            if (txtNombre.Text == "" || txtDescripcion.Text == "" || txtPrecioCompra.Text == "" || txtPrecioVenta.Text == "")
-            {
-                MessageBox.Show("Por favor, complete todos los campos.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                using (var service = ServiceFactory.CrearClienteService())
-                {
-                    Cliente cliente = new Cliente();
-                    cliente.Nombre = txtNombre.Text;
-                    cliente.Telefono = txtDescripcion.Text;
-                    cliente.Direccion = txtPrecioCompra.Text;
-                    cliente.Email = txtPrecioVenta.Text;
-
-
-                    service.CrearCliente(cliente);
-                }
-
-
-                MessageBox.Show("Cliente guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar el cliente: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
-            }
-
-        }
-
-        private void frmIngresarCliente_Load(object? sender, EventArgs e)
-        {
-
-        }
+        private Label label8;
+        private Label label7;
+        private TextBox txtPrecioVenta;
+        private Button btnCancelar;
+        private Button btnGuardar;
+        private Label label3;
+        private TextBox txtPrecioCompra;
+        private Label label2;
+        private TextBox txtDescripcion;
+        private Label label1;
+        private TextBox txtNombre;
     }
 }

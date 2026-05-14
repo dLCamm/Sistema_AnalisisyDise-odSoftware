@@ -71,7 +71,7 @@ namespace Sistema.UI
 
         private void btnProveedores_Click(object sender, EventArgs e)
         {
-
+            AbrirFormEnPanel(new FormCompras());
         }
 
         private void btnVentas_Click(object sender, EventArgs e)
