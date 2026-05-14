@@ -130,6 +130,9 @@ namespace Sistema.BLL.Services
 
                     Detalles = detalles
                 };
+                // NECESITAMOS venta.Id
+                _repo.InsertarVenta(venta);
+                _context.SaveChanges();
 
                 // CREAR MOVIMIENTO CAJA SI ES AL CONTADO
                 if (tipoPago == TipoPago.Contado)
@@ -143,13 +146,9 @@ namespace Sistema.BLL.Services
                         false);
                 }
 
-                _repo.InsertarVenta(venta);
-
-                // NECESITAMOS venta.Id
-                _context.SaveChanges();
 
                 // CREAR CRÉDITO
-                if (tipoPago == TipoPago.Credito)
+                else if (tipoPago == TipoPago.Credito)
                 {
                     _creditoService.CrearCredito(
                         venta.Id,
