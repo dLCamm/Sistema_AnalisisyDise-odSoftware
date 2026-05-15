@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Sistema.Entities\Sistema.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="QuestPDF" Version="2026.5.0" />
+  </ItemGroup>
+
 </Project>
