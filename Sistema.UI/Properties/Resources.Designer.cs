@@ -63,9 +63,9 @@ namespace Sistema.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _690747904_1487744833392039_1024202032927627676_n__1_ {
+        internal static System.Drawing.Bitmap venticon {
             get {
-                object obj = ResourceManager.GetObject("690747904_1487744833392039_1024202032927627676_n (1)", resourceCulture);
+                object obj = ResourceManager.GetObject("venticon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
