@@ -32,7 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            textBox1 = new TextBox();
+            label2 = new Label();
             btnFiltrar = new Button();
             menuFiltros = new ContextMenuStrip(components);
             verTodoToolStripMenuItem = new ToolStripMenuItem();
@@ -53,7 +53,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
-            panel1.Controls.Add(textBox1);
+            panel1.Controls.Add(label2);
             panel1.Controls.Add(btnFiltrar);
             panel1.Controls.Add(txtBuscar);
             panel1.Controls.Add(label1);
@@ -65,19 +65,17 @@
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
             // 
-            // textBox1
+            // label2
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.BackColor = Color.FromArgb(31, 41, 55);
-            textBox1.BorderStyle = BorderStyle.None;
-            textBox1.Font = new Font("Segoe UI", 14F);
-            textBox1.ForeColor = SystemColors.Window;
-            textBox1.Location = new Point(451, 23);
-            textBox1.Margin = new Padding(0);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(36, 32);
-            textBox1.TabIndex = 5;
-            textBox1.Text = "🔎";
+            label2.Anchor = AnchorStyles.Top;
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic", 15F, FontStyle.Bold);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(363, 19);
+            label2.Name = "label2";
+            label2.Size = new Size(48, 32);
+            label2.TabIndex = 8;
+            label2.Text = "🔎";
             // 
             // btnFiltrar
             // 
@@ -85,7 +83,7 @@
             btnFiltrar.ContextMenuStrip = menuFiltros;
             btnFiltrar.Font = new Font("Segoe UI", 10F);
             btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrar.Location = new Point(882, 21);
+            btnFiltrar.Location = new Point(898, 21);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(97, 32);
             btnFiltrar.TabIndex = 5;
@@ -98,56 +96,57 @@
             menuFiltros.ImageScalingSize = new Size(20, 20);
             menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, anuladosToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(242, 148);
+            menuFiltros.Size = new Size(210, 148);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(241, 24);
+            verTodoToolStripMenuItem.Size = new Size(209, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // stockBajoToolStripMenuItem
             // 
             stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
-            stockBajoToolStripMenuItem.Size = new Size(241, 24);
+            stockBajoToolStripMenuItem.Size = new Size(209, 24);
             stockBajoToolStripMenuItem.Text = "Stock Bajo";
             stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
             // 
             // sinExistenciasToolStripMenuItem
             // 
             sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
-            sinExistenciasToolStripMenuItem.Size = new Size(241, 24);
+            sinExistenciasToolStripMenuItem.Size = new Size(209, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
             // 
             // anuladosToolStripMenuItem
             // 
             anuladosToolStripMenuItem.Name = "anuladosToolStripMenuItem";
-            anuladosToolStripMenuItem.Size = new Size(241, 24);
+            anuladosToolStripMenuItem.Size = new Size(209, 24);
             anuladosToolStripMenuItem.Text = "Anulados";
             anuladosToolStripMenuItem.Click += anuladosToolStripMenuItem_Click;
             // 
             // fechaAscToolStripMenuItem
             // 
             fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
-            fechaAscToolStripMenuItem.Size = new Size(241, 24);
-            fechaAscToolStripMenuItem.Text = "        Fecha: Ascendente";
+            fechaAscToolStripMenuItem.Size = new Size(209, 24);
+            fechaAscToolStripMenuItem.Text = "Fecha: Ascendente";
             // 
             // fechaDescToolStripMenuItem
             // 
             fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
-            fechaDescToolStripMenuItem.Size = new Size(241, 24);
-            fechaDescToolStripMenuItem.Text = "        Fecha: Descendente";
+            fechaDescToolStripMenuItem.Size = new Size(209, 24);
+            fechaDescToolStripMenuItem.Text = "Fecha: Descendente";
             // 
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
-            txtBuscar.Font = new Font("Segoe UI", 12F);
-            txtBuscar.Location = new Point(490, 21);
+            txtBuscar.Font = new Font("Segoe UI", 16F);
+            txtBuscar.ForeColor = Color.Black;
+            txtBuscar.Location = new Point(417, 13);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(375, 34);
+            txtBuscar.Size = new Size(464, 43);
             txtBuscar.TabIndex = 4;
             txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
@@ -252,10 +251,10 @@
         private ToolStripMenuItem stockBajoToolStripMenuItem;
         private ToolStripMenuItem sinExistenciasToolStripMenuItem;
         private Button btnFiltrar;
-        private TextBox txtBuscar;
-        private TextBox textBox1;
         private ToolStripMenuItem fechaAscToolStripMenuItem;
         private ToolStripMenuItem fechaDescToolStripMenuItem;
         private ToolStripMenuItem anuladosToolStripMenuItem;
+        private Label label2;
+        private TextBox txtBuscar;
     }
 }

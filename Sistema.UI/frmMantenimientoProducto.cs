@@ -14,7 +14,7 @@ namespace Sistema.UI
         public frmMantenimientoProducto()
         {
             InitializeComponent();
-            this.Text = "Registrar Producto - La Momosteca";
+            this.Text = "Registrar Producto";
         }
 
         // Constructor para EDITAR 
@@ -22,7 +22,7 @@ namespace Sistema.UI
         {
             InitializeComponent();
             this._idParaEditar = id;
-            this.Text = "Modificar Producto - La Momosteca";
+            this.Text = "Modificar Producto";
         }
 
         private void frmMantenimientoProducto_Load(object sender, EventArgs e)
@@ -123,6 +123,16 @@ namespace Sistema.UI
         }
 
         private void txtPrecioCompra_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDescripcion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
         {
 
         }

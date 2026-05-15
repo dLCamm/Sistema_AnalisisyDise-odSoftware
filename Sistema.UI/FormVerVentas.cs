@@ -189,5 +189,10 @@ namespace Sistema.UI
             AplicarFiltrosGlobales();
 
         }
+
+        private void FormVerVentas_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

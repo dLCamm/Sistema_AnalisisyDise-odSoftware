@@ -295,6 +295,7 @@ namespace Sistema.UI
             Name = "FormVerVentas";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Ver Ventas";
+            Load += FormVerVentas_Load;
             Resize += FormVerVentas_Resize;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);

@@ -20,5 +20,7 @@ namespace Sistema.DAL.Repositories.Interfaces
         void Actualizar(Credito credito);
 
         Abono? ObtenerAbonoPorId(int id);
+
+        Credito? ObtenerPorVentaId(int ventaId);
     }
 }

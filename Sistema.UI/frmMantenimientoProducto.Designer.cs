@@ -55,6 +55,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(771, 65);
             txtNombre.TabIndex = 0;
+            txtNombre.TextChanged += txtNombre_TextChanged;
             // 
             // label1
             // 
@@ -88,6 +89,7 @@
             txtDescripcion.Name = "txtDescripcion";
             txtDescripcion.Size = new Size(771, 120);
             txtDescripcion.TabIndex = 2;
+            txtDescripcion.TextChanged += txtDescripcion_TextChanged;
             // 
             // label3
             // 

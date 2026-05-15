@@ -59,5 +59,12 @@ namespace Sistema.DAL.Repositories
                 .Include(a => a.Credito)
                 .FirstOrDefault(a => a.Id == id);
         }
+        public Credito? ObtenerPorVentaId(int ventaId)
+        {
+            return _context.Creditos
+                .Include(c => c.Abonos)
+                .FirstOrDefault(c =>
+                    c.VentaId == ventaId);
+        }
     }
 }

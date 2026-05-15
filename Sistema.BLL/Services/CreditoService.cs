@@ -1,5 +1,6 @@
 ﻿using Sistema.DAL.Data;
 using Sistema.DAL.Repositories.Interfaces;
+using Sistema.Entities.Caja;
 using Sistema.Entities.Creditos;
 using Sistema.Entities.Ventas;
 using System;
@@ -14,21 +15,26 @@ namespace Sistema.BLL.Services
 
         private readonly ICreditoRepository _repoCredito;
         private readonly IVentaRepository _repoVenta;
+        private readonly CajaService _cajaService;
 
         public CreditoService(
             SistemaDbContext context,
             ICreditoRepository repoCredito,
-            IVentaRepository repoVenta)
+            IVentaRepository repoVenta,
+            CajaService cajaService)
         {
             _context = context;
             _repoCredito = repoCredito;
             _repoVenta = repoVenta;
+            _cajaService = cajaService;
         }
 
         // CREAR CRÉDITO
         public void CrearCredito(
             int ventaId,
-            DateTime fechaVencimiento)
+            DateTime fechaVencimiento,
+            decimal abonoInicial = 0,
+            bool guardarCambios = true)
         {
             var venta = _repoVenta.ObtenerPorId(ventaId);
 
@@ -37,6 +43,12 @@ namespace Sistema.BLL.Services
 
             if (venta.TipoPago != TipoPago.Credito)
                 throw new Exception("La venta no es a crédito");
+
+            if (abonoInicial < 0)
+                throw new Exception("Abono inválido");
+
+            if (abonoInicial > venta.Total)
+                throw new Exception("El abono excede el total");
 
             var credito = new Credito
             {
@@ -50,15 +62,32 @@ namespace Sistema.BLL.Services
 
             _repoCredito.Insertar(credito);
 
-            _context.SaveChanges();
+            // abono inicial
+            if (abonoInicial > 0)
+            {
+                _context.SaveChanges();
+
+                RegistrarAbono(
+                    credito.Id,
+                    abonoInicial,
+                    false);
+            }
+
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
         }
 
         // REGISTRAR ABONO
         public void RegistrarAbono(
             int creditoId,
-            decimal monto)
+            decimal monto,
+            bool guardarCambios = true)
         {
-            using var transaction = _context.Database.BeginTransaction();
+            using var transaction = guardarCambios
+                ? _context.Database.BeginTransaction()
+                : null;
 
             try
             {
@@ -82,7 +111,8 @@ namespace Sistema.BLL.Services
                 var abono = new Abono
                 {
                     CreditoId = creditoId,
-                    Monto = monto
+                    Monto = monto,
+                    Estado = EstadoAbono.Activo
                 };
 
                 credito.SaldoPendiente -= monto;
@@ -97,13 +127,28 @@ namespace Sistema.BLL.Services
 
                 _repoCredito.Actualizar(credito);
 
+                // guardamos para obtener el creditoId
                 _context.SaveChanges();
 
-                transaction.Commit();
+                // creamos un movimiento de caja
+                _cajaService.RegistrarIngreso(
+                    monto,
+                    OrigenMovimientoCaja.Abono,
+                    $"Abono crédito #{credito.Id}",
+                    abono.Id,
+                    null,
+                    false);
+
+                if (guardarCambios)
+                {
+                    _context.SaveChanges();
+
+                    transaction?.Commit();
+                }
             }
             catch
             {
-                transaction.Rollback();
+                transaction?.Rollback();
                 throw;
             }
         }
@@ -142,13 +187,24 @@ namespace Sistema.BLL.Services
             return credito.Abonos.ToList();
         }
 
-        // CANCELAR
-        public void CancelarCredito(int id)
+        // CANCELAR CRÉDITO
+        public void CancelarCredito(
+            int id,
+            bool guardarCambios = true)
         {
             var credito = _repoCredito.ObtenerPorId(id);
 
             if (credito == null)
                 throw new Exception("Crédito no encontrado");
+
+            if (credito.Estado == EstadoCredito.Cancelado)
+                return;
+
+            if (credito.Estado == EstadoCredito.Pagado)
+            {
+                throw new Exception(
+                    "No se puede cancelar un crédito pagado");
+            }
 
             credito.Estado = EstadoCredito.Cancelado;
 
@@ -160,11 +216,25 @@ namespace Sistema.BLL.Services
 
             _repoCredito.Actualizar(credito);
 
-            _context.SaveChanges();
+            if (guardarCambios)
+            {
+                _context.SaveChanges();
+            }
+        }
 
-            _repoCredito.Actualizar(credito);
+        public void CancelarCreditoPorVenta(
+            int ventaId,
+            bool guardarCambios = true)
+        {
+            var credito =
+                _repoCredito.ObtenerPorVentaId(ventaId);
 
-            _context.SaveChanges();
+            if (credito == null)
+                return;
+
+            CancelarCredito(
+                credito.Id,
+                guardarCambios);
         }
 
         // ANULAR ABONO
@@ -187,15 +257,23 @@ namespace Sistema.BLL.Services
                 // devolver saldo
                 credito.SaldoPendiente += abono.Monto;
 
-                // si estaba pagado vuelve a pendiente
-                if (credito.Estado == EstadoCredito.Pagado)
+                // evitar exceder total
+                if (credito.SaldoPendiente > credito.TotalCredito)
                 {
-                    credito.Estado = EstadoCredito.Pendiente;
+                    credito.SaldoPendiente = credito.TotalCredito;
                 }
+
+                // volver a pendiente
+                credito.Estado = EstadoCredito.Pendiente;
 
                 // anular abono
                 abono.Estado = EstadoAbono.Anulado;
 
+                // anular movimiento de caja
+                _cajaService.AnularMovimientoPorReferencia(
+                    OrigenMovimientoCaja.Abono,
+                    abono.Id,
+                    false);
                 _repoCredito.Actualizar(credito);
 
                 _context.SaveChanges();

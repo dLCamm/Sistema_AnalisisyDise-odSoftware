@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnCréditos = new Button();
             btnSalir = new Button();
             btnReportes = new Button();
             btnProveedores = new Button();
@@ -37,12 +38,15 @@
             btnInicio = new Button();
             btnInventario = new Button();
             pnlContenedor = new Panel();
+            button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnCréditos);
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnProveedores);
@@ -55,6 +59,21 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(226, 953);
             panel1.TabIndex = 0;
+            // 
+            // btnCréditos
+            // 
+            btnCréditos.FlatAppearance.BorderSize = 0;
+            btnCréditos.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            btnCréditos.FlatStyle = FlatStyle.Flat;
+            btnCréditos.Font = new Font("Segoe UI", 15F);
+            btnCréditos.ForeColor = Color.White;
+            btnCréditos.Location = new Point(0, 489);
+            btnCréditos.Name = "btnCréditos";
+            btnCréditos.Size = new Size(229, 69);
+            btnCréditos.TabIndex = 7;
+            btnCréditos.Text = "💵 Créditos";
+            btnCréditos.UseVisualStyleBackColor = true;
+            btnCréditos.Click += btnCréditos_Click;
             // 
             // btnSalir
             // 
@@ -169,6 +188,21 @@
             pnlContenedor.TabIndex = 1;
             pnlContenedor.Paint += pnlContenedor_Paint;
             // 
+            // button1
+            // 
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 15F);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(-3, 564);
+            button1.Name = "button1";
+            button1.Size = new Size(229, 69);
+            button1.TabIndex = 8;
+            button1.Text = "💰 Caja";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -196,5 +230,7 @@
         private Button btnProveedores;
         private Button btnClientes;
         private Button btnSalir;
+        private Button btnCréditos;
+        private Button button1;
     }
 }

@@ -65,7 +65,7 @@ namespace Sistema.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             var confirmResult = MessageBox.Show("¿Estás seguro de que deseas anular esta venta?", "Confirmar Anulación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirmResult == DialogResult.Yes)
             {
