@@ -61,7 +61,7 @@ namespace Sistema.UI
 
         private void btnInicio_Click(object sender, EventArgs e)
         {
-
+            AbrirFormEnPanel(new frmDashboard());
         }
 
         private void btnInventario_Click(object sender, EventArgs e)
@@ -87,6 +87,11 @@ namespace Sistema.UI
         private void btnCréditos_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new frmCréditos());
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new frmReportes());
         }
     }
 }
