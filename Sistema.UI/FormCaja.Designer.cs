@@ -28,19 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             label1 = new Label();
             label4 = new Label();
             panel2 = new Panel();
             label2 = new Label();
             label8 = new Label();
-            panel3 = new Panel();
-            label5 = new Label();
-            label3 = new Label();
-            panel4 = new Panel();
-            label6 = new Label();
-            label7 = new Label();
             dataGridView1 = new DataGridView();
             clm_id = new DataGridViewTextBoxColumn();
             clm_tipo = new DataGridViewTextBoxColumn();
@@ -49,6 +44,7 @@
             clm_descripcion = new DataGridViewTextBoxColumn();
             clm_fecha = new DataGridViewTextBoxColumn();
             clm_estado = new DataGridViewTextBoxColumn();
+            clm_anular = new DataGridViewButtonColumn();
             folderBrowserDialog1 = new FolderBrowserDialog();
             button1 = new Button();
             label13 = new Label();
@@ -62,10 +58,16 @@
             comboBox3 = new ComboBox();
             label18 = new Label();
             button3 = new Button();
+            label3 = new Label();
+            label5 = new Label();
+            panel3 = new Panel();
+            label7 = new Label();
+            label6 = new Label();
+            panel4 = new Panel();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -126,120 +128,55 @@
             label8.TabIndex = 12;
             label8.Text = "Q";
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(48, 55, 73);
-            panel3.BorderStyle = BorderStyle.Fixed3D;
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(label3);
-            panel3.Location = new Point(625, 128);
-            panel3.Name = "panel3";
-            panel3.RightToLeft = RightToLeft.No;
-            panel3.Size = new Size(460, 136);
-            panel3.TabIndex = 13;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Black", 21.2F, FontStyle.Bold);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(106, 14);
-            label5.Name = "label5";
-            label5.Size = new Size(257, 48);
-            label5.TabIndex = 47;
-            label5.Text = "Ingreso Total";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI Semibold", 23.2F, FontStyle.Bold);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(120, 62);
-            label3.Name = "label3";
-            label3.Size = new Size(51, 52);
-            label3.TabIndex = 12;
-            label3.Text = "Q";
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.FromArgb(48, 55, 73);
-            panel4.BorderStyle = BorderStyle.Fixed3D;
-            panel4.Controls.Add(label6);
-            panel4.Controls.Add(label7);
-            panel4.Location = new Point(1114, 128);
-            panel4.Name = "panel4";
-            panel4.RightToLeft = RightToLeft.No;
-            panel4.Size = new Size(460, 136);
-            panel4.TabIndex = 14;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Black", 21.2F, FontStyle.Bold);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(101, 14);
-            label6.Name = "label6";
-            label6.Size = new Size(241, 48);
-            label6.TabIndex = 48;
-            label6.Text = "Egreso Total";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.BackColor = Color.Transparent;
-            label7.Font = new Font("Segoe UI Semibold", 23.2F, FontStyle.Bold);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(162, 62);
-            label7.Name = "label7";
-            label7.Size = new Size(51, 52);
-            label7.TabIndex = 12;
-            label7.Text = "Q";
-            // 
             // dataGridView1
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_id, clm_tipo, clm_monto, clm_origen, clm_descripcion, clm_fecha, clm_estado });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.Padding = new Padding(2, 8, 2, 8);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_id, clm_tipo, clm_monto, clm_origen, clm_descripcion, clm_fecha, clm_estado, clm_anular });
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.Padding = new Padding(2, 8, 2, 8);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.EnableHeadersVisualStyles = false;
-            dataGridView1.GridColor = Color.FromArgb(70, 70, 75);
+            dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView1.Location = new Point(134, 458);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 31;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(1440, 502);
             dataGridView1.TabIndex = 15;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // clm_id
             // 
+            clm_id.FillWeight = 50F;
             clm_id.HeaderText = "Id";
             clm_id.MinimumWidth = 6;
             clm_id.Name = "clm_id";
             clm_id.ReadOnly = true;
             clm_id.Visible = false;
+            clm_id.Width = 40;
             // 
             // clm_tipo
             // 
+            clm_tipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_tipo.FillWeight = 28.1356926F;
             clm_tipo.HeaderText = "Tipo";
             clm_tipo.MinimumWidth = 6;
             clm_tipo.Name = "clm_tipo";
@@ -247,6 +184,8 @@
             // 
             // clm_monto
             // 
+            clm_monto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_monto.FillWeight = 28.1356926F;
             clm_monto.HeaderText = "Monto";
             clm_monto.MinimumWidth = 6;
             clm_monto.Name = "clm_monto";
@@ -254,6 +193,8 @@
             // 
             // clm_origen
             // 
+            clm_origen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_origen.FillWeight = 28.1356926F;
             clm_origen.HeaderText = "Origen";
             clm_origen.MinimumWidth = 6;
             clm_origen.Name = "clm_origen";
@@ -261,6 +202,8 @@
             // 
             // clm_descripcion
             // 
+            clm_descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_descripcion.FillWeight = 28.1356926F;
             clm_descripcion.HeaderText = "Descripción";
             clm_descripcion.MinimumWidth = 6;
             clm_descripcion.Name = "clm_descripcion";
@@ -268,6 +211,8 @@
             // 
             // clm_fecha
             // 
+            clm_fecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_fecha.FillWeight = 28.1356926F;
             clm_fecha.HeaderText = "Fecha";
             clm_fecha.MinimumWidth = 6;
             clm_fecha.Name = "clm_fecha";
@@ -275,10 +220,28 @@
             // 
             // clm_estado
             // 
+            clm_estado.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_estado.FillWeight = 28.1356926F;
             clm_estado.HeaderText = "Estado";
             clm_estado.MinimumWidth = 6;
             clm_estado.Name = "clm_estado";
             clm_estado.ReadOnly = true;
+            // 
+            // clm_anular
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clm_anular.DefaultCellStyle = dataGridViewCellStyle2;
+            clm_anular.FillWeight = 194.039246F;
+            clm_anular.FlatStyle = FlatStyle.Flat;
+            clm_anular.HeaderText = "Anular ";
+            clm_anular.MinimumWidth = 6;
+            clm_anular.Name = "clm_anular";
+            clm_anular.SortMode = DataGridViewColumnSortMode.Automatic;
+            clm_anular.Text = "X";
+            clm_anular.ToolTipText = "X";
+            clm_anular.UseColumnTextForButtonValue = true;
+            clm_anular.Width = 125;
             // 
             // button1
             // 
@@ -406,6 +369,76 @@
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI Semibold", 23.2F, FontStyle.Bold);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(120, 62);
+            label3.Name = "label3";
+            label3.Size = new Size(51, 52);
+            label3.TabIndex = 12;
+            label3.Text = "Q";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Black", 21.2F, FontStyle.Bold);
+            label5.ForeColor = Color.White;
+            label5.Location = new Point(106, 14);
+            label5.Name = "label5";
+            label5.Size = new Size(257, 48);
+            label5.TabIndex = 47;
+            label5.Text = "Ingreso Total";
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.FromArgb(48, 55, 73);
+            panel3.BorderStyle = BorderStyle.Fixed3D;
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(label3);
+            panel3.Location = new Point(625, 128);
+            panel3.Name = "panel3";
+            panel3.RightToLeft = RightToLeft.No;
+            panel3.Size = new Size(460, 136);
+            panel3.TabIndex = 13;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.Transparent;
+            label7.Font = new Font("Segoe UI Semibold", 23.2F, FontStyle.Bold);
+            label7.ForeColor = Color.White;
+            label7.Location = new Point(162, 62);
+            label7.Name = "label7";
+            label7.Size = new Size(51, 52);
+            label7.TabIndex = 12;
+            label7.Text = "Q";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Black", 21.2F, FontStyle.Bold);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(101, 14);
+            label6.Name = "label6";
+            label6.Size = new Size(241, 48);
+            label6.TabIndex = 48;
+            label6.Text = "Egreso Total";
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.FromArgb(48, 55, 73);
+            panel4.BorderStyle = BorderStyle.Fixed3D;
+            panel4.Controls.Add(label6);
+            panel4.Controls.Add(label7);
+            panel4.Location = new Point(1114, 128);
+            panel4.Name = "panel4";
+            panel4.RightToLeft = RightToLeft.No;
+            panel4.Size = new Size(460, 136);
+            panel4.TabIndex = 14;
+            // 
             // FormCaja
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -434,11 +467,11 @@
             Text = "FormCaja";
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -449,10 +482,6 @@
         private Label label4;
         private Panel panel2;
         private Label label8;
-        private Panel panel3;
-        private Label label3;
-        private Panel panel4;
-        private Label label7;
         private DataGridView dataGridView1;
         private FolderBrowserDialog folderBrowserDialog1;
         private Button button1;
@@ -466,6 +495,8 @@
         private Label label17;
         private ComboBox comboBox3;
         private Label label18;
+        private Label label2;
+        private Button button3;
         private DataGridViewTextBoxColumn clm_id;
         private DataGridViewTextBoxColumn clm_tipo;
         private DataGridViewTextBoxColumn clm_monto;
@@ -473,9 +504,12 @@
         private DataGridViewTextBoxColumn clm_descripcion;
         private DataGridViewTextBoxColumn clm_fecha;
         private DataGridViewTextBoxColumn clm_estado;
-        private Label label2;
+        private DataGridViewButtonColumn clm_anular;
+        private Label label3;
         private Label label5;
+        private Panel panel3;
+        private Label label7;
         private Label label6;
-        private Button button3;
+        private Panel panel4;
     }
 }

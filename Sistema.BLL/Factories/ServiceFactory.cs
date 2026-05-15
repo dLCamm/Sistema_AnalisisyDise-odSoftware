@@ -2,6 +2,7 @@
 using Sistema.BLL.Services;
 using Sistema.DAL.Data;
 using Sistema.DAL.Repositories;
+using Sistema.DAL.Repositories.Interfaces;
 
 
 namespace Sistema.BLL.Factories
@@ -127,6 +128,31 @@ namespace Sistema.BLL.Factories
             return new CajaService(
                 context, 
                 repo);
+        }
+
+        public static UsuarioService CrearUsuarioService()
+        {
+            var context = new SistemaDbContext(_options);
+
+            var repo = new UsuarioRepository(context);
+
+            return new UsuarioService(
+                context,
+                repo);
+        }
+
+        public static ExportService CrearExportService()
+        {
+            return new ExportService();
+        }
+
+        public static ReporteService CrearReporteService()
+        {
+            var context = new SistemaDbContext(_options);
+
+            IReporteRepository repo = new ReporteRepository(context);
+
+            return new ReporteService(repo);
         }
     }
 }

@@ -64,14 +64,36 @@ namespace Sistema.UI
             try
             {
                 dataGridView1.Rows.Clear();
+
                 foreach (var m in movimientosfiltrados)
                 {
-                    dataGridView1.Rows.Add(m.Id, m.Tipo, m.Monto, m.Origen, m.Descripcion, m.Fecha, m.Estado.ToString());
-                    dataGridView1.Rows[dataGridView1.Rows.Count - 1].Tag = m;
+                    // 1. Agregamos la fila normalmente
+                    int rowIndex = dataGridView1.Rows.Add(
+                        m.Id,
+                        m.Tipo,
+                        m.Monto,
+                        m.Origen,
+                        m.Descripcion,
+                        m.Fecha,
+                        m.Estado.ToString(),
+                        "X" 
+                    );
+
+         
+                    dataGridView1.Rows[rowIndex].Tag = m;
+
+               
+                    var cellBoton = (DataGridViewButtonCell)dataGridView1.Rows[rowIndex].Cells["clm_anular"];
+
+                    cellBoton.Style.BackColor = Color.Red;   
+                    cellBoton.Style.ForeColor = Color.White;
+                    cellBoton.Style.SelectionBackColor = Color.DarkRed; 
                 }
                 using (var service = ServiceFactory.CrearCajaService())
                 {
                     label8.Text = service.ObtenerSaldo().ToString("C");
+                    label3.Text = service.ObtenerIngresosActivo().ToString("C");
+                    label7.Text = service.ObtenerEgresosActivo().ToString("C");
                 }
             }
             catch (Exception ex)
@@ -142,6 +164,51 @@ namespace Sistema.UI
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.Checked = false;
             Ver_Toda_Caja();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // 1. Validar que no sea el encabezado (índice -1)
+            if (e.RowIndex < 0) return;
+
+            // 2. Verificar si es la columna del botón "Anular"
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "clm_anular")
+            {
+                var movimiento = dataGridView1.Rows[e.RowIndex].Tag as MovimientoCaja;
+
+                if (movimiento != null)
+                {
+                    var confirmResult = MessageBox.Show(
+                        $"¿Está seguro de que desea anular el movimiento por {movimiento.Monto:C}? \nEsta acción no se puede deshacer.",
+                        "Confirmar Anulación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (confirmResult == DialogResult.Yes)
+                    {
+                        try { 
+
+                            Cursor.Current = Cursors.WaitCursor;
+
+                            using (var service = ServiceFactory.CrearCajaService())
+                            {
+                                service.AnularMovimiento(movimiento.Id);
+                            }
+
+                            Ver_Toda_Caja(); 
+                            MessageBox.Show("Movimiento anulado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("No se pudo anular: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        finally
+                        {
+                            Cursor.Current = Cursors.Default;
+                        }
+                    }
+                }
+            }
         }
     }
 }

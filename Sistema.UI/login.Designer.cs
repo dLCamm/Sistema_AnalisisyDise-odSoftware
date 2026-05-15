@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            textBox1 = new TextBox();
+            button2 = new Button();
+            button1 = new Button();
+            label3 = new Label();
+            label2 = new Label();
             textBox2 = new TextBox();
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            textBox1 = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,13 +55,52 @@
             panel1.Size = new Size(624, 404);
             panel1.TabIndex = 0;
             // 
-            // textBox1
+            // button2
             // 
-            textBox1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(84, 126);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(454, 38);
-            textBox1.TabIndex = 0;
+            button2.BackColor = Color.Transparent;
+            button2.BackgroundImageLayout = ImageLayout.None;
+            button2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(474, 221);
+            button2.Name = "button2";
+            button2.Size = new Size(64, 38);
+            button2.TabIndex = 5;
+            button2.Text = "Ver";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(84, 309);
+            button1.Name = "button1";
+            button1.Size = new Size(454, 51);
+            button1.TabIndex = 4;
+            button1.Text = "Iniciar Sesión";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(84, 193);
+            label3.Name = "label3";
+            label3.Size = new Size(106, 25);
+            label3.TabIndex = 3;
+            label3.Text = "Contraseña";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(84, 98);
+            label2.Name = "label2";
+            label2.Size = new Size(76, 25);
+            label2.TabIndex = 2;
+            label2.Text = "Usuario";
             // 
             // textBox2
             // 
@@ -83,51 +122,13 @@
             label1.TabIndex = 1;
             label1.Text = "Bienvenido";
             // 
-            // label2
+            // textBox1
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(84, 98);
-            label2.Name = "label2";
-            label2.Size = new Size(76, 25);
-            label2.TabIndex = 2;
-            label2.Text = "Usuario";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(84, 193);
-            label3.Name = "label3";
-            label3.Size = new Size(106, 25);
-            label3.TabIndex = 3;
-            label3.Text = "Contraseña";
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(84, 309);
-            button1.Name = "button1";
-            button1.Size = new Size(454, 51);
-            button1.TabIndex = 4;
-            button1.Text = "Iniciar Sesión";
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.Transparent;
-            button2.BackgroundImageLayout = ImageLayout.None;
-            button2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(474, 221);
-            button2.Name = "button2";
-            button2.Size = new Size(64, 38);
-            button2.TabIndex = 5;
-            button2.Text = "Ver";
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
+            textBox1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(84, 126);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(454, 38);
+            textBox1.TabIndex = 0;
             // 
             // login
             // 
