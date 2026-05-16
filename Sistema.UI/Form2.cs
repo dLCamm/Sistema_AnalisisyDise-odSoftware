@@ -323,32 +323,14 @@ namespace Sistema.UI
                     }).ToList();
 
                     // REGISTRO DE VENTA: Usamos el ID 1 que acabamos de crear en la BD
-                    _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago);
-
-                    // 5. Lógica de Crédito (Si aplica)
-                    if (tipoPago == TipoPago.Credito)
-                    {
-                        var ventaReciente = _ventaService.ListarVentas()
-                            .OrderByDescending(v => v.Id)
-                            .First(v => v.ClienteId == idcliente);
-
-                        using (var _creditoService = ServiceFactory.CrearCreditoService())
-                        {
-                            _creditoService.CrearCredito(ventaReciente.Id, fechaVence);
-
-                            if (abonoInicial > 0)
-                            {
-                                var credito = _creditoService.ListarCreditos()
-                                    .First(c => c.VentaId == ventaReciente.Id);
-                                _creditoService.RegistrarAbono(credito.Id, abonoInicial);
-                            }
-                        }
-                    }
+                    _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago,fechaVence, abonoInicial);
+                    
                 }
 
-                MessageBox.Show("✅ Venta realizada con éxito");
+                MessageBox.Show("Venta realizada con éxito");
                 carrito.Clear();
                 RefrescarCarrito();
+                CargarProductos(); 
 
             }
             catch (Exception ex)
@@ -423,6 +405,7 @@ namespace Sistema.UI
             dataGridView1.Columns.Add("Cantidad", "Cantidad");
             dataGridView1.Columns.Add("Subtotal", "Subtotal");
 
+
             var btnDec = new DataGridViewButtonColumn { Name = "Dec", HeaderText = "", Text = "-", UseColumnTextForButtonValue = true, Width = 30 };
             var btnInc = new DataGridViewButtonColumn { Name = "Inc", HeaderText = "", Text = "+", UseColumnTextForButtonValue = true, Width = 30 };
             var btnDel = new DataGridViewButtonColumn { Name = "Del", HeaderText = "", Text = "Eliminar", UseColumnTextForButtonValue = true, Width = 70 };
@@ -434,6 +417,7 @@ namespace Sistema.UI
             dataGridView1.Columns["PrecioUnitario"].ReadOnly = true;
             dataGridView1.Columns["Subtotal"].ReadOnly = true;
             dataGridView1.Columns["Cantidad"].ReadOnly = false;
+
 
             // Configurar DataGridView de productos
             listProductos!.Rows.Clear();
@@ -489,6 +473,7 @@ namespace Sistema.UI
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog();
             ventanamodal.ResumeLayout();
+            CargarClientes();
 
 
         }

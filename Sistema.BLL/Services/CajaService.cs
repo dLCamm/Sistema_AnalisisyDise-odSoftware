@@ -133,6 +133,19 @@ namespace Sistema.BLL.Services
             return ingresos - egresos;
         }
 
+        // OBTENER SALDO
+        public decimal ObtenerIngresosActivo()
+        {
+            return _repo.ObtenerTotalIngresosActivos();
+        }
+
+        // OBTENER SALDO
+        public decimal ObtenerEgresosActivo()
+        {
+
+            return _repo.ObtenerTotalEgresosActivos();
+        }
+
         // ANULAR
         public void AnularMovimiento(int id)
         {

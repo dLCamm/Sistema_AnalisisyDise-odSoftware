@@ -31,5 +31,7 @@
         private Label label1;
         private TextBox txtNombre;
         private Label label8;
+        private Label label4;
+        private TextBox textBox1;
     }
 }

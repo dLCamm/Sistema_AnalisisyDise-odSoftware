@@ -6,7 +6,7 @@ namespace Sistema.Entities.Clientes
     public class Cliente
     {
         public int Id { get; set; }
-        public int DPI { get; set; }
+        public long DPI { get; set; }
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }

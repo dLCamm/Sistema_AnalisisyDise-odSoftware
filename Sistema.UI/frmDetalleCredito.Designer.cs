@@ -220,7 +220,7 @@
             dgvDetalleAbonos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvDetalleAbonos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDetalleAbonos.Columns.AddRange(new DataGridViewColumn[] { colAbono, colfecha });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
             dataGridViewCellStyle2.ForeColor = Color.White;
@@ -229,7 +229,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvDetalleAbonos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDetalleAbonos.EnableHeadersVisualStyles = false;
-            dgvDetalleAbonos.GridColor = Color.FromArgb(70, 70, 75);
+            dgvDetalleAbonos.GridColor = Color.FromArgb(224, 224, 224);
             dgvDetalleAbonos.Location = new Point(3, 3);
             dgvDetalleAbonos.Name = "dgvDetalleAbonos";
             dgvDetalleAbonos.ReadOnly = true;
