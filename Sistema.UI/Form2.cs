@@ -330,6 +330,7 @@ namespace Sistema.UI
                 MessageBox.Show("Venta realizada con éxito");
                 carrito.Clear();
                 RefrescarCarrito();
+                CargarProductos(); 
 
             }
             catch (Exception ex)

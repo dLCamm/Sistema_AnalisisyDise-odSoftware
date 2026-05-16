@@ -5,6 +5,7 @@ namespace Sistema.UI
         public Form1()
         {
             InitializeComponent();
+            btnInicio_Click(null, null); // Abrir dashboard al iniciar
         }
 
         // Ahora público para que formularios embebidos puedan pedir abrir otros forms en el panel

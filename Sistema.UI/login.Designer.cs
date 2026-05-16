@@ -50,7 +50,7 @@
             panel1.Controls.Add(textBox2);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(textBox1);
-            panel1.Location = new Point(531, 197);
+            panel1.Location = new Point(612, 291);
             panel1.Name = "panel1";
             panel1.Size = new Size(624, 404);
             panel1.TabIndex = 0;
@@ -135,7 +135,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1767, 685);
+            ClientSize = new Size(1880, 936);
             Controls.Add(panel1);
             Name = "login";
             Text = "login";

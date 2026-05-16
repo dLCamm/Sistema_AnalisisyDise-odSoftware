@@ -29,16 +29,15 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            button1 = new Button();
             btnCréditos = new Button();
             btnSalir = new Button();
             btnReportes = new Button();
             btnProveedores = new Button();
-            btnClientes = new Button();
             btnVentas = new Button();
             btnInicio = new Button();
             btnInventario = new Button();
             pnlContenedor = new Panel();
-            button1 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -50,7 +49,6 @@
             panel1.Controls.Add(btnSalir);
             panel1.Controls.Add(btnReportes);
             panel1.Controls.Add(btnProveedores);
-            panel1.Controls.Add(btnClientes);
             panel1.Controls.Add(btnVentas);
             panel1.Controls.Add(btnInicio);
             panel1.Controls.Add(btnInventario);
@@ -60,6 +58,21 @@
             panel1.Size = new Size(226, 953);
             panel1.TabIndex = 0;
             // 
+            // button1
+            // 
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 15F);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(0, 479);
+            button1.Name = "button1";
+            button1.Size = new Size(229, 69);
+            button1.TabIndex = 8;
+            button1.Text = "💰 Caja";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // btnCréditos
             // 
             btnCréditos.FlatAppearance.BorderSize = 0;
@@ -67,7 +80,7 @@
             btnCréditos.FlatStyle = FlatStyle.Flat;
             btnCréditos.Font = new Font("Segoe UI", 15F);
             btnCréditos.ForeColor = Color.White;
-            btnCréditos.Location = new Point(0, 489);
+            btnCréditos.Location = new Point(0, 404);
             btnCréditos.Name = "btnCréditos";
             btnCréditos.Size = new Size(229, 69);
             btnCréditos.TabIndex = 7;
@@ -97,7 +110,7 @@
             btnReportes.FlatStyle = FlatStyle.Flat;
             btnReportes.Font = new Font("Segoe UI", 15F);
             btnReportes.ForeColor = Color.White;
-            btnReportes.Location = new Point(0, 414);
+            btnReportes.Location = new Point(0, 329);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(229, 69);
             btnReportes.TabIndex = 5;
@@ -112,27 +125,13 @@
             btnProveedores.FlatStyle = FlatStyle.Flat;
             btnProveedores.Font = new Font("Segoe UI", 15F);
             btnProveedores.ForeColor = Color.White;
-            btnProveedores.Location = new Point(0, 338);
+            btnProveedores.Location = new Point(-3, 253);
             btnProveedores.Name = "btnProveedores";
             btnProveedores.Size = new Size(229, 70);
             btnProveedores.TabIndex = 4;
             btnProveedores.Text = "🚚 Compras";
             btnProveedores.UseVisualStyleBackColor = true;
             btnProveedores.Click += btnProveedores_Click;
-            // 
-            // btnClientes
-            // 
-            btnClientes.FlatAppearance.BorderSize = 0;
-            btnClientes.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
-            btnClientes.FlatStyle = FlatStyle.Flat;
-            btnClientes.Font = new Font("Segoe UI", 15F);
-            btnClientes.ForeColor = Color.White;
-            btnClientes.Location = new Point(0, 253);
-            btnClientes.Name = "btnClientes";
-            btnClientes.Size = new Size(229, 79);
-            btnClientes.TabIndex = 3;
-            btnClientes.Text = "👥 Clientes";
-            btnClientes.UseVisualStyleBackColor = true;
             // 
             // btnVentas
             // 
@@ -188,21 +187,6 @@
             pnlContenedor.Size = new Size(1050, 953);
             pnlContenedor.TabIndex = 1;
             pnlContenedor.Paint += pnlContenedor_Paint;
-            // 
-            // button1
-            // 
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI", 15F);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(-3, 564);
-            button1.Name = "button1";
-            button1.Size = new Size(229, 69);
-            button1.TabIndex = 8;
-            button1.Text = "💰 Caja";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // Form1
             // 
