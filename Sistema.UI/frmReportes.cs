@@ -2,146 +2,108 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Sistema.BLL.Services;
-using Sistema.BLL.Factories;
-using Sistema.Entities.DTOs.Ventas;
-using Sistema.Entities.DTOs.Caja;
-using Sistema.Entities.DTOs.Creditos;
-using Sistema.Entities.DTOs.Compras;
 
 namespace Sistema.UI
 {
     public partial class frmReportes : Form
     {
-        private readonly ReporteService _reporteService;
-        private readonly ExportService _exportService;
-
         public frmReportes()
         {
             InitializeComponent();
-            _reporteService = ServiceFactory.CrearReporteService();
-            _exportService = new ExportService();
-
-            // ACTIVADO: Permite que el Grid cree las columnas solo
-            dgvResultados.AutoGenerateColumns = true;
-
-            ConfigurarFiltrosInciales();
+            ConfigurarComponentes(); 
         }
 
-        private void ConfigurarFiltrosInciales()
+        private void ConfigurarComponentes()
         {
             cmbTipoReporte.Items.Clear();
-            cmbTipoReporte.Items.AddRange(new string[] { "Ventas", "Caja", "Créditos", "Compras" });
-            cmbTipoReporte.SelectedIndex = 0;
+            cmbTipoReporte.Items.Add("Ventas");
+            cmbTipoReporte.Items.Add("Compras");
+            cmbTipoReporte.Items.Add("Créditos");
 
-            dtpInicio.Value = DateTime.Now.AddDays(-30);
-            dtpFin.Value = DateTime.Now;
+            cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            if (cmbEstadoFiltro != null) cmbEstadoFiltro.Visible = false;
+            if (cmbTipoReporte.Items.Count > 0)
+            {
+                cmbTipoReporte.SelectedIndex = 0;
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            try
+            // 1. Validar selección
+            if (cmbTipoReporte.SelectedItem == null)
             {
-                DateTime inicio = dtpInicio.Value.Date;
-                DateTime fin = dtpFin.Value.Date;
-                string seleccion = cmbTipoReporte.Text;
-
-                dgvResultados.DataSource = null;
-
-                if (seleccion == "Ventas")
-                {
-                    var ventas = _reporteService.ObtenerVentasPorDia(inicio, fin);
-                    dgvResultados.DataSource = ventas;
-                    lblTotal.Text = "Total: Q " + ventas.Sum(v => v.TotalVentas).ToString("N2");
-                }
-                else if (seleccion == "Caja")
-                {
-                    var caja = _reporteService.ObtenerCajaPorDia(inicio, fin);
-                    dgvResultados.DataSource = caja;
-                    lblTotal.Text = "Balance: Q " + caja.Sum(c => c.Ingresos - c.Egresos).ToString("N2");
-                }
-                else if (seleccion == "Créditos")
-                {
-                    var creditos = _reporteService.ObtenerClientesConDeuda();
-                    dgvResultados.DataSource = creditos;
-                    lblTotal.Text = "Deuda Total: Q " + creditos.Sum(c => c.TotalCredito).ToString("N2");
-                }
-                else if (seleccion == "Compras")
-                {
-                    var compras = _reporteService.ObtenerComprasPorFecha(inicio, fin);
-                    dgvResultados.DataSource = compras;
-                    lblTotal.Text = "Total Compras: Q " + compras.Sum(c => c.Total).ToString("N2");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al buscar: " + ex.Message);
-            }
-        }
-
-        private void btnExportarPdf_Click_1(object sender, EventArgs e)
-        {
-            // 1. Validamos que haya algo en el Grid
-            if (dgvResultados.DataSource == null)
-            {
-                MessageBox.Show("No hay datos para exportar.");
+                MessageBox.Show("Por favor, seleccione un tipo de reporte.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            try
+            string opcionSeleccionada = cmbTipoReporte.SelectedItem.ToString();
+            Form formularioAbrir = null;
+
+            // 2. Instanciar el formulario según la selección
+            switch (opcionSeleccionada)
             {
-                string seleccion = cmbTipoReporte.Text;
-                string nombreArchivo = $"Reporte_{seleccion}_{DateTime.Now:yyyyMMdd}.pdf";
+                case "Ventas":
+                    formularioAbrir = new FormVerVentas();
+                    break;
 
-                // 2. Usamos 'dynamic' para que el servicio acepte cualquier lista (Ventas, Compras, etc.)
-                dynamic datos = dgvResultados.DataSource;
+                case "Compras":
+                    formularioAbrir = new FormVerCompras();
+                    break;
 
-                // 3. Exportamos
-                _exportService.ExportarPdf(datos, $"Reporte de {seleccion}", nombreArchivo);
+                case "Créditos":
+                    formularioAbrir = new frmCréditos();
+                    break;
 
-                MessageBox.Show($"✅ PDF de {seleccion} generado correctamente.");
+                default:
+                    MessageBox.Show("Tipo de reporte no reconocido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
             }
-            catch (Exception ex)
+
+            // 3. Cargar el formulario incrustado dentro del panel pnlReportes
+            if (formularioAbrir != null)
             {
-                MessageBox.Show("Error al generar PDF: " + ex.Message);
+                AbrirFormularioEnPanel(formularioAbrir);
             }
         }
 
-        private void btnExportarExcel_Click_1(object sender, EventArgs e)
+        /// <summary>
+        /// Método encargado de limpiar el panel e incrustar el nuevo formulario.
+        /// </summary>
+        private void AbrirFormularioEnPanel(Form formularioHijo)
         {
-            // 1. Validamos que haya algo en el Grid
-            if (dgvResultados.DataSource == null)
+            // Si ya hay un formulario o controles cargados en el panel, los limpia
+            if (pnlReportes.Controls.Count > 0)
             {
-                MessageBox.Show("No hay datos para exportar.");
-                return;
+                pnlReportes.Controls.Clear();
             }
 
-            try
-            {
-                string seleccion = cmbTipoReporte.Text;
-                string ruta = AppDomain.CurrentDomain.BaseDirectory + $"Reporte_{seleccion}_{DateTime.Now:yyyyMMdd}.csv";
+            // Configuraciones críticas para que el formulario se comporte como un control dentro del panel
+            formularioHijo.TopLevel = false;            
+            formularioHijo.FormBorderStyle = FormBorderStyle.None; 
+            formularioHijo.Dock = DockStyle.Fill;      
 
-                // 2. Tomamos los datos directamente del DataSource del Grid
-                dynamic datos = dgvResultados.DataSource;
-
-                // 3. Exportamos al CSV
-                _exportService.ExportarCsv(datos, ruta);
-
-                MessageBox.Show($"✅ CSV de {seleccion} generado exitosamente en:\n{ruta}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al generar Excel/CSV: " + ex.Message);
-            }
+            // Se agrega al panel y se muestra
+            pnlReportes.Controls.Add(formularioHijo);
+            pnlReportes.Tag = formularioHijo;
+            formularioHijo.Show();
         }
 
-        private void cmbTipoReporte_SelectedIndexChanged(object sender, EventArgs e) { }
-        private void dtpInicio_ValueChanged(object sender, EventArgs e) { }
-        private void dtpFin_ValueChanged(object sender, EventArgs e) { }
-        private void btnExportarPdf_Click(object sender, EventArgs e) { }
-        private void btnExportarExcel_Click(object sender, EventArgs e) { }
-        private void dgvResultados_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        // --- Eventos Adicionales ---
+
+        private void btnExportarPdf_Click(object sender, EventArgs e)
+        {
+            // Lógica para exportar a PDF
+        }
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            // Lógica para exportar a Excel
+        }
+
+        private void dgvResultados_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Lógica del DataGridView
+        }
     }
 }

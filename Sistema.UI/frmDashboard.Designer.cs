@@ -65,7 +65,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1388, 76);
+            panel1.Size = new Size(1745, 76);
             panel1.TabIndex = 0;
             // 
             // labelCreditos
@@ -86,9 +86,9 @@
             panel2.Controls.Add(lblVentasHoy);
             panel2.Controls.Add(label1);
             panel2.Controls.Add(pictureBox1);
-            panel2.Location = new Point(34, 124);
+            panel2.Location = new Point(22, 120);
             panel2.Name = "panel2";
-            panel2.Size = new Size(581, 397);
+            panel2.Size = new Size(402, 264);
             panel2.TabIndex = 1;
             // 
             // lblVentasHoy
@@ -96,7 +96,7 @@
             lblVentasHoy.AutoSize = true;
             lblVentasHoy.Font = new Font("Yu Gothic UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblVentasHoy.ForeColor = Color.Lime;
-            lblVentasHoy.Location = new Point(36, 158);
+            lblVentasHoy.Location = new Point(14, 111);
             lblVentasHoy.Name = "lblVentasHoy";
             lblVentasHoy.Size = new Size(221, 106);
             lblVentasHoy.TabIndex = 2;
@@ -107,7 +107,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Location = new Point(14, 16);
+            label1.Location = new Point(0, 16);
             label1.Name = "label1";
             label1.Size = new Size(342, 41);
             label1.TabIndex = 1;
@@ -116,9 +116,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.venticon;
-            pictureBox1.Location = new Point(439, 16);
+            pictureBox1.Location = new Point(344, 5);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(120, 105);
+            pictureBox1.Size = new Size(55, 52);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -130,17 +130,17 @@
             panel3.Controls.Add(pictureBox2);
             panel3.Controls.Add(lblCajaActual);
             panel3.Controls.Add(label3);
-            panel3.Location = new Point(763, 124);
+            panel3.Location = new Point(445, 120);
             panel3.Name = "panel3";
-            panel3.Size = new Size(581, 397);
+            panel3.Size = new Size(402, 257);
             panel3.TabIndex = 2;
             // 
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(432, 16);
+            pictureBox2.Location = new Point(342, 3);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(120, 105);
+            pictureBox2.Size = new Size(57, 54);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 3;
             pictureBox2.TabStop = false;
@@ -150,7 +150,7 @@
             lblCajaActual.AutoSize = true;
             lblCajaActual.Font = new Font("Yu Gothic UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCajaActual.ForeColor = Color.Turquoise;
-            lblCajaActual.Location = new Point(35, 158);
+            lblCajaActual.Location = new Point(32, 111);
             lblCajaActual.Name = "lblCajaActual";
             lblCajaActual.Size = new Size(221, 106);
             lblCajaActual.TabIndex = 4;
@@ -161,7 +161,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Yu Gothic UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = SystemColors.ButtonHighlight;
-            label3.Location = new Point(13, 16);
+            label3.Location = new Point(3, 16);
             label3.Name = "label3";
             label3.Size = new Size(209, 41);
             label3.TabIndex = 3;
@@ -169,22 +169,22 @@
             // 
             // panel4
             // 
-            panel4.Anchor = AnchorStyles.Bottom;
+            panel4.Anchor = AnchorStyles.Top;
             panel4.BackColor = Color.FromArgb(31, 41, 55);
             panel4.Controls.Add(pictureBox3);
             panel4.Controls.Add(lblCreditosPendientes);
             panel4.Controls.Add(label4);
-            panel4.Location = new Point(34, 664);
+            panel4.Location = new Point(866, 120);
             panel4.Name = "panel4";
-            panel4.Size = new Size(581, 397);
+            panel4.Size = new Size(402, 257);
             panel4.TabIndex = 2;
             // 
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(439, 23);
+            pictureBox3.Location = new Point(342, 5);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(120, 105);
+            pictureBox3.Size = new Size(57, 61);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 5;
             pictureBox3.TabStop = false;
@@ -194,7 +194,7 @@
             lblCreditosPendientes.AutoSize = true;
             lblCreditosPendientes.Font = new Font("Yu Gothic UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCreditosPendientes.ForeColor = Color.Gold;
-            lblCreditosPendientes.Location = new Point(36, 153);
+            lblCreditosPendientes.Location = new Point(14, 111);
             lblCreditosPendientes.Name = "lblCreditosPendientes";
             lblCreditosPendientes.Size = new Size(221, 106);
             lblCreditosPendientes.TabIndex = 6;
@@ -205,7 +205,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Yu Gothic UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(14, 11);
+            label4.Location = new Point(3, 11);
             label4.Name = "label4";
             label4.Size = new Size(343, 41);
             label4.TabIndex = 5;
@@ -213,23 +213,23 @@
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Bottom;
+            panel5.Anchor = AnchorStyles.Top;
             panel5.BackColor = Color.FromArgb(31, 41, 55);
             panel5.Controls.Add(pictureBox4);
             panel5.Controls.Add(lblStockBajo);
             panel5.Controls.Add(label5);
-            panel5.Location = new Point(763, 664);
+            panel5.Location = new Point(1287, 120);
             panel5.Name = "panel5";
-            panel5.Size = new Size(581, 397);
+            panel5.Size = new Size(431, 257);
             panel5.TabIndex = 2;
             panel5.Paint += panel5_Paint;
             // 
             // pictureBox4
             // 
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(432, 23);
+            pictureBox4.Location = new Point(371, 3);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(120, 105);
+            pictureBox4.Size = new Size(57, 60);
             pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox4.TabIndex = 3;
             pictureBox4.TabStop = false;
@@ -239,7 +239,7 @@
             lblStockBajo.AutoSize = true;
             lblStockBajo.Font = new Font("Yu Gothic UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblStockBajo.ForeColor = Color.Red;
-            lblStockBajo.Location = new Point(35, 153);
+            lblStockBajo.Location = new Point(13, 111);
             lblStockBajo.Name = "lblStockBajo";
             lblStockBajo.Size = new Size(221, 106);
             lblStockBajo.TabIndex = 8;
@@ -262,7 +262,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1388, 1102);
+            ClientSize = new Size(1745, 1102);
             Controls.Add(panel5);
             Controls.Add(panel4);
             Controls.Add(panel3);

@@ -28,15 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             labelCreditos = new Label();
-            dgvResultados = new DataGridView();
             btnExportarPdf = new Button();
             btnExportarExcel = new Button();
-            dtpInicio = new DateTimePicker();
-            dtpFin = new DateTimePicker();
             btnBuscar = new Button();
             cmbTipoReporte = new ComboBox();
             pnlGraficaVentas = new Panel();
@@ -44,9 +39,8 @@
             pnlGraficaCaja = new Panel();
             label1 = new Label();
             lblTotal = new Label();
-            cmbEstadoFiltro = new ComboBox();
+            pnlReportes = new Panel();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvResultados).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -70,43 +64,6 @@
             labelCreditos.TabIndex = 5;
             labelCreditos.Text = "REPORTES";
             // 
-            // dgvResultados
-            // 
-            dgvResultados.AllowUserToAddRows = false;
-            dgvResultados.AllowUserToResizeColumns = false;
-            dgvResultados.AllowUserToResizeRows = false;
-            dgvResultados.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dgvResultados.BackgroundColor = Color.FromArgb(31, 41, 55);
-            dgvResultados.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvResultados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dgvResultados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvResultados.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvResultados.EnableHeadersVisualStyles = false;
-            dgvResultados.GridColor = Color.FromArgb(70, 70, 75);
-            dgvResultados.Location = new Point(12, 168);
-            dgvResultados.Name = "dgvResultados";
-            dgvResultados.ReadOnly = true;
-            dgvResultados.RowHeadersVisible = false;
-            dgvResultados.RowHeadersWidth = 51;
-            dgvResultados.RowTemplate.Height = 60;
-            dgvResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvResultados.Size = new Size(1101, 394);
-            dgvResultados.TabIndex = 5;
-            // 
             // btnExportarPdf
             // 
             btnExportarPdf.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -114,13 +71,12 @@
             btnExportarPdf.FlatAppearance.BorderColor = Color.Red;
             btnExportarPdf.Font = new Font("Lucida Bright", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnExportarPdf.ForeColor = SystemColors.ButtonHighlight;
-            btnExportarPdf.Location = new Point(1130, 168);
+            btnExportarPdf.Location = new Point(940, 103);
             btnExportarPdf.Name = "btnExportarPdf";
             btnExportarPdf.Size = new Size(157, 65);
             btnExportarPdf.TabIndex = 6;
             btnExportarPdf.Text = "Exportar PDF";
             btnExportarPdf.UseVisualStyleBackColor = false;
-            btnExportarPdf.Click += btnExportarPdf_Click_1;
             // 
             // btnExportarExcel
             // 
@@ -129,27 +85,12 @@
             btnExportarExcel.FlatAppearance.BorderColor = Color.Red;
             btnExportarExcel.Font = new Font("Nirmala Text", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnExportarExcel.ForeColor = SystemColors.ButtonHighlight;
-            btnExportarExcel.Location = new Point(1130, 253);
+            btnExportarExcel.Location = new Point(1118, 104);
             btnExportarExcel.Name = "btnExportarExcel";
             btnExportarExcel.Size = new Size(157, 64);
             btnExportarExcel.TabIndex = 7;
             btnExportarExcel.Text = "Exportar Excel";
             btnExportarExcel.UseVisualStyleBackColor = false;
-            btnExportarExcel.Click += btnExportarExcel_Click_1;
-            // 
-            // dtpInicio
-            // 
-            dtpInicio.Location = new Point(12, 111);
-            dtpInicio.Name = "dtpInicio";
-            dtpInicio.Size = new Size(292, 27);
-            dtpInicio.TabIndex = 8;
-            // 
-            // dtpFin
-            // 
-            dtpFin.Location = new Point(351, 111);
-            dtpFin.Name = "dtpFin";
-            dtpFin.Size = new Size(290, 27);
-            dtpFin.TabIndex = 9;
             // 
             // btnBuscar
             // 
@@ -157,9 +98,9 @@
             btnBuscar.FlatAppearance.BorderSize = 0;
             btnBuscar.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBuscar.ForeColor = Color.Black;
-            btnBuscar.Location = new Point(1097, 105);
+            btnBuscar.Location = new Point(194, 113);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(127, 39);
+            btnBuscar.Size = new Size(135, 44);
             btnBuscar.TabIndex = 29;
             btnBuscar.Text = "⌕ Buscar";
             btnBuscar.UseVisualStyleBackColor = false;
@@ -168,39 +109,39 @@
             // cmbTipoReporte
             // 
             cmbTipoReporte.FormattingEnabled = true;
-            cmbTipoReporte.Location = new Point(680, 114);
+            cmbTipoReporte.Location = new Point(12, 129);
             cmbTipoReporte.Name = "cmbTipoReporte";
             cmbTipoReporte.Size = new Size(151, 28);
             cmbTipoReporte.TabIndex = 30;
-            cmbTipoReporte.SelectedIndexChanged += cmbTipoReporte_SelectedIndexChanged;
             // 
             // pnlGraficaVentas
             // 
-            pnlGraficaVentas.Location = new Point(12, 630);
+            pnlGraficaVentas.Location = new Point(12, 804);
             pnlGraficaVentas.Name = "pnlGraficaVentas";
-            pnlGraficaVentas.Size = new Size(402, 279);
+            pnlGraficaVentas.Size = new Size(402, 105);
             pnlGraficaVentas.TabIndex = 32;
             // 
             // pnlGraficaProductos
             // 
-            pnlGraficaProductos.Location = new Point(439, 627);
+            pnlGraficaProductos.Location = new Point(439, 804);
             pnlGraficaProductos.Name = "pnlGraficaProductos";
-            pnlGraficaProductos.Size = new Size(392, 282);
+            pnlGraficaProductos.Size = new Size(392, 105);
             pnlGraficaProductos.TabIndex = 33;
             // 
             // pnlGraficaCaja
             // 
-            pnlGraficaCaja.Location = new Point(863, 627);
+            pnlGraficaCaja.Location = new Point(863, 804);
             pnlGraficaCaja.Name = "pnlGraficaCaja";
-            pnlGraficaCaja.Size = new Size(392, 282);
+            pnlGraficaCaja.Size = new Size(392, 105);
             pnlGraficaCaja.TabIndex = 34;
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 565);
+            label1.Location = new Point(12, 686);
             label1.Name = "label1";
             label1.Size = new Size(61, 26);
             label1.TabIndex = 6;
@@ -208,22 +149,24 @@
             // 
             // lblTotal
             // 
+            lblTotal.Anchor = AnchorStyles.Right;
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotal.ForeColor = Color.White;
-            lblTotal.Location = new Point(1057, 565);
+            lblTotal.Location = new Point(1219, 686);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(56, 26);
             lblTotal.TabIndex = 35;
             lblTotal.Text = "0000";
             // 
-            // cmbEstadoFiltro
+            // pnlReportes
             // 
-            cmbEstadoFiltro.FormattingEnabled = true;
-            cmbEstadoFiltro.Location = new Point(852, 113);
-            cmbEstadoFiltro.Name = "cmbEstadoFiltro";
-            cmbEstadoFiltro.Size = new Size(151, 28);
-            cmbEstadoFiltro.TabIndex = 36;
+            pnlReportes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            pnlReportes.BackColor = Color.FromArgb(31, 41, 55);
+            pnlReportes.Location = new Point(12, 179);
+            pnlReportes.Name = "pnlReportes";
+            pnlReportes.Size = new Size(1263, 504);
+            pnlReportes.TabIndex = 36;
             // 
             // frmReportes
             // 
@@ -233,7 +176,7 @@
             BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1287, 921);
             ControlBox = false;
-            Controls.Add(cmbEstadoFiltro);
+            Controls.Add(pnlReportes);
             Controls.Add(lblTotal);
             Controls.Add(label1);
             Controls.Add(pnlGraficaCaja);
@@ -241,18 +184,14 @@
             Controls.Add(pnlGraficaVentas);
             Controls.Add(cmbTipoReporte);
             Controls.Add(btnBuscar);
-            Controls.Add(dtpFin);
-            Controls.Add(dtpInicio);
             Controls.Add(btnExportarExcel);
             Controls.Add(btnExportarPdf);
-            Controls.Add(dgvResultados);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmReportes";
             Text = "frmReportes";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvResultados).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -261,11 +200,8 @@
 
         private Panel panel1;
         private Label labelCreditos;
-        private DataGridView dgvResultados;
         private Button btnExportarPdf;
         private Button btnExportarExcel;
-        private DateTimePicker dtpInicio;
-        private DateTimePicker dtpFin;
         private Button btnBuscar;
         private ComboBox cmbTipoReporte;
         private Panel pnlGraficaVentas;
@@ -273,6 +209,6 @@
         private Panel pnlGraficaCaja;
         private Label label1;
         private Label lblTotal;
-        private ComboBox cmbEstadoFiltro;
+        private Panel pnlReportes;
     }
 }

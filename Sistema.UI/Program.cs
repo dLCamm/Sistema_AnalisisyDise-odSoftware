@@ -26,7 +26,8 @@ namespace Sistema.UI
 
                 // Iniciar WinForms
                 ApplicationConfiguration.Initialize();
-                Application.Run(new login());
+                Application.Run(new Form1());
+                //Application.Run(new login());
             }
             finally
             {
