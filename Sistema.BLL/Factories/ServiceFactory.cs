@@ -18,10 +18,12 @@ namespace Sistema.BLL.Factories
         {
             var context = new SistemaDbContext(_options);
             var repo = new ProductoRepository(context);
+            var repoProveedor = new ProveedorRepository(context);
 
             return new InventarioService(
                 context, 
-                repo);
+                repo,
+                repoProveedor);
         }
         public static VentaService CrearVentaService()
         {

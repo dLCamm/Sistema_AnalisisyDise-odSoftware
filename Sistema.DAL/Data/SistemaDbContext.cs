@@ -77,6 +77,11 @@ namespace Sistema.DAL.Data
                 entity.Property(p => p.Estado)
                       .HasMaxLength(20)
                       .HasConversion<string>();
+
+                entity.HasOne(p => p.Proveedor)
+                         .WithMany()
+                         .HasForeignKey(p => p.ProveedorId)
+                         .OnDelete(DeleteBehavior.Restrict);
             });
 
             // TABLA VENTAS
