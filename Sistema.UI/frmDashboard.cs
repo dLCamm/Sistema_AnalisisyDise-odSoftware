@@ -47,7 +47,7 @@ namespace Sistema.UI
                 }
                 else
                 {
-                    lblStockBajo.ForeColor = Color.White; 
+                    lblStockBajo.ForeColor = Color.White;
                 }
             }
             catch (Exception ex)
@@ -55,6 +55,16 @@ namespace Sistema.UI
                 MessageBox.Show("Error al cargar los indicadores del Dashboard: " + ex.Message,
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void lblStockBajo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

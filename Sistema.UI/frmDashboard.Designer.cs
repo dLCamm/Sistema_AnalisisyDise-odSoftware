@@ -222,6 +222,7 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(581, 397);
             panel5.TabIndex = 2;
+            panel5.Paint += panel5_Paint;
             // 
             // pictureBox4
             // 
@@ -243,6 +244,7 @@
             lblStockBajo.Size = new Size(221, 106);
             lblStockBajo.TabIndex = 8;
             lblStockBajo.Text = "0000";
+            lblStockBajo.Click += lblStockBajo_Click;
             // 
             // label5
             // 
