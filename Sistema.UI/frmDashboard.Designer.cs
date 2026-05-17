@@ -253,9 +253,9 @@
             label5.ForeColor = SystemColors.ButtonHighlight;
             label5.Location = new Point(13, 11);
             label5.Name = "label5";
-            label5.Size = new Size(394, 41);
+            label5.Size = new Size(353, 41);
             label5.TabIndex = 7;
-            label5.Text = "PRODUCTOS BAJOS STOCK";
+            label5.Text = "PRODUCTOS SIN STOCK";
             // 
             // frmDashboard
             // 

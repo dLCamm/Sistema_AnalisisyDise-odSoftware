@@ -39,7 +39,7 @@ namespace Sistema.UI
 
             dgvDetalleAbonos.Columns["colMonto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dgvDetalleAbonos.Columns["colFecha"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dgvDetalleAbonos.Columns["colMonto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvDetalleAbonos.Columns["colMonto"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dgvDetalleAbonos.ReadOnly = true;
             dgvDetalleAbonos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;

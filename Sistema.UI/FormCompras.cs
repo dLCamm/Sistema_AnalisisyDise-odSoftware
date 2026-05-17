@@ -128,6 +128,7 @@ namespace Sistema.UI
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog();
             ventanamodal.ResumeLayout();
+            LlenarcomboboxProveedores(); 
         }
 
         private void button4_Click(object sender, EventArgs e) //Agregar Producto

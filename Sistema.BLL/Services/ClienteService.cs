@@ -30,6 +30,7 @@ namespace Sistema.BLL.Services
                 Direccion = nuevocliente.Direccion,
                 Email = nuevocliente.Email,
                 Estado = nuevocliente.Estado,
+                DPI = nuevocliente.DPI,
             };
 
             _repo.Insertar(cliente);
