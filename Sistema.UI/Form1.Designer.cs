@@ -38,12 +38,14 @@
             btnInicio = new Button();
             btnInventario = new Button();
             pnlContenedor = new Panel();
+            button2 = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnCréditos);
             panel1.Controls.Add(btnSalir);
@@ -188,6 +190,21 @@
             pnlContenedor.TabIndex = 1;
             pnlContenedor.Paint += pnlContenedor_Paint;
             // 
+            // button2
+            // 
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 15F);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(0, 554);
+            button2.Name = "button2";
+            button2.Size = new Size(229, 69);
+            button2.TabIndex = 9;
+            button2.Text = "👥Clientes";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -217,5 +234,6 @@
         private Button btnSalir;
         private Button btnCréditos;
         private Button button1;
+        private Button button2;
     }
 }

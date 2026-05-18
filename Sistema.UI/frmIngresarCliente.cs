@@ -13,14 +13,21 @@ namespace Sistema.UI
 {
     public partial class frmIngresarCliente : Form
     {
+        int clienteid = 0;
 
 
         
 
-        public frmIngresarCliente()
+        public frmIngresarCliente(int? clienteId = null)
         {
             InitializeComponent();
-        
+            if (clienteId.HasValue)
+            {
+                clienteid = clienteId.Value;
+                CargarDatosCliente(clienteid);
+                CrearBotonAnular();
+            }
+
         }
 
         private void InitializeComponent()
@@ -209,6 +216,70 @@ namespace Sistema.UI
 
         }
 
+        private void CrearBotonAnular()
+        {
+            Button boton_anular = new Button();
+            boton_anular.BackColor = Color.DarkRed;
+            boton_anular.FlatAppearance.BorderSize = 0;
+            boton_anular.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            boton_anular.ForeColor = Color.White;
+            boton_anular.Location = new Point(668, 436);
+            boton_anular.Name = "btnAnular";
+            boton_anular.Size = new Size(172, 39);
+            boton_anular.TabIndex = 28;
+            boton_anular.Text = "Anular Cliente";
+            boton_anular.UseVisualStyleBackColor = false;
+            boton_anular.Click += btnAnular_Click;
+            Controls.Add(boton_anular);
+            
+        }
+
+        private void btnAnular_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                using (var service = ServiceFactory.CrearClienteService())
+                {
+                    service.AnularCliente(clienteid);
+                }
+                MessageBox.Show("Cliente anulado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al anular el cliente: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void CargarDatosCliente(int clienteId)
+        {
+            try
+            {
+                using (var service = ServiceFactory.CrearClienteService())
+                {
+                    var cliente = service.BuscarCliente(clienteId);
+                    if (cliente != null)
+                    {
+                        txtNombre.Text = cliente.Nombre;
+                        txtDescripcion.Text = cliente.Telefono;
+                        txtPrecioCompra.Text = cliente.Direccion;
+                        txtPrecioVenta.Text = cliente.Email;
+                        textBox1.Text = cliente.DPI.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cliente no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el cliente: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
+        }
 
 
         private void btnCancelar_Click(object? sender, EventArgs e)
@@ -218,7 +289,7 @@ namespace Sistema.UI
 
         private void btnGuardar_Click(object? sender, EventArgs e)
         {
-            if (txtNombre.Text == "" || txtDescripcion.Text == "" || txtPrecioCompra.Text == "" || txtPrecioVenta.Text == "")
+            if (txtNombre.Text == "" || txtDescripcion.Text == "" || txtPrecioCompra.Text == "" || txtPrecioVenta.Text == "" || textBox1.Text == "")
             {
                 MessageBox.Show("Por favor, complete todos los campos.", "Campos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -228,20 +299,44 @@ namespace Sistema.UI
             {
                 using (var service = ServiceFactory.CrearClienteService())
                 {
-                    Cliente cliente = new Cliente();
-                    cliente.Nombre = txtNombre.Text;
-                    cliente.Telefono = txtDescripcion.Text;
-                    cliente.Direccion = txtPrecioCompra.Text;
-                    cliente.Email = txtPrecioVenta.Text;
-                    cliente.DPI = long.Parse(textBox1.Text);
+                    if (clienteid > 0)
+                    {
+                        
+                        Cliente cliente = new Cliente();
+                        cliente.Id = clienteid;
+                        cliente.Nombre = txtNombre.Text;
+                        cliente.Telefono = txtDescripcion.Text;
+                        cliente.Direccion = txtPrecioCompra.Text;
+                        cliente.Email = txtPrecioVenta.Text;
+                        cliente.DPI = long.Parse(textBox1.Text);
+                        service.ActualizarCliente(cliente);
+                        
+                        MessageBox.Show("Cliente actualizado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                    service.CrearCliente(cliente);
+                    }
+                    else
+                    {
+                        
+                        
+                        Cliente cliente = new Cliente();
+                        cliente.Nombre = txtNombre.Text;
+                        cliente.Telefono = txtDescripcion.Text;
+                        cliente.Direccion = txtPrecioCompra.Text;
+                        cliente.Email = txtPrecioVenta.Text;
+                        cliente.DPI = long.Parse(textBox1.Text);
+
+
+                        service.CrearCliente(cliente);
+                        
+                        MessageBox.Show("Cliente creado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
                 }
-
-
-                MessageBox.Show("Cliente guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
+
+
+
             }
             catch (Exception ex)
             {
