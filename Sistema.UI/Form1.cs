@@ -104,5 +104,10 @@ namespace Sistema.UI
         {
             AbrirFormEnPanel(new FormVerClientes());
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FormVerProveedores());
+        }
     }
 }

@@ -74,7 +74,7 @@ namespace Sistema.UI
             btnCancelar.FlatAppearance.BorderSize = 0;
             btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = Color.Black;
-            btnCancelar.Location = new Point(446, 436);
+            btnCancelar.Location = new Point(247, 436);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 39);
             btnCancelar.TabIndex = 29;
@@ -88,7 +88,7 @@ namespace Sistema.UI
             btnGuardar.FlatAppearance.BorderSize = 0;
             btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnGuardar.ForeColor = Color.Black;
-            btnGuardar.Location = new Point(227, 436);
+            btnGuardar.Location = new Point(394, 436);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(172, 39);
             btnGuardar.TabIndex = 28;

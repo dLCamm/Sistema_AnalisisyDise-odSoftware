@@ -75,19 +75,16 @@ namespace Sistema.UI
                         m.Origen,
                         m.Descripcion,
                         m.Fecha,
-                        m.Estado.ToString(),
-                        "X" 
+                        m.Estado.ToString()
+                        
+                        
                     );
 
-         
+
                     dataGridView1.Rows[rowIndex].Tag = m;
 
-               
-                    var cellBoton = (DataGridViewButtonCell)dataGridView1.Rows[rowIndex].Cells["clm_anular"];
 
-                    cellBoton.Style.BackColor = Color.Red;   
-                    cellBoton.Style.ForeColor = Color.White;
-                    cellBoton.Style.SelectionBackColor = Color.DarkRed; 
+                   
                 }
                 using (var service = ServiceFactory.CrearCajaService())
                 {
@@ -166,47 +163,55 @@ namespace Sistema.UI
             Ver_Toda_Caja();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            // 1. Validar que no sea el encabezado (índice -1)
-            if (e.RowIndex < 0) return;
-
-            // 2. Verificar si es la columna del botón "Anular"
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "clm_anular")
+            // Verificar que haya una fila seleccionada
+            if (dataGridView1.SelectedRows.Count == 0)
             {
-                var movimiento = dataGridView1.Rows[e.RowIndex].Tag as MovimientoCaja;
+                MessageBox.Show("Primero debe seleccionar la fila que desea anular.",
+                    "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                if (movimiento != null)
+            // Obtener el movimiento de la fila seleccionada
+            var movimiento = dataGridView1.SelectedRows[0].Tag as MovimientoCaja;
+
+            if (movimiento == null)
+            {
+                MessageBox.Show("No se pudo obtener el movimiento seleccionado.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var confirmResult = MessageBox.Show(
+                $"¿Está seguro de que desea anular el movimiento por {movimiento.Monto:C}?\nEsta acción no se puede deshacer.",
+                "Confirmar Anulación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirmResult == DialogResult.Yes)
+            {
+                try
                 {
-                    var confirmResult = MessageBox.Show(
-                        $"¿Está seguro de que desea anular el movimiento por {movimiento.Monto:C}? \nEsta acción no se puede deshacer.",
-                        "Confirmar Anulación",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning);
+                    Cursor.Current = Cursors.WaitCursor;
 
-                    if (confirmResult == DialogResult.Yes)
+                    using (var service = ServiceFactory.CrearCajaService())
                     {
-                        try { 
-
-                            Cursor.Current = Cursors.WaitCursor;
-
-                            using (var service = ServiceFactory.CrearCajaService())
-                            {
-                                service.AnularMovimiento(movimiento.Id);
-                            }
-
-                            Ver_Toda_Caja(); 
-                            MessageBox.Show("Movimiento anulado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("No se pudo anular: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        finally
-                        {
-                            Cursor.Current = Cursors.Default;
-                        }
+                        service.AnularMovimiento(movimiento.Id);
                     }
+
+                    Ver_Toda_Caja();
+                    MessageBox.Show("Movimiento anulado correctamente.",
+                        "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("No se pudo anular: " + ex.Message,
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    Cursor.Current = Cursors.Default;
                 }
             }
         }

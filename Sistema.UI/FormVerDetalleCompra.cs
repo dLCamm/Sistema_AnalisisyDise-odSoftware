@@ -37,7 +37,6 @@ namespace Sistema.UI
                     var detallecompra = _compraService.ObtenerCompra(idcompra);
 
                     label5.Text = detallecompra.Fecha.ToString("dd/MM/yyyy HH:mm");
-                    label6.Text = detallecompra.Proveedor.Nombre;
                     label7.Text = detallecompra.Estado.ToString();
                     label8.Text = detallecompra.Total.ToString("C");
                     ICollection<DetalleCompra> detalles = detallecompra.Detalles;

@@ -397,17 +397,13 @@ namespace Sistema.UI
                 MessageBox.Show("El carrito está vacío. Agregue productos antes de realizar la compra.", "Carrito Vacío", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (comboBox1.SelectedItem == null)
-            {
-                MessageBox.Show("Seleccione un proveedor para realizar la compra.", "Proveedor No Seleccionado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            var proveedor = comboBox1.SelectedItem as Proveedor;
+            
+            
             try
             {
                 using (var _compraService = ServiceFactory.CrearCompraService())
                 {
-                    _compraService.RegistrarCompra(proveedor.Id, carrito.Select(i => new DetalleCompra
+                    _compraService.RegistrarCompra(carrito.Select(i => new DetalleCompra
                     {
                         ProductoId = i.Producto.Id,
                         Cantidad = i.Cantidad,

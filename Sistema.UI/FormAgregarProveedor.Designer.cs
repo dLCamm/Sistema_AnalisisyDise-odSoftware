@@ -78,12 +78,11 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.BackColor = Color.Red;
+            btnCancelar.BackColor = Color.LightCoral;
             btnCancelar.FlatAppearance.BorderSize = 0;
-            btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(432, 514);
+            btnCancelar.ForeColor = Color.Black;
+            btnCancelar.Location = new Point(212, 514);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 39);
             btnCancelar.TabIndex = 40;
@@ -93,12 +92,11 @@
             // 
             // btnGuardar
             // 
-            btnGuardar.BackColor = SystemColors.Highlight;
+            btnGuardar.BackColor = SystemColors.ActiveCaption;
             btnGuardar.FlatAppearance.BorderSize = 0;
-            btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(213, 514);
+            btnGuardar.ForeColor = Color.Black;
+            btnGuardar.Location = new Point(390, 514);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(172, 39);
             btnGuardar.TabIndex = 39;

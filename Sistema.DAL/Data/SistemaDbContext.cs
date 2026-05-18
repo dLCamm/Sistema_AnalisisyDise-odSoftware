@@ -212,11 +212,6 @@ namespace Sistema.DAL.Data
                     .HasConversion<string>()
                     .IsRequired();
 
-                entity.HasOne(c => c.Proveedor)
-                    .WithMany(p => p.Compras)
-                    .HasForeignKey(c => c.ProveedorId)
-                    .OnDelete(DeleteBehavior.Restrict);
-
                 entity.HasMany(c => c.Detalles)
                     .WithOne(d => d.Compra)
                     .HasForeignKey(d => d.CompraId)
@@ -324,6 +319,9 @@ namespace Sistema.DAL.Data
 
                 entity.HasKey(p => p.Id);
 
+                entity.Property(p => p.Id)
+                      .ValueGeneratedOnAdd();
+
                 entity.Property(p => p.Nombre)
                       .HasMaxLength(100)
                       .IsRequired();
@@ -340,19 +338,19 @@ namespace Sistema.DAL.Data
                       .HasMaxLength(100)
                       .IsRequired();
 
+                entity.Property(p => p.DPI)
+                      .HasMaxLength(13)
+                      .IsRequired();
+
                 entity.Property(p => p.Estado)
                       .HasConversion<string>()
                       .HasMaxLength(20)
                       .IsRequired();
 
-                entity.HasMany(p => p.Compras)
-                      .WithOne(c => c.Proveedor)
-                      .HasForeignKey(c => c.ProveedorId)
+                entity.HasMany(p => p.Productos)
+                      .WithOne(p => p.Proveedor)
+                      .HasForeignKey(p => p.ProveedorId)
                       .OnDelete(DeleteBehavior.Restrict);
-
-                entity.Property(p => p.DPI)
-                       .HasMaxLength(13)
-                       .IsRequired();
             });
 
             // TABLA CAJA
