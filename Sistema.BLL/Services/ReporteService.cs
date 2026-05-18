@@ -36,21 +36,6 @@ namespace Sistema.BLL.Services
         }
 
         // =========================
-        // COMPRAS POR PROVEEDOR
-        // =========================
-
-        public List<CompraReporteDTO>
-            ObtenerComprasProveedor(
-            int proveedorId)
-        {
-            if (proveedorId <= 0)
-                throw new Exception("Proveedor inválido");
-
-            return _repo.ObtenerComprasProveedor(
-                proveedorId);
-        }
-
-        // =========================
         // TOTAL COMPRAS
         // =========================
 

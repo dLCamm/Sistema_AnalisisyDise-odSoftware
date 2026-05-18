@@ -3,6 +3,7 @@ using Sistema.DAL.Repositories.Interfaces;
 using Sistema.Entities.Caja;
 using Sistema.Entities.Compras;
 using Sistema.Entities.Proveedores;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sistema.BLL.Services
 {
@@ -12,27 +13,22 @@ namespace Sistema.BLL.Services
 
         private readonly ICompraRepository _repoCompra;
         private readonly IProductoRepository _repoProducto;
-        private readonly IProveedorRepository _repoProveedor;
         private readonly CajaService _cajaService;
 
         public CompraService(
             SistemaDbContext context,
             ICompraRepository repoCompra,
             IProductoRepository repoProducto,
-            IProveedorRepository repoProveedor,
             CajaService cajaService)
         {
             _context = context;
             _repoCompra = repoCompra;
             _repoProducto = repoProducto;
-            _repoProveedor = repoProveedor;
             _cajaService = cajaService;
         }
 
         // REGISTRAR COMPRA
-        public void RegistrarCompra(
-            int proveedorId,
-            List<DetalleCompra> detalles)
+        public void RegistrarCompra(List<DetalleCompra> detalles)
         {
             if (detalles == null || !detalles.Any())
                 throw new Exception("La compra debe tener productos");
@@ -41,49 +37,56 @@ namespace Sistema.BLL.Services
 
             try
             {
-                // Validar proveedor
-                var proveedor = _repoProveedor.ObtenerPorId(proveedorId);
-
-                if (proveedor == null)
-                    throw new Exception("Proveedor no encontrado");
-
-                if (proveedor.Estado == EstadoProveedor.Inactivo)
-                    throw new Exception("Proveedor inactivo");
-
                 decimal total = 0;
+                int totalProductos = 0;
+                int productosDiferentes = detalles.Count;
 
-                // validar productos
+                // IDS ÚNICOS
                 var productoIds = detalles
                     .Select(d => d.ProductoId)
+                    .Distinct()
                     .ToList();
 
-                var productosLista = _repoProducto
-                    .ObtenerPorIds(productoIds);
+                // OBTENER PRODUCTOS
+                var productosLista = _repoProducto.ObtenerPorIds(productoIds);
 
                 var productos = productosLista
                     .ToDictionary(p => p.Id);
 
+                // VALIDAR Y PROCESAR
                 foreach (var detalle in detalles)
                 {
                     if (!productos.TryGetValue(detalle.ProductoId, out var producto))
                         throw new Exception($"Producto {detalle.ProductoId} no existe");
 
-                    // calcular subtotal
+                    if (detalle.Cantidad <= 0)
+                        throw new Exception("Cantidad inválida");
+
+                    if (detalle.PrecioCompra <= 0)
+                        throw new Exception("Precio de compra inválido");
+
+                    if (producto.ProveedorId == null)
+                        throw new Exception(
+                            $"El producto {producto.Nombre} no tiene proveedor asignado");
+
+                    // CALCULAR SUBTOTAL
                     detalle.Subtotal = detalle.Cantidad * detalle.PrecioCompra;
 
                     total += detalle.Subtotal;
 
-                    // aumentar stock
+                    // CONTAR PRODUCTOS
+                    totalProductos += detalle.Cantidad;
+
+                    // ACTUALIZAR STOCK
                     producto.Stock += detalle.Cantidad;
 
-                    // actualizar precio compra
+                    // ACTUALIZAR PRECIO COMPRA
                     producto.PrecioCompra = detalle.PrecioCompra;
                 }
 
-                // crear compra
+                // CREAR COMPRA
                 var compra = new Compra
                 {
-                    ProveedorId = proveedorId,
                     Total = total,
                     Estado = EstadoCompra.Activa,
                     Detalles = detalles
@@ -91,18 +94,21 @@ namespace Sistema.BLL.Services
 
                 _repoCompra.InsertarCompra(compra);
 
+                // NECESITAMOS EL ID
                 _context.SaveChanges();
 
+                // MOVIMIENTO DE CAJA
                 _cajaService.RegistrarEgreso(
                     total,
                     OrigenMovimientoCaja.Compra,
-                    $"Compra #{compra.Id} al proveedor {proveedor.Nombre}",
-                    compra.Id);
+                    $"Compra #{compra.Id} - {productosDiferentes} productos diferentes - {totalProductos} unidades",
+                    compra.Id,
+                    guardarCambios: false);
 
+                // GUARDAR TODO
                 _context.SaveChanges();
 
                 transaction.Commit();
-
             }
             catch
             {

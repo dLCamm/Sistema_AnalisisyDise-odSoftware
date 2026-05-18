@@ -29,8 +29,6 @@ namespace Sistema.DAL.Repositories
             DateTime fechaFin)
         {
             return _context.Compras
-                .Include(c => c.Proveedor)
-
                 .Where(c =>
                     c.Fecha >= fechaInicio &&
                     c.Fecha <= fechaFin)
@@ -38,39 +36,6 @@ namespace Sistema.DAL.Repositories
                 .Select(c => new CompraReporteDTO
                 {
                     CompraId = c.Id,
-
-                    Proveedor = c.Proveedor.Nombre,
-
-                    Total = c.Total,
-
-                    Estado = c.Estado.ToString(),
-
-                    Fecha = c.Fecha
-                })
-
-                .OrderByDescending(c => c.Fecha)
-
-                .ToList();
-        }
-
-        // =========================
-        // COMPRAS POR PROVEEDOR
-        // =========================
-        public List<CompraReporteDTO>
-            ObtenerComprasProveedor(
-            int proveedorId)
-        {
-            return _context.Compras
-                .Include(c => c.Proveedor)
-
-                .Where(c =>
-                    c.ProveedorId == proveedorId)
-
-                .Select(c => new CompraReporteDTO
-                {
-                    CompraId = c.Id,
-
-                    Proveedor = c.Proveedor.Nombre,
 
                     Total = c.Total,
 

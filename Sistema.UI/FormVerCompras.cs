@@ -46,12 +46,6 @@ namespace Sistema.UI
             // SIEMPRE empezamos desde la lista completa original
             var resultado = comprass.AsEnumerable();
 
-            // Filtro por Buscador (Nombre Cliente)
-            if (!string.IsNullOrWhiteSpace(term))
-            {
-                resultado = resultado.Where(p => p.Proveedor.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
-
             // Filtro por Fecha
             if (fecha != DateTime.MinValue)
             {
@@ -127,7 +121,6 @@ namespace Sistema.UI
                 {
                     int rowIndex = dataGridView1.Rows.Add(
                         c.Id,
-                        c.Proveedor?.Nombre ?? "Desconocido",
                         c.Estado.ToString(),
                         c.Fecha.ToString("dd/MM/yyyy"),
                         c.Total.ToString("C")

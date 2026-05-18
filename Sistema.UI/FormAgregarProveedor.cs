@@ -33,7 +33,7 @@ namespace Sistema.UI
             {
                 using (var _proveedorService = ServiceFactory.CrearProveedorService())
                 {
-                    _proveedorService.RegistrarProveedor(txtNombre.Text, txtDescripcion.Text, txtPrecioCompra.Text, txtPrecioVenta.Text);
+                    _proveedorService.RegistrarProveedor(txtNombre.Text, txtDescripcion.Text, txtPrecioCompra.Text, txtPrecioVenta.Text, "asdfasf");
                     MessageBox.Show("Proveedor guardado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 }

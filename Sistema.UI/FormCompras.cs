@@ -390,7 +390,7 @@ namespace Sistema.UI
             {
                 using (var _compraService = ServiceFactory.CrearCompraService())
                 {
-                    _compraService.RegistrarCompra(proveedor.Id, carrito.Select(i => new DetalleCompra
+                    _compraService.RegistrarCompra(carrito.Select(i => new DetalleCompra
                     {
                         ProductoId = i.Producto.Id,
                         Cantidad = i.Cantidad,

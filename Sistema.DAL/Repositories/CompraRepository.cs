@@ -24,7 +24,6 @@ namespace Sistema.DAL.Repositories
         public Compra? ObtenerPorId(int id)
         {
             return _context.Compras
-                .Include(c => c.Proveedor)
                 .Include(c => c.Detalles)
                     .ThenInclude(d => d.Producto)
                 .FirstOrDefault(c => c.Id == id);
@@ -34,7 +33,6 @@ namespace Sistema.DAL.Repositories
         public List<Compra> ObtenerTodos()
         {
             return _context.Compras
-                .Include(c => c.Proveedor)
                 .Include(c => c.Detalles)
                 .ToList();
         }
@@ -43,7 +41,6 @@ namespace Sistema.DAL.Repositories
         public List<Compra> ObtenerPorEstado(EstadoCompra estado)
         {
             return _context.Compras
-                .Include(c => c.Proveedor)
                 .Include(c => c.Detalles)
                 .Where(c => c.Estado == estado)
                 .ToList();

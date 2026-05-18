@@ -86,7 +86,6 @@ namespace Sistema.BLL.Factories
 
             var repoCompra = new CompraRepository(context);
             var repoProducto = new ProductoRepository(context);
-            var repoProveedor = new ProveedorRepository(context);
 
             var repoCaja = new CajaRepository(context);
 
@@ -98,7 +97,6 @@ namespace Sistema.BLL.Factories
                 context,
                 repoCompra,
                 repoProducto,
-                repoProveedor,
                 cajaService);
         }
 
