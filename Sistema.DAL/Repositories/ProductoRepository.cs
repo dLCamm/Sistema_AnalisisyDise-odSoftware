@@ -16,7 +16,9 @@ namespace Sistema.DAL.Repositories
 
         public List<Producto> ObtenerTodos()
         {
-            return _context.Productos.ToList();
+            return _context.Productos
+        .Include(p => p.Proveedor)
+        .ToList();
         }
 
         public void Insertar(Producto producto)
@@ -41,6 +43,13 @@ namespace Sistema.DAL.Repositories
             return _context.Productos
                 .Where(p => ids.Contains(p.Id))
                 .ToList();
+        }
+
+        public List<Producto> ObtenerPorProveedor(int proveedorId)
+        {
+            return _context.Productos
+            .Where(p => p.ProveedorId == proveedorId && p.Estado == EstadoProducto.Activo)
+            .ToList();
         }
     }
 }

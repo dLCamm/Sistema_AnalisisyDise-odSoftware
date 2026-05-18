@@ -1,4 +1,5 @@
 ﻿using Sistema.Entities.Compras;
+using Sistema.Entities.Productos;
 
 namespace Sistema.Entities.Proveedores
 {
@@ -7,6 +8,8 @@ namespace Sistema.Entities.Proveedores
         public int Id { get; set; }
 
         public string Nombre { get; set; } = string.Empty;
+
+        public string DPI { get; set; } = string.Empty;
 
         public string Telefono { get; set; } = string.Empty;
 
@@ -18,5 +21,6 @@ namespace Sistema.Entities.Proveedores
 
         // Navegación
         public ICollection<Compra> Compras { get; set; } = new List<Compra>();
+        public ICollection<Producto> Productos { get; set; } = new List<Producto>();
     }
 }

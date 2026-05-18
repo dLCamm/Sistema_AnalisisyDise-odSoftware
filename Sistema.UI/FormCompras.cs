@@ -18,17 +18,18 @@ namespace Sistema.UI
     public partial class FormCompras : Form
     {
         private List<CartItem> carrito = new List<CartItem>();
-       
+
         private List<Producto> productosAll;
+        private List<Producto> productosfiltrados;
         private string resultado = string.Empty;
         private List<Proveedor> proveedoresAll;
-        
+
         public FormCompras()
         {
             InitializeComponent();
-            
-            
-            
+
+
+
             this.Load += Ventas_Load;
 
         }
@@ -98,7 +99,8 @@ namespace Sistema.UI
             {
                 int rowIndex = dataGridView1.Rows.Add(
                     prod.Nombre,
-                    prod.Descripcion ?? ""
+                    prod.Descripcion ?? "",
+                    prod.Proveedor?.Nombre ?? "Sin Proveedor"
                 );
                 dataGridView1.Rows[rowIndex].Tag = prod;
             }
@@ -128,7 +130,7 @@ namespace Sistema.UI
             ventanamodal.StartPosition = FormStartPosition.CenterScreen;
             ventanamodal.ShowDialog();
             ventanamodal.ResumeLayout();
-            LlenarcomboboxProveedores(); 
+            LlenarcomboboxProveedores();
         }
 
         private void button4_Click(object sender, EventArgs e) //Agregar Producto
@@ -142,20 +144,32 @@ namespace Sistema.UI
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+            aplicar_filtros();
+        }
+
+        private void aplicar_filtros()
+        {
             var term = textBox1.Text?.Trim() ?? string.Empty;
 
-            // Ignorar placeholder
-            if (string.IsNullOrWhiteSpace(term) || term == "Añadir Producto")
+            var resultado = productosAll.AsEnumerable();
+
+            // Filtro por nombre
+            if (!string.IsNullOrWhiteSpace(term))
             {
-                RefrescarListaProductos(productosAll);
-                return;
+                resultado = resultado.Where(p =>
+                    p.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
-            var filtered = productosAll
-                .Where(p => p.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0)
-                .ToList();
+            // Filtro por proveedor
+            if (comboBox1.SelectedItem is Proveedor proveedorSeleccionado)
+            {
+                resultado = resultado.Where(v =>
+                    v.ProveedorId == proveedorSeleccionado.Id);
+            }
 
-            RefrescarListaProductos(filtered);
+            productosfiltrados = resultado.ToList();
+
+            RefrescarListaProductos(productosfiltrados);
         }
 
 
@@ -174,7 +188,7 @@ namespace Sistema.UI
             }
         }
 
-       
+
 
         private void AgregarProductoAlCarrito(Producto prod)
         {
@@ -406,6 +420,11 @@ namespace Sistema.UI
                 MessageBox.Show($"Error al registrar la compra: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            aplicar_filtros();
         }
     }
 }

@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             clm_nombre = new DataGridViewTextBoxColumn();
             clm_descripcion = new DataGridViewTextBoxColumn();
+            clm_proveedor = new DataGridViewTextBoxColumn();
             dataGridView2 = new DataGridView();
             clm_productoname = new DataGridViewTextBoxColumn();
             clm_preciocompra = new DataGridViewTextBoxColumn();
@@ -54,6 +55,7 @@
             button3 = new Button();
             button4 = new Button();
             label3 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -73,25 +75,25 @@
             // 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = Color.White;
-            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion });
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle7.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.Padding = new Padding(5, 10, 5, 10);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion, clm_proveedor });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(5, 10, 5, 10);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView1.Location = new Point(28, 155);
@@ -120,29 +122,37 @@
             clm_descripcion.ReadOnly = true;
             clm_descripcion.Width = 400;
             // 
+            // clm_proveedor
+            // 
+            clm_proveedor.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_proveedor.HeaderText = "Proveedor";
+            clm_proveedor.MinimumWidth = 6;
+            clm_proveedor.Name = "clm_proveedor";
+            clm_proveedor.ReadOnly = true;
+            // 
             // dataGridView2
             // 
             dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView2.BackgroundColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle8.ForeColor = Color.White;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle10.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle10.ForeColor = Color.White;
-            dataGridViewCellStyle10.Padding = new Padding(5);
-            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle10.SelectionForeColor = Color.White;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            dataGridView2.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.Padding = new Padding(5);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle5.SelectionForeColor = Color.White;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridView2.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridView2.EnableHeadersVisualStyles = false;
             dataGridView2.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView2.Location = new Point(737, 155);
@@ -156,8 +166,8 @@
             // 
             // clm_productoname
             // 
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            clm_productoname.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clm_productoname.DefaultCellStyle = dataGridViewCellStyle4;
             clm_productoname.FillWeight = 33.64486F;
             clm_productoname.HeaderText = "Producto";
             clm_productoname.MinimumWidth = 6;
@@ -246,11 +256,12 @@
             // 
             comboBox1.Font = new Font("Segoe UI", 11F);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(1206, 113);
+            comboBox1.Location = new Point(444, 116);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(262, 33);
             comboBox1.TabIndex = 15;
             comboBox1.Text = "Proveedor";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // button1
             // 
@@ -301,7 +312,7 @@
             // 
             button4.BackColor = SystemColors.ActiveCaption;
             button4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(497, 118);
+            button4.Location = new Point(28, 795);
             button4.Name = "button4";
             button4.Size = new Size(209, 32);
             button4.TabIndex = 20;
@@ -321,12 +332,25 @@
             label3.TabIndex = 21;
             label3.Text = "*El Precio de compra es editable";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(15, 19, 23);
+            label4.Font = new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonHighlight;
+            label4.Location = new Point(444, 93);
+            label4.Name = "label4";
+            label4.Size = new Size(137, 20);
+            label4.TabIndex = 22;
+            label4.Text = "Filtrar por proveedor";
+            // 
             // FormCompras
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1688, 947);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -361,8 +385,6 @@
         private Button button3;
         private Button button4;
         private Label label3;
-        private DataGridViewTextBoxColumn clm_nombre;
-        private DataGridViewTextBoxColumn clm_descripcion;
         private DataGridViewTextBoxColumn clm_productoname;
         private DataGridViewTextBoxColumn clm_preciocompra;
         private DataGridViewTextBoxColumn clm_cantidad;
@@ -370,5 +392,9 @@
         private DataGridViewButtonColumn clm_btndismin;
         private DataGridViewButtonColumn clm_btnaumentar;
         private DataGridViewButtonColumn clm_eliminar;
+        private DataGridViewTextBoxColumn clm_nombre;
+        private DataGridViewTextBoxColumn clm_descripcion;
+        private DataGridViewTextBoxColumn clm_proveedor;
+        private Label label4;
     }
 }

@@ -77,6 +77,11 @@ namespace Sistema.DAL.Data
                 entity.Property(p => p.Estado)
                       .HasMaxLength(20)
                       .HasConversion<string>();
+
+                entity.HasOne(p => p.Proveedor)
+                         .WithMany()
+                         .HasForeignKey(p => p.ProveedorId)
+                         .OnDelete(DeleteBehavior.Restrict);
             });
 
             // TABLA VENTAS
@@ -142,7 +147,8 @@ namespace Sistema.DAL.Data
                 entity.HasKey(c => c.Id);
 
                 entity.Property(c => c.DPI)
-                      .IsRequired();
+                    .HasMaxLength(13)
+                    .IsRequired();
 
                 entity.Property(c => c.Nombre)
                       .IsRequired()
@@ -343,6 +349,10 @@ namespace Sistema.DAL.Data
                       .WithOne(c => c.Proveedor)
                       .HasForeignKey(c => c.ProveedorId)
                       .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(p => p.DPI)
+                       .HasMaxLength(13)
+                       .IsRequired();
             });
 
             // TABLA CAJA

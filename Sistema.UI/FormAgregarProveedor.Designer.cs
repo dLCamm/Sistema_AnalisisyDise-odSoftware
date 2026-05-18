@@ -39,6 +39,8 @@
             txtDescripcion = new TextBox();
             label1 = new Label();
             txtNombre = new TextBox();
+            label4 = new Label();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
             // label8
@@ -81,7 +83,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(432, 416);
+            btnCancelar.Location = new Point(432, 514);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(105, 39);
             btnCancelar.TabIndex = 40;
@@ -96,7 +98,7 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(213, 416);
+            btnGuardar.Location = new Point(213, 514);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(172, 39);
             btnGuardar.TabIndex = 39;
@@ -168,12 +170,35 @@
             txtNombre.Size = new Size(391, 34);
             txtNombre.TabIndex = 33;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.White;
+            label4.Location = new Point(101, 399);
+            label4.Name = "label4";
+            label4.Size = new Size(51, 31);
+            label4.TabIndex = 44;
+            label4.Text = "DPI";
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.FromArgb(30, 30, 35);
+            textBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(354, 399);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(391, 34);
+            textBox1.TabIndex = 45;
+            // 
             // FormAgregarProveedor
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 41, 55);
-            ClientSize = new Size(862, 535);
+            ClientSize = new Size(862, 615);
+            Controls.Add(textBox1);
+            Controls.Add(label4);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(txtPrecioVenta);
@@ -204,5 +229,7 @@
         private TextBox txtDescripcion;
         private Label label1;
         private TextBox txtNombre;
+        private Label label4;
+        private TextBox textBox1;
     }
 }

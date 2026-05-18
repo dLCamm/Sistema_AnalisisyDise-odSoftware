@@ -8,11 +8,14 @@ namespace Sistema.BLL.Services
     {
         private readonly SistemaDbContext _context;
         private readonly IProductoRepository _repo;
+        private readonly IProveedorRepository _repoProveedor;
 
-        public InventarioService(SistemaDbContext context, IProductoRepository repo)
+        public InventarioService(SistemaDbContext context, IProductoRepository repo, IProveedorRepository repoProveedor)
         {
             _context = context;
             _repo = repo;
+            _repoProveedor = repoProveedor;
+
         }
 
         // Busqueda de datos
@@ -70,7 +73,14 @@ namespace Sistema.BLL.Services
 
             if (producto.Stock < 0)
                 throw new Exception("El stock no puede ser negativo");
+            
+            if (producto.ProveedorId.HasValue)
+            {
+                var proveedor = _repoProveedor.ObtenerPorId(producto.ProveedorId.Value);
 
+                if (proveedor == null)
+                    throw new Exception("Proveedor no encontrado");
+            }
             producto.Estado = EstadoProducto.Activo;
 
             _repo.Insertar(producto);
@@ -193,6 +203,18 @@ namespace Sistema.BLL.Services
             producto.Estado = EstadoProducto.Activo;
 
             _repo.Actualizar(producto);
+        }
+        public List<Producto> ObtenerProductosPorProveedor(int proveedorId)
+        {
+            if (proveedorId <= 0)
+                throw new Exception("Proveedor inválido");
+
+            var proveedor = _repoProveedor.ObtenerPorId(proveedorId);
+
+            if (proveedor == null)
+                throw new Exception("Proveedor no encontrado");
+
+            return _repo.ObtenerPorProveedor(proveedorId);
         }
 
         public void Dispose()
