@@ -42,5 +42,12 @@ namespace Sistema.DAL.Repositories
                 .Where(p => ids.Contains(p.Id))
                 .ToList();
         }
+
+        public List<Producto> ObtenerPorProveedor(int proveedorId)
+        {
+            return _context.Productos
+            .Where(p => p.ProveedorId == proveedorId && p.Estado == EstadoProducto.Activo)
+            .ToList();
+        }
     }
 }

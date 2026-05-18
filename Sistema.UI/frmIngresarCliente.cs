@@ -233,7 +233,7 @@ namespace Sistema.UI
                     cliente.Telefono = txtDescripcion.Text;
                     cliente.Direccion = txtPrecioCompra.Text;
                     cliente.Email = txtPrecioVenta.Text;
-                    cliente.DPI = long.Parse(textBox1.Text);
+                    cliente.DPI = textBox1.Text;
 
 
                     service.CrearCliente(cliente);

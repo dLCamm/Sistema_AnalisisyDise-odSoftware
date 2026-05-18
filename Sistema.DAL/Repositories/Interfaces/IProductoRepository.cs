@@ -19,5 +19,8 @@ namespace Sistema.DAL.Repositories.Interfaces
 
         // Funcion para buscar una lista de productos por una lista de ids
         List<Producto> ObtenerPorIds(List<int> ids);
+
+        // Buscar por proveedor
+        List<Producto> ObtenerPorProveedor(int proveedorId);
     }
 }

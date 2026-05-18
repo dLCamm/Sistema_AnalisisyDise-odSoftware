@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿using Sistema.Entities.Proveedores;
 
 namespace Sistema.Entities.Productos
 {
@@ -7,9 +6,9 @@ namespace Sistema.Entities.Productos
     {
         public int Id { get; set; }
 
-        public string Nombre { get; set; }
+        public string Nombre { get; set; } = string.Empty;
 
-        public string Descripcion { get; set; }
+        public string Descripcion { get; set; } = string.Empty;
 
         public decimal PrecioCompra { get; set; }
 
@@ -19,8 +18,16 @@ namespace Sistema.Entities.Productos
 
         public int StockMinimo { get; set; }
 
-        public DateTime FechaCreacion { get; private set; } = DateTime.Now;
+        public DateTime FechaCreacion { get; private set; }
+            = DateTime.Now;
 
         public EstadoProducto Estado { get; set; }
+
+        // FK
+        public int? ProveedorId { get; set; }
+
+        // NAVEGACIÓN
+
+        public Proveedor? Proveedor { get; set; }
     }
 }
