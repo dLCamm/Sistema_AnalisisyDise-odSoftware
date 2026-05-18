@@ -12,12 +12,6 @@ namespace Sistema.Entities.Compras
 
         public EstadoCompra Estado { get; set; }
 
-        // FK
-        public int ProveedorId { get; set; }
-
-        // Navegación
-        public Proveedor Proveedor { get; set; } = null!;
-
         public ICollection<DetalleCompra> Detalles { get; set; } = new List<DetalleCompra>();
     }
 }

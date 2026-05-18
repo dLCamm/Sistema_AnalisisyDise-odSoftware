@@ -46,7 +46,7 @@ namespace Sistema.BLL.Services
 
             cliente.Nombre = antiguocliente.Nombre;
             cliente.Telefono = antiguocliente.Telefono;
-            cliente.Direccion = antiguocliente.Email;
+            cliente.Direccion = antiguocliente.Direccion;
             cliente.Email = antiguocliente.Email;
 
             _repo.Actualizar(cliente);

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            button3 = new Button();
+            button2 = new Button();
             button1 = new Button();
             btnCréditos = new Button();
             btnSalir = new Button();
@@ -44,6 +46,8 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(button3);
+            panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(btnCréditos);
             panel1.Controls.Add(btnSalir);
@@ -58,6 +62,36 @@
             panel1.Size = new Size(226, 953);
             panel1.TabIndex = 0;
             // 
+            // button3
+            // 
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Segoe UI", 15F);
+            button3.ForeColor = Color.White;
+            button3.Location = new Point(-3, 629);
+            button3.Name = "button3";
+            button3.Size = new Size(229, 69);
+            button3.TabIndex = 10;
+            button3.Text = "📦 Proveedores";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button2
+            // 
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(19, 34, 57);
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI", 15F);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(0, 554);
+            button2.Name = "button2";
+            button2.Size = new Size(229, 69);
+            button2.TabIndex = 9;
+            button2.Text = "👥Clientes";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // button1
             // 
             button1.FlatAppearance.BorderSize = 0;
@@ -69,7 +103,7 @@
             button1.Name = "button1";
             button1.Size = new Size(229, 69);
             button1.TabIndex = 8;
-            button1.Text = "💰 Caja";
+            button1.Text = "💰 Kardex";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -217,5 +251,7 @@
         private Button btnSalir;
         private Button btnCréditos;
         private Button button1;
+        private Button button2;
+        private Button button3;
     }
 }

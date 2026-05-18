@@ -22,16 +22,16 @@
             label1 = new Label();
             button1 = new Button();
             dataGridView1 = new DataGridView();
+            btnAgregarCliente = new Button();
+            lblCliente = new Label();
             txtBuscar = new TextBox();
+            cmbCliente = new ComboBox();
             listProductos = new DataGridView();
             panelPago = new Panel();
             lblTotal = new Label();
             lblTipoPago = new Label();
             rbCredito = new RadioButton();
             rbFisico = new RadioButton();
-            lblCliente = new Label();
-            cmbCliente = new ComboBox();
-            btnAgregarCliente = new Button();
             btnRealizarVenta = new Button();
             Col_Producto = new DataGridViewTextBoxColumn();
             Col_Cantidad = new DataGridViewTextBoxColumn();
@@ -49,14 +49,16 @@
             panelMain.Controls.Add(label1);
             panelMain.Controls.Add(button1);
             panelMain.Controls.Add(dataGridView1);
+            panelMain.Controls.Add(btnAgregarCliente);
+            panelMain.Controls.Add(lblCliente);
             panelMain.Controls.Add(txtBuscar);
+            panelMain.Controls.Add(cmbCliente);
             panelMain.Controls.Add(listProductos);
             panelMain.Controls.Add(panelPago);
-            panelMain.Controls.Add(btnRealizarVenta);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1806, 948);
+            panelMain.Size = new Size(1684, 948);
             panelMain.TabIndex = 0;
             panelMain.Paint += panelMain_Paint;
             // 
@@ -65,7 +67,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(831, 115);
+            label2.Location = new Point(842, 115);
             label2.Name = "label2";
             label2.Size = new Size(175, 28);
             label2.TabIndex = 8;
@@ -86,7 +88,7 @@
             // 
             button1.BackColor = SystemColors.ActiveCaption;
             button1.Cursor = Cursors.AppStarting;
-            button1.Location = new Point(1404, 113);
+            button1.Location = new Point(1433, 861);
             button1.Name = "button1";
             button1.Size = new Size(231, 38);
             button1.TabIndex = 6;
@@ -96,7 +98,6 @@
             // 
             // dataGridView1
             // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -119,24 +120,54 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
-            dataGridView1.Location = new Point(831, 157);
+            dataGridView1.Location = new Point(842, 157);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(804, 507);
+            dataGridView1.Size = new Size(822, 507);
             dataGridView1.TabIndex = 5;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
+            // btnAgregarCliente
+            // 
+            btnAgregarCliente.BackColor = SystemColors.ActiveCaption;
+            btnAgregarCliente.ForeColor = Color.Black;
+            btnAgregarCliente.Location = new Point(1476, 100);
+            btnAgregarCliente.Name = "btnAgregarCliente";
+            btnAgregarCliente.Size = new Size(188, 43);
+            btnAgregarCliente.TabIndex = 6;
+            btnAgregarCliente.Text = "Agregar Nuevo Cliente";
+            btnAgregarCliente.UseVisualStyleBackColor = false;
+            btnAgregarCliente.Click += btnAgregarCliente_Click;
+            // 
+            // lblCliente
+            // 
+            lblCliente.Font = new Font("Segoe UI", 10F);
+            lblCliente.ForeColor = Color.White;
+            lblCliente.Location = new Point(1112, 92);
+            lblCliente.Name = "lblCliente";
+            lblCliente.Size = new Size(80, 20);
+            lblCliente.TabIndex = 4;
+            lblCliente.Text = "Cliente";
+            // 
             // txtBuscar
             // 
+            txtBuscar.Font = new Font("Segoe UI", 10F);
             txtBuscar.ForeColor = Color.Gray;
             txtBuscar.Location = new Point(21, 113);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(412, 27);
+            txtBuscar.Size = new Size(412, 30);
             txtBuscar.TabIndex = 0;
             txtBuscar.Text = "Añadir Producto";
             txtBuscar.TextChanged += txtBuscar_TextChanged;
+            // 
+            // cmbCliente
+            // 
+            cmbCliente.Location = new Point(1112, 115);
+            cmbCliente.Name = "cmbCliente";
+            cmbCliente.Size = new Size(348, 28);
+            cmbCliente.TabIndex = 5;
             // 
             // listProductos
             // 
@@ -181,81 +212,57 @@
             panelPago.Controls.Add(lblTipoPago);
             panelPago.Controls.Add(rbCredito);
             panelPago.Controls.Add(rbFisico);
-            panelPago.Controls.Add(lblCliente);
-            panelPago.Controls.Add(cmbCliente);
-            panelPago.Controls.Add(btnAgregarCliente);
+            panelPago.Controls.Add(btnRealizarVenta);
             panelPago.ForeColor = Color.White;
-            panelPago.Location = new Point(831, 670);
+            panelPago.Location = new Point(842, 670);
             panelPago.Name = "panelPago";
-            panelPago.Size = new Size(804, 173);
+            panelPago.Size = new Size(822, 173);
             panelPago.TabIndex = 3;
             panelPago.Paint += panelPago_Paint;
             // 
             // lblTotal
             // 
-            lblTotal.Location = new Point(10, 10);
+            lblTotal.Font = new Font("Segoe UI Black", 14F, FontStyle.Bold);
+            lblTotal.Location = new Point(559, 15);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(202, 30);
+            lblTotal.Size = new Size(233, 30);
             lblTotal.TabIndex = 0;
             lblTotal.Text = "Total: Q0";
             // 
             // lblTipoPago
             // 
-            lblTipoPago.Location = new Point(10, 40);
+            lblTipoPago.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTipoPago.Location = new Point(15, 15);
             lblTipoPago.Name = "lblTipoPago";
-            lblTipoPago.Size = new Size(120, 20);
+            lblTipoPago.Size = new Size(146, 37);
             lblTipoPago.TabIndex = 1;
-            lblTipoPago.Text = "Tipo de Pago";
+            lblTipoPago.Text = "Tipo de Pago:";
             // 
             // rbCredito
             // 
-            rbCredito.Location = new Point(10, 60);
+            rbCredito.Font = new Font("Segoe UI", 12F);
+            rbCredito.Location = new Point(167, 15);
             rbCredito.Name = "rbCredito";
-            rbCredito.Size = new Size(120, 20);
+            rbCredito.Size = new Size(104, 39);
             rbCredito.TabIndex = 2;
             rbCredito.Text = "Crédito Cliente";
             rbCredito.CheckedChanged += rbCredito_CheckedChanged;
             // 
             // rbFisico
             // 
-            rbFisico.Location = new Point(150, 60);
+            rbFisico.Font = new Font("Segoe UI", 12F);
+            rbFisico.Location = new Point(277, 15);
             rbFisico.Name = "rbFisico";
-            rbFisico.Size = new Size(80, 20);
+            rbFisico.Size = new Size(119, 39);
             rbFisico.TabIndex = 3;
             rbFisico.Text = "Físico";
-            // 
-            // lblCliente
-            // 
-            lblCliente.Location = new Point(10, 90);
-            lblCliente.Name = "lblCliente";
-            lblCliente.Size = new Size(80, 20);
-            lblCliente.TabIndex = 4;
-            lblCliente.Text = "Cliente";
-            // 
-            // cmbCliente
-            // 
-            cmbCliente.Location = new Point(10, 110);
-            cmbCliente.Name = "cmbCliente";
-            cmbCliente.Size = new Size(348, 28);
-            cmbCliente.TabIndex = 5;
-            // 
-            // btnAgregarCliente
-            // 
-            btnAgregarCliente.BackColor = SystemColors.ActiveCaption;
-            btnAgregarCliente.ForeColor = Color.Black;
-            btnAgregarCliente.Location = new Point(379, 102);
-            btnAgregarCliente.Name = "btnAgregarCliente";
-            btnAgregarCliente.Size = new Size(228, 43);
-            btnAgregarCliente.TabIndex = 6;
-            btnAgregarCliente.Text = "Agregar Nuevo Cliente";
-            btnAgregarCliente.UseVisualStyleBackColor = false;
-            btnAgregarCliente.Click += btnAgregarCliente_Click;
+            rbFisico.CheckedChanged += rbFisico_CheckedChanged;
             // 
             // btnRealizarVenta
             // 
             btnRealizarVenta.BackColor = SystemColors.ActiveCaption;
             btnRealizarVenta.ForeColor = Color.Black;
-            btnRealizarVenta.Location = new Point(1068, 873);
+            btnRealizarVenta.Location = new Point(230, 93);
             btnRealizarVenta.Name = "btnRealizarVenta";
             btnRealizarVenta.Size = new Size(300, 40);
             btnRealizarVenta.TabIndex = 4;
@@ -286,7 +293,7 @@
             // 
             // Form2
             // 
-            ClientSize = new Size(1806, 948);
+            ClientSize = new Size(1684, 948);
             Controls.Add(panelMain);
             Name = "Form2";
             Text = "Ventas";

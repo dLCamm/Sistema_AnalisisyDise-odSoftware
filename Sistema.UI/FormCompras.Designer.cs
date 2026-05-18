@@ -37,6 +37,7 @@
             dataGridView1 = new DataGridView();
             clm_nombre = new DataGridViewTextBoxColumn();
             clm_descripcion = new DataGridViewTextBoxColumn();
+            clm_proveedor = new DataGridViewTextBoxColumn();
             dataGridView2 = new DataGridView();
             label2 = new Label();
             label5 = new Label();
@@ -47,7 +48,9 @@
             button3 = new Button();
             button4 = new Button();
             label3 = new Label();
+            label4 = new Label();
             clm_productoname = new DataGridViewTextBoxColumn();
+            clm_proveedorcarro = new DataGridViewTextBoxColumn();
             clm_preciocompra = new DataGridViewTextBoxColumn();
             clm_cantidad = new DataGridViewTextBoxColumn();
             clm_subtotal = new DataGridViewTextBoxColumn();
@@ -82,7 +85,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion, clm_proveedor });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
@@ -120,6 +123,14 @@
             clm_descripcion.ReadOnly = true;
             clm_descripcion.Width = 400;
             // 
+            // clm_proveedor
+            // 
+            clm_proveedor.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_proveedor.HeaderText = "Proveedor";
+            clm_proveedor.MinimumWidth = 6;
+            clm_proveedor.Name = "clm_proveedor";
+            clm_proveedor.ReadOnly = true;
+            // 
             // dataGridView2
             // 
             dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -133,7 +144,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_proveedorcarro, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F);
@@ -169,31 +180,33 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = SystemColors.ActiveBorder;
-            label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.BackColor = SystemColors.ActiveCaption;
+            label5.Font = new Font("Segoe UI", 15.8F, FontStyle.Bold);
             label5.ForeColor = Color.Black;
             label5.Location = new Point(739, 801);
             label5.Name = "label5";
-            label5.Size = new Size(67, 31);
+            label5.Size = new Size(82, 37);
             label5.TabIndex = 14;
             label5.Text = "Total";
             // 
             // comboBox1
             // 
+            comboBox1.Font = new Font("Segoe UI", 11F);
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(739, 841);
+            comboBox1.Location = new Point(444, 116);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(262, 28);
+            comboBox1.Size = new Size(262, 33);
             comboBox1.TabIndex = 15;
             comboBox1.Text = "Proveedor";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // button1
             // 
             button1.BackColor = SystemColors.ActiveCaption;
             button1.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(1007, 841);
+            button1.Location = new Point(1487, 113);
             button1.Name = "button1";
-            button1.Size = new Size(166, 29);
+            button1.Size = new Size(166, 33);
             button1.TabIndex = 16;
             button1.Text = "Agregar Proveedor";
             button1.UseVisualStyleBackColor = false;
@@ -203,7 +216,7 @@
             // 
             button2.BackColor = SystemColors.ActiveCaption;
             button2.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.Location = new Point(1496, 118);
+            button2.Location = new Point(1519, 900);
             button2.Name = "button2";
             button2.Size = new Size(157, 35);
             button2.TabIndex = 17;
@@ -213,10 +226,11 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(28, 122);
+            textBox1.Font = new Font("Segoe UI", 10F);
+            textBox1.Location = new Point(28, 118);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar Productos";
-            textBox1.Size = new Size(364, 27);
+            textBox1.Size = new Size(364, 30);
             textBox1.TabIndex = 18;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -236,7 +250,7 @@
             // 
             button4.BackColor = SystemColors.ActiveCaption;
             button4.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button4.Location = new Point(497, 118);
+            button4.Location = new Point(28, 795);
             button4.Name = "button4";
             button4.Size = new Size(209, 32);
             button4.TabIndex = 20;
@@ -256,6 +270,18 @@
             label3.TabIndex = 21;
             label3.Text = "*El Precio de compra es editable";
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(15, 19, 23);
+            label4.Font = new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.ButtonHighlight;
+            label4.Location = new Point(444, 93);
+            label4.Name = "label4";
+            label4.Size = new Size(137, 20);
+            label4.TabIndex = 22;
+            label4.Text = "Filtrar por proveedor";
+            // 
             // clm_productoname
             // 
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -265,15 +291,23 @@
             clm_productoname.MinimumWidth = 6;
             clm_productoname.Name = "clm_productoname";
             clm_productoname.ReadOnly = true;
-            clm_productoname.Width = 300;
+            clm_productoname.Width = 200;
+            // 
+            // clm_proveedorcarro
+            // 
+            clm_proveedorcarro.HeaderText = "Proveedor";
+            clm_proveedorcarro.MinimumWidth = 6;
+            clm_proveedorcarro.Name = "clm_proveedorcarro";
+            clm_proveedorcarro.ReadOnly = true;
+            clm_proveedorcarro.Width = 160;
             // 
             // clm_preciocompra
             // 
-            clm_preciocompra.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             clm_preciocompra.FillWeight = 33.64486F;
             clm_preciocompra.HeaderText = "Precio de Compra";
             clm_preciocompra.MinimumWidth = 6;
             clm_preciocompra.Name = "clm_preciocompra";
+            clm_preciocompra.Width = 90;
             // 
             // clm_cantidad
             // 
@@ -281,15 +315,16 @@
             clm_cantidad.HeaderText = "Cantidad";
             clm_cantidad.MinimumWidth = 6;
             clm_cantidad.Name = "clm_cantidad";
+            clm_cantidad.Width = 125;
             // 
             // clm_subtotal
             // 
-            clm_subtotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             clm_subtotal.FillWeight = 33.64486F;
             clm_subtotal.HeaderText = "Subtotal";
             clm_subtotal.MinimumWidth = 6;
             clm_subtotal.Name = "clm_subtotal";
             clm_subtotal.ReadOnly = true;
+            clm_subtotal.Width = 110;
             // 
             // clm_btndismin
             // 
@@ -324,7 +359,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1688, 947);
+            ClientSize = new Size(1687, 947);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -361,7 +397,10 @@
         private Label label3;
         private DataGridViewTextBoxColumn clm_nombre;
         private DataGridViewTextBoxColumn clm_descripcion;
+        private DataGridViewTextBoxColumn clm_proveedor;
+        private Label label4;
         private DataGridViewTextBoxColumn clm_productoname;
+        private DataGridViewTextBoxColumn clm_proveedorcarro;
         private DataGridViewTextBoxColumn clm_preciocompra;
         private DataGridViewTextBoxColumn clm_cantidad;
         private DataGridViewTextBoxColumn clm_subtotal;

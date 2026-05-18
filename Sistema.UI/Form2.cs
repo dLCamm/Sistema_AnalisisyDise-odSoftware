@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Sistema.Entities.Clientes;
 using Sistema.BLL.Factories;
 using System.Runtime.CompilerServices;
+using System.Security.Permissions;
 
 
 
@@ -19,13 +20,13 @@ namespace Sistema.UI
         private List<CartItem> carrito = new List<CartItem>();
         private List<Producto> productosAll = new List<Producto>();
         private Button btnVerVentas = null!;
-   
+
 
         public Form2()
         {
             InitializeComponent();
 
-            
+
 
             this.Load += Ventas_Load;
 
@@ -124,7 +125,7 @@ namespace Sistema.UI
             }
             catch (Exception ex)
             {
-                
+
 
                 if (cmbCliente.Items.Count > 0)
                 {
@@ -181,12 +182,13 @@ namespace Sistema.UI
             {
                 var item = carrito[i];
                 var nombre = item.Producto?.Nombre ?? "(sin nombre)";
+                var proveedor = item.Proveedor ?? "Sin Nombre";
                 var precioUnitario = $"Q{item.Producto.PrecioVenta:0.00}";
                 var cantidad = item.Cantidad.ToString();
                 var subtotal = $"Q{item.Subtotal:0.00}";
 
                 // Añadimos en el orden de columnas: Producto, Precio Unitario, Cantidad, Subtotal
-                int rowIndex = dataGridView1.Rows.Add(nombre, precioUnitario, cantidad, subtotal);
+                int rowIndex = dataGridView1.Rows.Add(nombre,proveedor, precioUnitario, cantidad, subtotal);
                 dataGridView1.Rows[rowIndex].Tag = item;
             }
 
@@ -257,7 +259,7 @@ namespace Sistema.UI
         // =========================
         private void BtnRealizarVenta_Click(object? sender, EventArgs e)
         {
-            
+
         }
 
         // =========================
@@ -323,14 +325,14 @@ namespace Sistema.UI
                     }).ToList();
 
                     // REGISTRO DE VENTA: Usamos el ID 1 que acabamos de crear en la BD
-                    _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago,fechaVence, abonoInicial);
-                    
+                    _ventaService.RegistrarVenta(idcliente, 1, detalles, tipoPago, fechaVence, abonoInicial);
+
                 }
 
                 MessageBox.Show("Venta realizada con éxito");
                 carrito.Clear();
                 RefrescarCarrito();
-                CargarProductos(); 
+                CargarProductos();
 
             }
             catch (Exception ex)
@@ -401,19 +403,30 @@ namespace Sistema.UI
             dataGridView1.ReadOnly = false;
 
             dataGridView1.Columns.Add("Producto", "Producto");
+            dataGridView1.Columns.Add("Proveedor", "Proveedor");
             dataGridView1.Columns.Add("PrecioUnitario", "Precio Unitario");
             dataGridView1.Columns.Add("Cantidad", "Cantidad");
             dataGridView1.Columns.Add("Subtotal", "Subtotal");
 
 
-            var btnDec = new DataGridViewButtonColumn { Name = "Dec", HeaderText = "", Text = "-", UseColumnTextForButtonValue = true, Width = 30 };
-            var btnInc = new DataGridViewButtonColumn { Name = "Inc", HeaderText = "", Text = "+", UseColumnTextForButtonValue = true, Width = 30 };
-            var btnDel = new DataGridViewButtonColumn { Name = "Del", HeaderText = "", Text = "Eliminar", UseColumnTextForButtonValue = true, Width = 70 };
+            var btnDec = new DataGridViewButtonColumn { Name = "Dec", HeaderText = "", Text = "-", UseColumnTextForButtonValue = true, Width = 45 };
+            var btnInc = new DataGridViewButtonColumn { Name = "Inc", HeaderText = "", Text = "+", UseColumnTextForButtonValue = true, Width = 45 };
+            var btnDel = new DataGridViewButtonColumn { Name = "Del", HeaderText = "", Text = "Eliminar", UseColumnTextForButtonValue = true, Width = 95 };
             dataGridView1.Columns.Add(btnDec);
             dataGridView1.Columns.Add(btnInc);
             dataGridView1.Columns.Add(btnDel);
 
+            
+
+            dataGridView1.Columns["Producto"].Width = 175;
+            dataGridView1.Columns["Proveedor"].Width = 145;
+            dataGridView1.Columns["PrecioUnitario"].Width = 100;
+            dataGridView1.Columns["Cantidad"].Width = 100;
+            dataGridView1.Columns["Subtotal"].Width = 120;
+
+
             dataGridView1.Columns["Producto"].ReadOnly = true;
+            dataGridView1.Columns["Proveedor"].ReadOnly = true;
             dataGridView1.Columns["PrecioUnitario"].ReadOnly = true;
             dataGridView1.Columns["Subtotal"].ReadOnly = true;
             dataGridView1.Columns["Cantidad"].ReadOnly = false;
@@ -431,11 +444,13 @@ namespace Sistema.UI
             listProductos.Columns.Add("CantidadDisponible", "Cantidad Disponible");
             listProductos.Columns.Add("PrecioUnitario", "Precio Unitario");
             listProductos.Columns.Add("Descripcion", "Descripción");
+            listProductos.Columns.Add("Proveedor", "Proveedor");
 
             listProductos.Columns["Nombre"].Width = 150;
             listProductos.Columns["CantidadDisponible"].Width = 120;
             listProductos.Columns["PrecioUnitario"].Width = 120;
             listProductos.Columns["Descripcion"].Width = 200;
+            listProductos.Columns["Proveedor"].Width = 150;
         }
 
         private void DataGridView1_SelectionChanged(object? sender, EventArgs e)
@@ -485,7 +500,7 @@ namespace Sistema.UI
 
         private void rbCredito_CheckedChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         // panelCantidad and related controls removed. Quantity changes handled via grid Inc/Dec buttons.
@@ -498,8 +513,9 @@ namespace Sistema.UI
                 int rowIndex = listProductos.Rows.Add(
                     prod.Nombre,
                     prod.Stock,
-                    $"Q{prod.PrecioVenta:0.00}",
-                    prod.Descripcion ?? ""
+                    $"Q{prod.PrecioVenta:0.00},",
+                    prod.Descripcion ?? "",
+                    prod.Proveedor?.Nombre ?? "Sin proveedor"
                 );
                 listProductos.Rows[rowIndex].Tag = prod;
             }
@@ -536,6 +552,11 @@ namespace Sistema.UI
 
             RefrescarCarrito(carrito.Count - 1);
         }
+
+        private void rbFisico_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
     // =========================
@@ -545,6 +566,8 @@ namespace Sistema.UI
     internal class CartItem
     {
         public Producto Producto { get; }
+        public string Proveedor => Producto.Proveedor?.Nombre ?? "Sin proveedor";
+
         public int Cantidad { get; set; }
         public decimal PrecioUnitario => Producto.PrecioVenta;
         public decimal Subtotal => PrecioUnitario * Cantidad;

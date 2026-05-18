@@ -56,6 +56,8 @@ namespace Sistema.UI
 
             // FILTRO DE FECHAS POR RANGO (Modificado para usar ambos pickers)
             if (fechaDesde != DateTime.MinValue)
+            // Filtro por Fecha
+            if (fecha != DateTime.MinValue)
             {
                 resultado = resultado.Where(c => c.Fecha >= fechaDesde && c.Fecha <= fechaHasta);
             }
@@ -127,7 +129,6 @@ namespace Sistema.UI
                 {
                     int rowIndex = dataGridView1.Rows.Add(
                         c.Id,
-                        c.Proveedor?.Nombre ?? "Desconocido",
                         c.Estado.ToString(),
                         c.Fecha.ToString("dd/MM/yyyy"),
                         c.Total.ToString("C")

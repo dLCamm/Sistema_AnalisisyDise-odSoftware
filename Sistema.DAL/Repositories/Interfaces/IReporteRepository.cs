@@ -18,10 +18,6 @@ namespace Sistema.DAL.Repositories.Interfaces
             DateTime fechaInicio,
             DateTime fechaFin);
 
-        List<CompraReporteDTO>
-            ObtenerComprasProveedor(
-            int proveedorId);
-
         decimal ObtenerTotalCompras(
             DateTime fechaInicio,
             DateTime fechaFin);

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Sistema.DAL.Data;
+using QuestPDF.Infrastructure;
 using System;
 using System.Windows.Forms;
 using QuestPDF.Infrastructure;
@@ -15,7 +16,9 @@ namespace Sistema.UI
 
         static void Main()
         {
+            // PARA USAR EL PDF HAY QUE DEFINIR LA LICENCIA
             QuestPDF.Settings.License = LicenseType.Community;
+
             // Configurar EF + SQLite
             var options = new DbContextOptionsBuilder<SistemaDbContext>()
                 .UseSqlite("Data Source=sistema.db")
