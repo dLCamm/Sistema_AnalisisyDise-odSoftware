@@ -46,11 +46,13 @@
             label4 = new Label();
             comboBox2 = new ComboBox();
             label6 = new Label();
+            dateTimePicker2 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
@@ -72,12 +74,12 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
-            dataGridView1.Location = new Point(12, 107);
+            dataGridView1.Location = new Point(12, 164);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1651, 794);
+            dataGridView1.Size = new Size(1779, 794);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
@@ -140,7 +142,7 @@
             // button1
             // 
             button1.BackColor = SystemColors.ActiveCaption;
-            button1.Location = new Point(23, 917);
+            button1.Location = new Point(23, 977);
             button1.Name = "button1";
             button1.Size = new Size(146, 43);
             button1.TabIndex = 10;
@@ -159,8 +161,9 @@
             // 
             // button3
             // 
+            button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button3.BackColor = SystemColors.ActiveCaption;
-            button3.Location = new Point(1536, 68);
+            button3.Location = new Point(1707, 122);
             button3.Name = "button3";
             button3.Size = new Size(125, 36);
             button3.TabIndex = 32;
@@ -171,7 +174,7 @@
             // button2
             // 
             button2.BackColor = SystemColors.ActiveCaption;
-            button2.Location = new Point(1291, 44);
+            button2.Location = new Point(1491, 47);
             button2.Name = "button2";
             button2.Size = new Size(173, 30);
             button2.TabIndex = 31;
@@ -207,7 +210,7 @@
             label4.BackColor = Color.FromArgb(15, 19, 23);
             label4.Font = new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.ButtonHighlight;
-            label4.Location = new Point(1414, 917);
+            label4.Location = new Point(1560, 988);
             label4.Name = "label4";
             label4.Size = new Size(231, 20);
             label4.TabIndex = 33;
@@ -232,12 +235,25 @@
             label6.TabIndex = 35;
             label6.Text = "Estado";
             // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Checked = false;
+            dateTimePicker2.CustomFormat = "";
+            dateTimePicker2.Format = DateTimePickerFormat.Short;
+            dateTimePicker2.Location = new Point(1296, 47);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.ShowCheckBox = true;
+            dateTimePicker2.Size = new Size(137, 27);
+            dateTimePicker2.TabIndex = 36;
+            dateTimePicker2.ValueChanged += dateTimePicker2_ValueChanged;
+            // 
             // FormVerCompras
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1685, 982);
+            ClientSize = new Size(1834, 1048);
+            Controls.Add(dateTimePicker2);
             Controls.Add(label6);
             Controls.Add(comboBox2);
             Controls.Add(label4);
@@ -274,5 +290,6 @@
         private DataGridViewTextBoxColumn clm_Estado;
         private DataGridViewTextBoxColumn clm_fecha;
         private DataGridViewTextBoxColumn clm_total;
+        private DateTimePicker dateTimePicker2;
     }
 }

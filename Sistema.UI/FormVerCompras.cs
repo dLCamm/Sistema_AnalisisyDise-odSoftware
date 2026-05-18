@@ -1,5 +1,4 @@
-﻿
-using Sistema.BLL.Factories;
+﻿using Sistema.BLL.Factories;
 using Sistema.Entities.Compras;
 using Sistema.Entities.Productos;
 using Sistema.Entities.Ventas;
@@ -8,13 +7,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq; // Aseguramos Linq para el manejo del AsEnumerable
 using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Sistema.UI
 {
-    public partial class FormVerCompras : Form
+    public partial class FormVerCompras : Form, IReporteForm
     {
         List<Compra> comprass;
         List<Compra> comprasfiltradas;
@@ -24,13 +24,13 @@ namespace Sistema.UI
             dataGridView1.AutoGenerateColumns = false;
 
             clm_proveedor.DataPropertyName = "clm_proveedor";
-
             clm_fecha.DataPropertyName = "clm_fecha";
             clm_total.DataPropertyName = "clm_total";
             clm_Estado.DataPropertyName = "clm_Estado";
-
             clm_id.DataPropertyName = "clm_id";
 
+            // Enlazamos el evento del segundo timepicker para que también filtre al cambiar
+            this.dateTimePicker2.ValueChanged += (s, e) => AplicarFiltrosGlobales();
 
             Ver_todas_compras(this, EventArgs.Empty);
             recargar_combos(this, EventArgs.Empty);
@@ -39,9 +39,11 @@ namespace Sistema.UI
         private void AplicarFiltrosGlobales()
         {
             var term = textBox1.Text?.Trim() ?? string.Empty;
-
             string estado = comboBox2.SelectedItem?.ToString() ?? string.Empty;
-            DateTime fecha = dateTimePicker1.Checked ? dateTimePicker1.Value.Date : DateTime.MinValue;
+
+            // CONTROL DE RANGO DE FECHAS (dateTimePicker1 = Desde, dateTimePicker2 = Hasta)
+            DateTime fechaDesde = dateTimePicker1.Checked ? dateTimePicker1.Value.Date : DateTime.MinValue;
+            DateTime fechaHasta = dateTimePicker1.Checked ? dateTimePicker2.Value.Date.AddDays(1).AddTicks(-1) : DateTime.MaxValue;
 
             // SIEMPRE empezamos desde la lista completa original
             var resultado = comprass.AsEnumerable();
@@ -52,12 +54,11 @@ namespace Sistema.UI
                 resultado = resultado.Where(p => p.Proveedor.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
-            // Filtro por Fecha
-            if (fecha != DateTime.MinValue)
+            // FILTRO DE FECHAS POR RANGO (Modificado para usar ambos pickers)
+            if (fechaDesde != DateTime.MinValue)
             {
-                resultado = resultado.Where(v => v.Fecha.Date == fecha);
+                resultado = resultado.Where(c => c.Fecha >= fechaDesde && c.Fecha <= fechaHasta);
             }
-
 
             // Filtro por Estado
             if (!string.IsNullOrEmpty(estado))
@@ -104,7 +105,6 @@ namespace Sistema.UI
                     ventana.StartPosition = FormStartPosition.CenterScreen;
                     ventana.ShowDialog();
                     Ver_todas_compras(this, EventArgs.Empty);
-
                 }
             }
         }
@@ -158,11 +158,29 @@ namespace Sistema.UI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
             comboBox2.SelectedIndex = -1;
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.Checked = false;
+            dateTimePicker2.Value = DateTime.Now; // Se limpia también el segundo picker
             AplicarFiltrosGlobales();
+        }
+
+        public object ObtenerDatosFiltrados()
+        {
+            return comprasfiltradas.Select(c => new
+            {
+                ID = c.Id,
+                Fecha = c.Fecha.ToString("dd/MM/yyyy"),
+                Proveedor = c.Proveedor != null ? c.Proveedor.Nombre : "Desconocido",
+                Total = string.Format("Q{0:N2}", c.Total),
+                Estado = c.Estado.ToString()
+            }).ToList();
+        }
+
+        public string ObtenerTituloReporte() => "Reporte de Compras Filtradas";
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
         }
     }
 }

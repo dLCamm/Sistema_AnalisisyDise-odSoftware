@@ -34,9 +34,6 @@
             btnExportarExcel = new Button();
             btnBuscar = new Button();
             cmbTipoReporte = new ComboBox();
-            pnlGraficaVentas = new Panel();
-            pnlGraficaProductos = new Panel();
-            pnlGraficaCaja = new Panel();
             label1 = new Label();
             lblTotal = new Label();
             pnlReportes = new Panel();
@@ -77,6 +74,7 @@
             btnExportarPdf.TabIndex = 6;
             btnExportarPdf.Text = "Exportar PDF";
             btnExportarPdf.UseVisualStyleBackColor = false;
+            btnExportarPdf.Click += btnExportarPdf_Click_1;
             // 
             // btnExportarExcel
             // 
@@ -91,6 +89,7 @@
             btnExportarExcel.TabIndex = 7;
             btnExportarExcel.Text = "Exportar Excel";
             btnExportarExcel.UseVisualStyleBackColor = false;
+            btnExportarExcel.Click += btnExportarExcel_Click_1;
             // 
             // btnBuscar
             // 
@@ -98,42 +97,22 @@
             btnBuscar.FlatAppearance.BorderSize = 0;
             btnBuscar.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnBuscar.ForeColor = Color.Black;
-            btnBuscar.Location = new Point(194, 113);
+            btnBuscar.Location = new Point(271, 115);
             btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(135, 44);
+            btnBuscar.Size = new Size(175, 44);
             btnBuscar.TabIndex = 29;
-            btnBuscar.Text = "⌕ Buscar";
+            btnBuscar.Text = "Generar Reporte";
             btnBuscar.UseVisualStyleBackColor = false;
             btnBuscar.Click += btnBuscar_Click;
             // 
             // cmbTipoReporte
             // 
+            cmbTipoReporte.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbTipoReporte.FormattingEnabled = true;
-            cmbTipoReporte.Location = new Point(12, 129);
+            cmbTipoReporte.Location = new Point(24, 115);
             cmbTipoReporte.Name = "cmbTipoReporte";
-            cmbTipoReporte.Size = new Size(151, 28);
+            cmbTipoReporte.Size = new Size(206, 39);
             cmbTipoReporte.TabIndex = 30;
-            // 
-            // pnlGraficaVentas
-            // 
-            pnlGraficaVentas.Location = new Point(12, 804);
-            pnlGraficaVentas.Name = "pnlGraficaVentas";
-            pnlGraficaVentas.Size = new Size(402, 105);
-            pnlGraficaVentas.TabIndex = 32;
-            // 
-            // pnlGraficaProductos
-            // 
-            pnlGraficaProductos.Location = new Point(439, 804);
-            pnlGraficaProductos.Name = "pnlGraficaProductos";
-            pnlGraficaProductos.Size = new Size(392, 105);
-            pnlGraficaProductos.TabIndex = 33;
-            // 
-            // pnlGraficaCaja
-            // 
-            pnlGraficaCaja.Location = new Point(863, 804);
-            pnlGraficaCaja.Name = "pnlGraficaCaja";
-            pnlGraficaCaja.Size = new Size(392, 105);
-            pnlGraficaCaja.TabIndex = 34;
             // 
             // label1
             // 
@@ -141,7 +120,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 686);
+            label1.Location = new Point(12, 860);
             label1.Name = "label1";
             label1.Size = new Size(61, 26);
             label1.TabIndex = 6;
@@ -153,7 +132,7 @@
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Yu Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotal.ForeColor = Color.White;
-            lblTotal.Location = new Point(1219, 686);
+            lblTotal.Location = new Point(1219, 860);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(56, 26);
             lblTotal.TabIndex = 35;
@@ -165,7 +144,7 @@
             pnlReportes.BackColor = Color.FromArgb(31, 41, 55);
             pnlReportes.Location = new Point(12, 179);
             pnlReportes.Name = "pnlReportes";
-            pnlReportes.Size = new Size(1263, 504);
+            pnlReportes.Size = new Size(1263, 657);
             pnlReportes.TabIndex = 36;
             // 
             // frmReportes
@@ -179,9 +158,6 @@
             Controls.Add(pnlReportes);
             Controls.Add(lblTotal);
             Controls.Add(label1);
-            Controls.Add(pnlGraficaCaja);
-            Controls.Add(pnlGraficaProductos);
-            Controls.Add(pnlGraficaVentas);
             Controls.Add(cmbTipoReporte);
             Controls.Add(btnBuscar);
             Controls.Add(btnExportarExcel);
@@ -204,9 +180,6 @@
         private Button btnExportarExcel;
         private Button btnBuscar;
         private ComboBox cmbTipoReporte;
-        private Panel pnlGraficaVentas;
-        private Panel pnlGraficaProductos;
-        private Panel pnlGraficaCaja;
         private Label label1;
         private Label lblTotal;
         private Panel pnlReportes;

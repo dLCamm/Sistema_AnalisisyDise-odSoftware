@@ -14,6 +14,10 @@ namespace Sistema.UI
         private string textoBusqueda = "";
         private string filtroEstado = "Todos"; // Controla qué mostrar en la grilla
 
+        // Variable global para soportar la exportación limpia que estructuramos antes
+        private List<Credito> creditosFiltrados = new List<Credito>();
+
+        // Constructor normal por defecto
         public frmCréditos()
         {
             InitializeComponent();
@@ -25,7 +29,13 @@ namespace Sistema.UI
             this.dgvCreditos.CellFormatting += dgvCreditos_CellFormatting;
 
             // Placeholder para la búsqueda
-            txtBuscarCredito.PlaceholderText = "Buscar por nombre de cliente...";
+            txtBuscarCredito.PlaceholderText = "Buscar por nombre de cliente o DPI";
+        }
+
+        // ---- NUEVO CONSTRUCTOR SOBRECARGADO ADICIONAL
+        public frmCréditos(string filtroInicial) : this()
+        {
+            this.filtroEstado = filtroInicial;
         }
 
         private void frmCréditos_Load(object sender, EventArgs e)
@@ -104,27 +114,45 @@ namespace Sistema.UI
 
                     var query = lista.AsEnumerable();
 
-                    // --- BÚSQUEDA ---
+                    // --- BÚSQUEDA MODIFICADA (SOPORTA NOMBRE O DPI) ---
                     if (!string.IsNullOrEmpty(textoBusqueda))
                     {
                         string bus = textoBusqueda.ToLower().Trim();
-                        query = query.Where(c => c.Venta?.Cliente?.Nombre != null &&
-                                               c.Venta.Cliente.Nombre.ToLower().Contains(bus));
+                        query = query.Where(c =>
+                            (c.Venta?.Cliente?.Nombre != null && c.Venta.Cliente.Nombre.ToLower().Contains(bus)) ||
+                            (c.Venta?.Cliente?.DPI != null && c.Venta.Cliente.DPI.Contains(bus))
+                        );
                     }
 
-                    // --- FILTROS DE ESTADO ---
-                    if (filtroEstado == "Pendiente")
+                    // --- FILTROS DE ESTADO
+                    if (filtroEstado == "PorCobrar")
+                    {
+                        query = query.Where(c => c.Estado == EstadoCredito.Pendiente ||
+                                               (c.SaldoPendiente > 0 && c.FechaVencimiento.Date < hoy && c.Estado != EstadoCredito.Cancelado));
+                    }
+                    else if (filtroEstado == "Pendiente")
+                    {
                         query = query.Where(c => c.Estado == EstadoCredito.Pendiente && c.FechaVencimiento.Date >= hoy);
+                    }
                     else if (filtroEstado == "Pagado")
+                    {
                         query = query.Where(c => c.Estado == EstadoCredito.Pagado);
+                    }
                     else if (filtroEstado == "Cancelado")
+                    {
                         query = query.Where(c => c.Estado == EstadoCredito.Cancelado);
+                    }
                     else if (filtroEstado == "Vencido")
+                    {
                         query = query.Where(c => c.SaldoPendiente > 0 && c.FechaVencimiento.Date < hoy && c.Estado != EstadoCredito.Cancelado);
+                    }
+
+                    // Guardamos la lista filtrada actual para la interfaz de reportes
+                    creditosFiltrados = query.ToList();
 
                     dgvCreditos.Rows.Clear();
 
-                    foreach (var c in query)
+                    foreach (var c in creditosFiltrados)
                     {
                         string mostrarEstado = c.Estado.ToString();
 
@@ -132,10 +160,14 @@ namespace Sistema.UI
                         if (c.SaldoPendiente > 0 && c.FechaVencimiento.Date < hoy && c.Estado != EstadoCredito.Cancelado)
                             mostrarEstado = "Vencido";
 
+                        // EXTRAEMOS EL DPI Y NOMBRE REAL CON VALIDACIONES DE NULOS
+                        string dpiReal = c.Venta?.Cliente?.DPI ?? "---";
+                        string clienteReal = c.Venta?.Cliente?.Nombre ?? "Consumidor Final";
+
                         dgvCreditos.Rows.Add(
                             c.Id,
-                            "---",
-                            c.Venta?.Cliente?.Nombre ?? "Consumidor Final",
+                            dpiReal, // <--- CAMBIO: Cargamos el DPI real en la columna correspondiente
+                            clienteReal,
                             c.FechaInicio.ToShortDateString(),
                             c.FechaVencimiento.ToShortDateString(),
                             string.Format("Q{0:N2}", c.TotalCredito),
@@ -180,8 +212,11 @@ namespace Sistema.UI
         }
 
         private void btnFiltrarCredito_Click(object sender, EventArgs e)
+
         {
+
             menuFiltroscreditos.Show(btnFiltrosrCredito, new Point(0, btnFiltrosrCredito.Height));
+
         }
 
         private void verTodoToolStripMenuItem_Click(object sender, EventArgs e)

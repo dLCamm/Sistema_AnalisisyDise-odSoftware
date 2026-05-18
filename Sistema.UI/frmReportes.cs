@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Sistema.BLL.Services;
 
 namespace Sistema.UI
 {
@@ -10,7 +11,7 @@ namespace Sistema.UI
         public frmReportes()
         {
             InitializeComponent();
-            ConfigurarComponentes(); 
+            ConfigurarComponentes();
         }
 
         private void ConfigurarComponentes()
@@ -18,7 +19,7 @@ namespace Sistema.UI
             cmbTipoReporte.Items.Clear();
             cmbTipoReporte.Items.Add("Ventas");
             cmbTipoReporte.Items.Add("Compras");
-            cmbTipoReporte.Items.Add("Créditos");
+  
 
             cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -51,9 +52,6 @@ namespace Sistema.UI
                     formularioAbrir = new FormVerCompras();
                     break;
 
-                case "Créditos":
-                    formularioAbrir = new frmCréditos();
-                    break;
 
                 default:
                     MessageBox.Show("Tipo de reporte no reconocido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -79,9 +77,9 @@ namespace Sistema.UI
             }
 
             // Configuraciones críticas para que el formulario se comporte como un control dentro del panel
-            formularioHijo.TopLevel = false;            
-            formularioHijo.FormBorderStyle = FormBorderStyle.None; 
-            formularioHijo.Dock = DockStyle.Fill;      
+            formularioHijo.TopLevel = false;
+            formularioHijo.FormBorderStyle = FormBorderStyle.None;
+            formularioHijo.Dock = DockStyle.Fill;
 
             // Se agrega al panel y se muestra
             pnlReportes.Controls.Add(formularioHijo);
@@ -89,21 +87,102 @@ namespace Sistema.UI
             formularioHijo.Show();
         }
 
-        // --- Eventos Adicionales ---
-
-        private void btnExportarPdf_Click(object sender, EventArgs e)
-        {
-            // Lógica para exportar a PDF
-        }
-
-        private void btnExportarExcel_Click(object sender, EventArgs e)
-        {
-            // Lógica para exportar a Excel
-        }
+     
+        
 
         private void dgvResultados_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             // Lógica del DataGridView
+        }
+
+        private void btnExportarPdf_Click_1(object sender, EventArgs e)
+        {
+            // 1. Verificar si hay un formulario cargado en el panel
+            if (pnlReportes.Controls.Count == 0 || pnlReportes.Tag == null)
+            {
+                MessageBox.Show("No hay ningún reporte activo para exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // 2. Intentar castear el formulario actual a nuestra interfaz común
+            if (pnlReportes.Tag is IReporteForm formularioActivo)
+            {
+                dynamic datosFiltrados = formularioActivo.ObtenerDatosFiltrados();
+
+                if (datosFiltrados == null || datosFiltrados.Count == 0)
+                {
+                    MessageBox.Show("No hay datos en la lista actual para ser exportados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 3. Configurar el cuadro de diálogo para guardar el archivo
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivos PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"{formularioActivo.ObtenerTituloReporte()}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            // Instanciar el servicio de exportación y ejecutamos pasándole la ruta elegida
+                            ExportService exportador = new ExportService();
+                            exportador.ExportarPdf(datosFiltrados, formularioActivo.ObtenerTituloReporte(), sfd.FileName);
+
+                            MessageBox.Show("Reporte en PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al generar el PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void btnExportarExcel_Click_1(object sender, EventArgs e)
+        {
+            if (pnlReportes.Controls.Count == 0 || pnlReportes.Tag == null)
+            {
+                MessageBox.Show("No hay ningún reporte activo para exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (pnlReportes.Tag is IReporteForm formularioActivo)
+            {
+                dynamic datosFiltrados = formularioActivo.ObtenerDatosFiltrados();
+
+                if (datosFiltrados == null || datosFiltrados.Count == 0)
+                {
+                    MessageBox.Show("No hay datos en la lista actual para ser exportados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivos CSV (*.csv)|*.csv";
+                    sfd.FileName = $"{formularioActivo.ObtenerTituloReporte()}_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            ExportService exportador = new ExportService();
+
+                            // Exportamos a CSV usando la lista dinámica filtrada
+                            exportador.ExportarCsv(datosFiltrados, sfd.FileName);
+
+                            MessageBox.Show("Reporte en CSV generado exitosamente (Compatible con Excel).", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al generar el CSV: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

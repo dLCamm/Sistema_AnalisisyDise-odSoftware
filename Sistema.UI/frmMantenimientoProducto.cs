@@ -27,7 +27,10 @@ namespace Sistema.UI
 
         private void frmMantenimientoProducto_Load(object sender, EventArgs e)
         {
-            // mostrar el botón "Anular" si el producto ya existe
+            // Cargar la lista de proveedores siempre al iniciar
+            CargarProveedores();
+
+            // Mostrar el botón "Anular" si el producto ya existe
             btnAnular.Visible = (_idParaEditar != null);
 
             if (_idParaEditar != null)
@@ -50,20 +53,72 @@ namespace Sistema.UI
                     txtPrecioVenta.Text = p.PrecioVenta.ToString();
                     txtStockActual.Text = p.Stock.ToString();
                     txtStockMinimo.Text = p.StockMinimo.ToString();
+
+                    // Asigna el proveedor guardado al combobox usando el nombre real: ProveedorId
+                    if (p.ProveedorId != null)
+                    {
+                        cmbProveedor.SelectedValue = p.ProveedorId;
+                    }
+
+                    // Alternar visibilidad entre botón Activar y Anular según el estado del producto
+                    if (p.Estado == EstadoProducto.Inactivo)
+                    {
+                        btnActivarProducto.Visible = true;
+                        btnAnular.Visible = false;
+                    }
+                    else
+                    {
+                        btnActivarProducto.Visible = false;
+                        btnAnular.Visible = true;
+                    }
                 }
             }
             catch (Exception ex) { MessageBox.Show("Error al cargar: " + ex.Message); }
+        }
+
+        private void CargarProveedores()
+        {
+            try
+            {
+                using (var service = ServiceFactory.CrearProveedorService())
+                {
+                    var proveedores = service.ListarProveedores();
+
+                    cmbProveedor.DataSource = proveedores;
+                    cmbProveedor.DisplayMember = "Nombre";      // Lo que ve el usuario
+                    cmbProveedor.ValueMember = "Id";            // El valor interno que se guarda
+                    cmbProveedor.SelectedIndex = -1;            // Inicia vacío por defecto
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar proveedores: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
+                // Validación básica de campos obligatorios
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecioCompra.Text) || string.IsNullOrWhiteSpace(txtPrecioVenta.Text))
+                {
+                    MessageBox.Show("Por favor complete los campos obligatorios (Nombre y Precios).", "Campos Vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Obtener el ID del proveedor seleccionado si el usuario eligió uno
+                int? idProveedorSeleccionado = null;
+                if (cmbProveedor.SelectedValue != null)
+                {
+                    idProveedorSeleccionado = Convert.ToInt32(cmbProveedor.SelectedValue);
+                }
+
                 using (var service = ServiceFactory.CrearInventarioService())
                 {
                     if (_idParaEditar == null)
                     {
-
+                        // ---- REGISTRAR NUEVO ----
                         var nuevo = new Producto
                         {
                             Nombre = txtNombre.Text,
@@ -71,21 +126,36 @@ namespace Sistema.UI
                             PrecioCompra = decimal.Parse(txtPrecioCompra.Text),
                             PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
                             Stock = int.Parse(txtStockActual.Text),
-                            StockMinimo = int.Parse(txtStockMinimo.Text)
+                            StockMinimo = int.Parse(txtStockMinimo.Text),
+                            ProveedorId = idProveedorSeleccionado
                         };
+
                         service.RegistrarProducto(nuevo);
-                        MessageBox.Show("Producto guardado con éxito.");
+                        MessageBox.Show("Producto guardado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
+                        // ---- ACTUALIZAR PRODUCTO EXISTENTE ----
+                        var editado = new Producto
+                        {
+                            Id = _idParaEditar.Value,
+                            Nombre = txtNombre.Text,
+                            Descripcion = txtDescripcion.Text,
+                            PrecioCompra = decimal.Parse(txtPrecioCompra.Text),
+                            PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
+                            Stock = int.Parse(txtStockActual.Text),
+                            StockMinimo = int.Parse(txtStockMinimo.Text),
+                            ProveedorId = idProveedorSeleccionado
+                        };
 
-                        service.ActualizarStock(_idParaEditar.Value, int.Parse(txtStockActual.Text));
-                        MessageBox.Show("Stock actualizado con éxito.");
+                        // Corregido pasándole los dos parámetros exigidos por la firma (id, datos)
+                        service.ActualizarProducto(_idParaEditar.Value, editado);
+                        MessageBox.Show("Producto actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     this.Close();
                 }
             }
-            catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Error al guardar: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void btnAnular_Click(object sender, EventArgs e)
@@ -122,19 +192,33 @@ namespace Sistema.UI
             }
         }
 
-        private void txtPrecioCompra_TextChanged(object sender, EventArgs e)
+        private void btnActivarProducto_Click(object sender, EventArgs e)
         {
+            if (_idParaEditar == null) return;
 
+            var confirm = MessageBox.Show("¿Desea volver a activar este producto en el inventario?", "Confirmar Activación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    using (var service = ServiceFactory.CrearInventarioService())
+                    {
+                        service.ActivarProducto(_idParaEditar.Value);
+                        MessageBox.Show("El producto ha sido activado exitosamente.", "Activado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al activar producto: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        private void txtDescripcion_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtNombre_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        // Métodos de eventos requeridos por el Designer para no corromper la vista de diseño
+        private void txtPrecioCompra_TextChanged(object sender, EventArgs e) { }
+        private void txtDescripcion_TextChanged(object sender, EventArgs e) { }
+        private void txtNombre_TextChanged(object sender, EventArgs e) { }
+        private void cmbProveedor_SelectedIndexChanged(object sender, EventArgs e) { }
     }
 }

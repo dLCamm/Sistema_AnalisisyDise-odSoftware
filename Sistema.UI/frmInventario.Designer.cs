@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            btnComprar = new Button();
             label2 = new Label();
             btnFiltrar = new Button();
             menuFiltros = new ContextMenuStrip(components);
@@ -53,6 +54,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(btnComprar);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(btnFiltrar);
             panel1.Controls.Add(txtBuscar);
@@ -61,9 +63,26 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1300, 76);
+            panel1.Size = new Size(1777, 76);
             panel1.TabIndex = 2;
             panel1.Paint += panel1_Paint;
+            // 
+            // btnComprar
+            // 
+            btnComprar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnComprar.BackColor = Color.RoyalBlue;
+            btnComprar.Cursor = Cursors.Hand;
+            btnComprar.FlatAppearance.BorderSize = 0;
+            btnComprar.FlatStyle = FlatStyle.Flat;
+            btnComprar.Font = new Font("Segoe UI", 13F);
+            btnComprar.ForeColor = Color.White;
+            btnComprar.Location = new Point(1619, 17);
+            btnComprar.Name = "btnComprar";
+            btnComprar.Size = new Size(126, 39);
+            btnComprar.TabIndex = 9;
+            btnComprar.Text = "$Comprar";
+            btnComprar.UseVisualStyleBackColor = false;
+            btnComprar.Click += btnComprar_Click;
             // 
             // label2
             // 
@@ -71,7 +90,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Yu Gothic", 15F, FontStyle.Bold);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(363, 19);
+            label2.Location = new Point(601, 19);
             label2.Name = "label2";
             label2.Size = new Size(48, 32);
             label2.TabIndex = 8;
@@ -83,7 +102,7 @@
             btnFiltrar.ContextMenuStrip = menuFiltros;
             btnFiltrar.Font = new Font("Segoe UI", 10F);
             btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrar.Location = new Point(898, 21);
+            btnFiltrar.Location = new Point(1136, 21);
             btnFiltrar.Name = "btnFiltrar";
             btnFiltrar.Size = new Size(97, 32);
             btnFiltrar.TabIndex = 5;
@@ -96,55 +115,57 @@
             menuFiltros.ImageScalingSize = new Size(20, 20);
             menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, anuladosToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(210, 148);
+            menuFiltros.Size = new Size(211, 176);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(209, 24);
+            verTodoToolStripMenuItem.Size = new Size(210, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // stockBajoToolStripMenuItem
             // 
             stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
-            stockBajoToolStripMenuItem.Size = new Size(209, 24);
+            stockBajoToolStripMenuItem.Size = new Size(210, 24);
             stockBajoToolStripMenuItem.Text = "Stock Bajo";
             stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
             // 
             // sinExistenciasToolStripMenuItem
             // 
             sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
-            sinExistenciasToolStripMenuItem.Size = new Size(209, 24);
+            sinExistenciasToolStripMenuItem.Size = new Size(210, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
             // 
             // anuladosToolStripMenuItem
             // 
             anuladosToolStripMenuItem.Name = "anuladosToolStripMenuItem";
-            anuladosToolStripMenuItem.Size = new Size(209, 24);
+            anuladosToolStripMenuItem.Size = new Size(210, 24);
             anuladosToolStripMenuItem.Text = "Anulados";
             anuladosToolStripMenuItem.Click += anuladosToolStripMenuItem_Click;
             // 
             // fechaAscToolStripMenuItem
             // 
             fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
-            fechaAscToolStripMenuItem.Size = new Size(209, 24);
+            fechaAscToolStripMenuItem.Size = new Size(210, 24);
             fechaAscToolStripMenuItem.Text = "Fecha: Ascendente";
+            fechaAscToolStripMenuItem.Click += fechaAscToolStripMenuItem_Click_1;
             // 
             // fechaDescToolStripMenuItem
             // 
             fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
-            fechaDescToolStripMenuItem.Size = new Size(209, 24);
+            fechaDescToolStripMenuItem.Size = new Size(210, 24);
             fechaDescToolStripMenuItem.Text = "Fecha: Descendente";
+            fechaDescToolStripMenuItem.Click += fechaDescToolStripMenuItem_Click_1;
             // 
             // txtBuscar
             // 
             txtBuscar.Anchor = AnchorStyles.Top;
             txtBuscar.Font = new Font("Segoe UI", 16F);
             txtBuscar.ForeColor = Color.Black;
-            txtBuscar.Location = new Point(417, 13);
+            txtBuscar.Location = new Point(655, 13);
             txtBuscar.Name = "txtBuscar";
             txtBuscar.Size = new Size(464, 43);
             txtBuscar.TabIndex = 4;
@@ -170,7 +191,7 @@
             btnAgregarProducto.FlatStyle = FlatStyle.Flat;
             btnAgregarProducto.Font = new Font("Segoe UI", 13F);
             btnAgregarProducto.ForeColor = Color.White;
-            btnAgregarProducto.Location = new Point(1065, 14);
+            btnAgregarProducto.Location = new Point(1383, 16);
             btnAgregarProducto.Name = "btnAgregarProducto";
             btnAgregarProducto.Size = new Size(213, 39);
             btnAgregarProducto.TabIndex = 0;
@@ -186,23 +207,23 @@
             dgvProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvProductos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dgvProductos.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvProductos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 13F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dgvProductos.DefaultCellStyle = dataGridViewCellStyle4;
             dgvProductos.EnableHeadersVisualStyles = false;
             dgvProductos.GridColor = Color.FromArgb(70, 70, 75);
             dgvProductos.Location = new Point(0, 69);
@@ -212,7 +233,7 @@
             dgvProductos.RowHeadersWidth = 51;
             dgvProductos.RowTemplate.Height = 60;
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvProductos.Size = new Size(1300, 919);
+            dgvProductos.Size = new Size(1777, 919);
             dgvProductos.TabIndex = 3;
             dgvProductos.CellContentClick += dgvProductos_CellContentClick;
             dgvProductos.CellFormatting += dgvProductos_CellFormatting;
@@ -222,7 +243,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1300, 1000);
+            ClientSize = new Size(1777, 1000);
             Controls.Add(dgvProductos);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -256,5 +277,6 @@
         private ToolStripMenuItem anuladosToolStripMenuItem;
         private Label label2;
         private TextBox txtBuscar;
+        private Button btnComprar;
     }
 }

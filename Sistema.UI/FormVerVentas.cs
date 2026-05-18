@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,7 +9,8 @@ using Sistema.BLL.Factories;
 
 namespace Sistema.UI
 {
-    public partial class FormVerVentas : Form
+    // 1. Implementamos IReporteForm para que el formulario de reportes pueda extraer los datos filtrados
+    public partial class FormVerVentas : Form, IReporteForm
     {
         List<Venta> ventass;
         List<Venta> ventasFiltradas;
@@ -23,10 +25,11 @@ namespace Sistema.UI
             clm_Fecha.DataPropertyName = "clm_Fecha";
             clm_Total.DataPropertyName = "clm_Total";
             clm_Estado.DataPropertyName = "clm_Estado";
-
             clm_id.DataPropertyName = "clm_id";
 
-
+            // Enlazamos los eventos de cambio de fecha para que filtren automáticamente
+            this.dateTimePicker1.ValueChanged += (s, e) => AplicarFiltrosGlobales();
+            this.dateTimePicker2.ValueChanged += (s, e) => AplicarFiltrosGlobales();
 
             Ver_todas_ventas(this, EventArgs.Empty);
             recargar_combos(this, EventArgs.Empty);
@@ -35,8 +38,6 @@ namespace Sistema.UI
         private void textchanged_buscador(object sender, EventArgs e)
         {
             AplicarFiltrosGlobales();
-            
-
         }
 
         private void AplicarFiltrosGlobales()
@@ -44,21 +45,28 @@ namespace Sistema.UI
             var term = textBox1.Text?.Trim() ?? string.Empty;
             string tipopago = comboBox1.SelectedItem?.ToString() ?? string.Empty;
             string estado = comboBox2.SelectedItem?.ToString() ?? string.Empty;
-            DateTime fecha = dateTimePicker1.Checked ? dateTimePicker1.Value.Date : DateTime.MinValue;
 
-            // SIEMPRE empezamos desde la lista completa original
+            // CONTROL DE RANGO DE FECHAS (dateTimePicker1 = Desde, dateTimePicker2 = Hasta)
+            // Si el primer picker está activado, tomamos el rango. Si no, ignoramos las fechas.
+            DateTime fechaDesde = dateTimePicker1.Checked ? dateTimePicker1.Value.Date : DateTime.MinValue;
+            // Para la fecha máxima tomamos las 23:59:59 de ese día para no ignorar ventas de la noche
+            DateTime fechaHasta = dateTimePicker1.Checked ? dateTimePicker2.Value.Date.AddDays(1).AddTicks(-1) : DateTime.MaxValue;
+
+            if (ventass == null) return;
+
+            // SIEMPRE empezamos desde la lista completa original en memoria
             var resultado = ventass.AsEnumerable();
 
             // Filtro por Buscador (Nombre Cliente)
             if (!string.IsNullOrWhiteSpace(term))
             {
-                resultado = resultado.Where(p => p.Cliente.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
+                resultado = resultado.Where(p => p.Cliente != null && p.Cliente.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
             }
 
-            // Filtro por Fecha
-            if (fecha != DateTime.MinValue)
+            // Filtro por Rango de Fechas
+            if (fechaDesde != DateTime.MinValue)
             {
-                resultado = resultado.Where(v => v.Fecha.Date == fecha);
+                resultado = resultado.Where(v => v.Fecha >= fechaDesde && v.Fecha <= fechaHasta);
             }
 
             // Filtro por Tipo de Pago
@@ -76,7 +84,7 @@ namespace Sistema.UI
             // Actualizamos la lista que se muestra
             ventasFiltradas = resultado.ToList();
 
-            // Aquí actualizas tu UI (por ejemplo, asignando ventasFiltradas al DataGridView)
+            // Refrescamos el DataGridView
             FormVerVentas_Load();
         }
 
@@ -96,7 +104,6 @@ namespace Sistema.UI
 
         private void BtnVolver_Click(object? sender, EventArgs e)
         {
-           
             var host = Application.OpenForms.OfType<Form1>().FirstOrDefault();
             if (host != null)
             {
@@ -104,27 +111,25 @@ namespace Sistema.UI
                 return;
             }
 
-            
             var f2 = new Form2();
             f2.Show();
         }
 
-    
         private void FormVerVentas_Resize(object? sender, EventArgs e)
         {
-          
-
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
             int idVenta = (int)dataGridView1.Rows[e.RowIndex].Cells["clm_id"].Value;
             FormVerDetalleVenta ventana = new FormVerDetalleVenta(idVenta);
             ventana.StartPosition = FormStartPosition.CenterScreen;
             ventana.ShowDialog();
-            Ver_todas_ventas(this, EventArgs.Empty);
 
+            // Al regresar del modal, volvemos a traer todo de la BD para capturar si cambió el crédito
+            Ver_todas_ventas(this, EventArgs.Empty);
         }
 
         private void Ver_todas_ventas(object sender, EventArgs e)
@@ -132,19 +137,16 @@ namespace Sistema.UI
             using (var _ventaService = ServiceFactory.CrearVentaService())
             {
                 var ventas = _ventaService.ListarVentas();
+                ventass = ventas; // Sincroniza la lista base original de la base de datos
                 ventasFiltradas = ventas;
-                ventass = ventas;
                 FormVerVentas_Load();
             }
         }
-
-
 
         private void FormVerVentas_Load()
         {
             try
             {
-
                 dataGridView1.AutoGenerateColumns = false;
 
                 dataGridView1.DataSource = ventasFiltradas.OrderByDescending(v => v.Fecha).Select(v => new
@@ -156,7 +158,6 @@ namespace Sistema.UI
                     clm_Estado = v.Estado.ToString(),
                     clm_cliente = v.Cliente != null ? v.Cliente.Nombre : "Sin cliente",
                     Usuario = v.Usuario != null ? v.Usuario.Username : "Sin usuario"
-
                 }).ToList();
             }
             catch (Exception ex)
@@ -165,34 +166,61 @@ namespace Sistema.UI
             }
         }
 
+        // BOTÓN BUSCAR/FILTRAR
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
+                // Para garantizar que los estados se actualicen en tiempo real, volvemos a consultar la base de datos
+                using (var _ventaService = ServiceFactory.CrearVentaService())
+                {
+                    ventass = _ventaService.ListarVentas();
+                }
                 AplicarFiltrosGlobales();
-                
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al filtrar las ventas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-
             }
         }
 
+        // BOTÓN LIMPIAR FILTROS
         private void button3_Click(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
+
+            // Restablecemos los pickers de fecha
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.Checked = false;
-            AplicarFiltrosGlobales();
+            dateTimePicker2.Value = DateTime.Now;
 
+            // Recargamos el listado fresco de la base de datos
+            Ver_todas_ventas(this, EventArgs.Empty);
         }
 
         private void FormVerVentas_Load(object sender, EventArgs e)
         {
-
         }
+
+        private void dateTimePicker2_ValueChanged(object sender, EventArgs e)
+        {
+            // El evento ya fue mapeado de manera centralizada en el constructor
+        }
+
+        // IMPLEMENTACIÓN DE LA INTERFAZ IREPORTEFORM PARA EXPORTAR SOLO LO FILTRADO
+        public object ObtenerDatosFiltrados()
+        {
+            return ventasFiltradas.Select(v => new {
+                ID = v.Id,
+                Fecha = v.Fecha.ToString("dd/MM/yyyy"),
+                Cliente = v.Cliente != null ? v.Cliente.Nombre : "Sin cliente",
+                TipoPago = v.TipoPago.ToString(),
+                Total = string.Format("Q{0:N2}", v.Total),
+                Estado = v.Estado.ToString()
+            }).ToList();
+        }
+
+        public string ObtenerTituloReporte() => "Reporte de Ventas y Créditos";
     }
 }

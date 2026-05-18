@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnFiltrosrCredito = new Button();
             label1 = new Label();
@@ -49,7 +49,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.BackColor = Color.FromArgb(15, 19, 23);
             panel1.Controls.Add(btnFiltrosrCredito);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtBuscarCredito);
@@ -111,14 +111,14 @@
             // 
             dgvCreditos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dgvCreditos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvCreditos.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvCreditos.DefaultCellStyle = dataGridViewCellStyle1;
             dgvCreditos.Dock = DockStyle.Fill;
             dgvCreditos.GridColor = Color.DimGray;
             dgvCreditos.Location = new Point(0, 76);
@@ -137,35 +137,35 @@
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(210, 24);
+            verTodoToolStripMenuItem.Size = new Size(154, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // pendientesToolStripMenuItem
             // 
             pendientesToolStripMenuItem.Name = "pendientesToolStripMenuItem";
-            pendientesToolStripMenuItem.Size = new Size(210, 24);
+            pendientesToolStripMenuItem.Size = new Size(154, 24);
             pendientesToolStripMenuItem.Text = "Pendientes";
             pendientesToolStripMenuItem.Click += pendientesToolStripMenuItem_Click;
             // 
             // pagadosToolStripMenuItem
             // 
             pagadosToolStripMenuItem.Name = "pagadosToolStripMenuItem";
-            pagadosToolStripMenuItem.Size = new Size(210, 24);
+            pagadosToolStripMenuItem.Size = new Size(154, 24);
             pagadosToolStripMenuItem.Text = "Pagados";
             pagadosToolStripMenuItem.Click += pagadosToolStripMenuItem_Click;
             // 
             // vencidosToolStripMenuItem
             // 
             vencidosToolStripMenuItem.Name = "vencidosToolStripMenuItem";
-            vencidosToolStripMenuItem.Size = new Size(210, 24);
+            vencidosToolStripMenuItem.Size = new Size(154, 24);
             vencidosToolStripMenuItem.Text = "Vencidos";
             vencidosToolStripMenuItem.Click += vencidosToolStripMenuItem_Click;
             // 
             // canceladosToolStripMenuItem
             // 
             canceladosToolStripMenuItem.Name = "canceladosToolStripMenuItem";
-            canceladosToolStripMenuItem.Size = new Size(210, 24);
+            canceladosToolStripMenuItem.Size = new Size(154, 24);
             canceladosToolStripMenuItem.Text = "Cancelados";
             canceladosToolStripMenuItem.Click += canceladosToolStripMenuItem_Click;
             // 

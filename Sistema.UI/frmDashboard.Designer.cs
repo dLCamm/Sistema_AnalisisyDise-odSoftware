@@ -174,6 +174,7 @@
             panel4.Controls.Add(pictureBox3);
             panel4.Controls.Add(lblCreditosPendientes);
             panel4.Controls.Add(label4);
+            panel4.Cursor = Cursors.Hand;
             panel4.Location = new Point(866, 120);
             panel4.Name = "panel4";
             panel4.Size = new Size(402, 257);
@@ -218,6 +219,7 @@
             panel5.Controls.Add(pictureBox4);
             panel5.Controls.Add(lblStockBajo);
             panel5.Controls.Add(label5);
+            panel5.Cursor = Cursors.Hand;
             panel5.Location = new Point(1287, 120);
             panel5.Name = "panel5";
             panel5.Size = new Size(431, 257);
@@ -249,13 +251,13 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Yu Gothic UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Yu Gothic UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
             label5.Location = new Point(13, 11);
             label5.Name = "label5";
-            label5.Size = new Size(353, 41);
+            label5.Size = new Size(336, 31);
             label5.TabIndex = 7;
-            label5.Text = "PRODUCTOS SIN STOCK";
+            label5.Text = "PRODUCTOS SIN EXISTENCIAS";
             // 
             // frmDashboard
             // 
