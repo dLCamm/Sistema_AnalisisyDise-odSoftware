@@ -8,7 +8,7 @@ namespace Sistema.BLL.Services
     public class ExportService
     {
         // =======================================================
-        // EXPORTAR CSV GENÉRICO (Optimizado para Excel en LATAM)
+        // EXPORTAR CSV GENÉRICO 
         // =======================================================
         public void ExportarCsv<T>(
             List<T> datos,

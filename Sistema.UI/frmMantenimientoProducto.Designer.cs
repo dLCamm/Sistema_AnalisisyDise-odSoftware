@@ -242,11 +242,12 @@
             // cmbProveedor
             // 
             cmbProveedor.BackColor = Color.FromArgb(30, 30, 35);
-            cmbProveedor.Font = new Font("Segoe UI Symbol", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbProveedor.Font = new Font("Segoe UI Symbol", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbProveedor.ForeColor = Color.White;
             cmbProveedor.FormattingEnabled = true;
             cmbProveedor.Location = new Point(274, 310);
             cmbProveedor.Name = "cmbProveedor";
-            cmbProveedor.Size = new Size(771, 36);
+            cmbProveedor.Size = new Size(771, 39);
             cmbProveedor.TabIndex = 18;
             cmbProveedor.SelectedIndexChanged += cmbProveedor_SelectedIndexChanged;
             // 

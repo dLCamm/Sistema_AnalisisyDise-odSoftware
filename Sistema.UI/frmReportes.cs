@@ -104,7 +104,6 @@ namespace Sistema.UI
                 return;
             }
 
-            // 2. Intentar castear el formulario actual a nuestra interfaz común
             if (pnlReportes.Tag is IReporteForm formularioActivo)
             {
                 dynamic datosFiltrados = formularioActivo.ObtenerDatosFiltrados();
@@ -115,7 +114,7 @@ namespace Sistema.UI
                     return;
                 }
 
-                // 3. Configurar el cuadro de diálogo para guardar el archivo
+                //Configurar el cuadro de diálogo para guardar el archivo
                 using (SaveFileDialog sfd = new SaveFileDialog())
                 {
                     sfd.Filter = "Archivos PDF (*.pdf)|*.pdf";

@@ -27,7 +27,7 @@ namespace Sistema.UI
 
         private void frmMantenimientoProducto_Load(object sender, EventArgs e)
         {
-            // Cargar la lista de proveedores siempre al iniciar
+            // 1. Cargar la lista de proveedores primero para 
             CargarProveedores();
 
             // Mostrar el botón "Anular" si el producto ya existe
@@ -54,10 +54,14 @@ namespace Sistema.UI
                     txtStockActual.Text = p.Stock.ToString();
                     txtStockMinimo.Text = p.StockMinimo.ToString();
 
-                    // Asigna el proveedor guardado al combobox usando el nombre real: ProveedorId
+                    // CORRECCIÓN: Conversión explícita limpia para forzar la selección del item visual
                     if (p.ProveedorId != null)
                     {
-                        cmbProveedor.SelectedValue = p.ProveedorId;
+                        cmbProveedor.SelectedValue = Convert.ToInt32(p.ProveedorId);
+                    }
+                    else
+                    {
+                        cmbProveedor.SelectedIndex = -1;
                     }
 
                     // Alternar visibilidad entre botón Activar y Anular según el estado del producto
@@ -85,9 +89,9 @@ namespace Sistema.UI
                     var proveedores = service.ListarProveedores();
 
                     cmbProveedor.DataSource = proveedores;
-                    cmbProveedor.DisplayMember = "Nombre";      // Lo que ve el usuario
-                    cmbProveedor.ValueMember = "Id";            // El valor interno que se guarda
-                    cmbProveedor.SelectedIndex = -1;            // Inicia vacío por defecto
+                    cmbProveedor.DisplayMember = "Nombre";      
+                    cmbProveedor.ValueMember = "Id";          
+                    cmbProveedor.SelectedIndex = -1;            
                 }
             }
             catch (Exception ex)
@@ -107,11 +111,19 @@ namespace Sistema.UI
                     return;
                 }
 
-                // Obtener el ID del proveedor seleccionado si el usuario eligió uno
                 int? idProveedorSeleccionado = null;
-                if (cmbProveedor.SelectedValue != null)
+
+                // Verificamos que realmente haya algo seleccionado en el control visual
+                if (cmbProveedor.SelectedIndex != -1 && cmbProveedor.SelectedValue != null)
                 {
-                    idProveedorSeleccionado = Convert.ToInt32(cmbProveedor.SelectedValue);
+                    
+                    if (int.TryParse(cmbProveedor.SelectedValue.ToString(), out int idValido))
+                    {
+                        if (idValido > 0)
+                        {
+                            idProveedorSeleccionado = idValido;
+                        }
+                    }
                 }
 
                 using (var service = ServiceFactory.CrearInventarioService())
@@ -127,7 +139,7 @@ namespace Sistema.UI
                             PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
                             Stock = int.Parse(txtStockActual.Text),
                             StockMinimo = int.Parse(txtStockMinimo.Text),
-                            ProveedorId = idProveedorSeleccionado
+                            ProveedorId = idProveedorSeleccionado 
                         };
 
                         service.RegistrarProducto(nuevo);
@@ -145,10 +157,9 @@ namespace Sistema.UI
                             PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
                             Stock = int.Parse(txtStockActual.Text),
                             StockMinimo = int.Parse(txtStockMinimo.Text),
-                            ProveedorId = idProveedorSeleccionado
+                            ProveedorId = idProveedorSeleccionado 
                         };
 
-                        // Corregido pasándole los dos parámetros exigidos por la firma (id, datos)
                         service.ActualizarProducto(_idParaEditar.Value, editado);
                         MessageBox.Show("Producto actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -178,18 +189,7 @@ namespace Sistema.UI
 
         private void btnAnular_Click_1(object sender, EventArgs e)
         {
-            if (_idParaEditar == null) return;
-
-            var confirm = MessageBox.Show("¿Seguro que desea anular este producto?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (confirm == DialogResult.Yes)
-            {
-                using (var service = ServiceFactory.CrearInventarioService())
-                {
-                    service.DesactivarProducto(_idParaEditar.Value);
-                    MessageBox.Show("Producto Anulado.");
-                    this.Close();
-                }
-            }
+            btnAnular_Click(sender, e);
         }
 
         private void btnActivarProducto_Click(object sender, EventArgs e)
@@ -215,7 +215,7 @@ namespace Sistema.UI
             }
         }
 
-        // Métodos de eventos requeridos por el Designer para no corromper la vista de diseño
+        // Métodos de eventos requeridos por el Designer 
         private void txtPrecioCompra_TextChanged(object sender, EventArgs e) { }
         private void txtDescripcion_TextChanged(object sender, EventArgs e) { }
         private void txtNombre_TextChanged(object sender, EventArgs e) { }
