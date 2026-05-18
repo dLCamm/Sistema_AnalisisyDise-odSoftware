@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq; // Aseguramos Linq para el manejo del AsEnumerable
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -18,18 +18,18 @@ namespace Sistema.UI
     {
         List<Compra> comprass;
         List<Compra> comprasfiltradas;
+
         public FormVerCompras()
         {
             InitializeComponent();
             dataGridView1.AutoGenerateColumns = false;
 
-            clm_proveedor.DataPropertyName = "clm_proveedor";
+            // Ajustamos las columnas (clm_proveedor ya no se mapea aquí)
             clm_fecha.DataPropertyName = "clm_fecha";
             clm_total.DataPropertyName = "clm_total";
             clm_Estado.DataPropertyName = "clm_Estado";
             clm_id.DataPropertyName = "clm_id";
 
-            // Enlazamos el evento del segundo timepicker para que también filtre al cambiar
             this.dateTimePicker2.ValueChanged += (s, e) => AplicarFiltrosGlobales();
 
             Ver_todas_compras(this, EventArgs.Empty);
@@ -38,26 +38,17 @@ namespace Sistema.UI
 
         private void AplicarFiltrosGlobales()
         {
-            var term = textBox1.Text?.Trim() ?? string.Empty;
             string estado = comboBox2.SelectedItem?.ToString() ?? string.Empty;
 
-            // CONTROL DE RANGO DE FECHAS (dateTimePicker1 = Desde, dateTimePicker2 = Hasta)
             DateTime fechaDesde = dateTimePicker1.Checked ? dateTimePicker1.Value.Date : DateTime.MinValue;
             DateTime fechaHasta = dateTimePicker1.Checked ? dateTimePicker2.Value.Date.AddDays(1).AddTicks(-1) : DateTime.MaxValue;
 
-            // SIEMPRE empezamos desde la lista completa original
             var resultado = comprass.AsEnumerable();
 
-            // Filtro por Buscador (Nombre Cliente)
-            if (!string.IsNullOrWhiteSpace(term))
-            {
-                resultado = resultado.Where(p => p.Proveedor.Nombre.IndexOf(term, StringComparison.OrdinalIgnoreCase) >= 0);
-            }
+            // 1. CORRECCIÓN: Se eliminó por completo el filtro por nombre de proveedor (term)
 
-            // FILTRO DE FECHAS POR RANGO (Modificado para usar ambos pickers)
+            // 2. CORRECCIÓN MERGE: Filtro de rango de fechas limpio
             if (fechaDesde != DateTime.MinValue)
-            // Filtro por Fecha
-            if (fecha != DateTime.MinValue)
             {
                 resultado = resultado.Where(c => c.Fecha >= fechaDesde && c.Fecha <= fechaHasta);
             }
@@ -68,10 +59,7 @@ namespace Sistema.UI
                 resultado = resultado.Where(v => v.Estado.ToString() == estado);
             }
 
-            // Actualizamos la lista que se muestra
             comprasfiltradas = resultado.ToList();
-
-            // Aquí actualizas tu UI (por ejemplo, asignando ventasFiltradas al DataGridView)
             FormVerCompras_Load();
         }
 
@@ -127,11 +115,12 @@ namespace Sistema.UI
                 dataGridView1!.Rows.Clear();
                 foreach (var c in comprasfiltradas)
                 {
+                    // Cargamos los datos directos de la Compra sin buscar Proveedores
                     int rowIndex = dataGridView1.Rows.Add(
                         c.Id,
-                        c.Estado.ToString(),
                         c.Fecha.ToString("dd/MM/yyyy"),
-                        c.Total.ToString("C")
+                        c.Total.ToString("C"),
+                        c.Estado.ToString()
                     );
                     dataGridView1.Rows[rowIndex].Tag = c;
                 }
@@ -143,7 +132,7 @@ namespace Sistema.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error al cargar las compras: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -162,17 +151,17 @@ namespace Sistema.UI
             comboBox2.SelectedIndex = -1;
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker1.Checked = false;
-            dateTimePicker2.Value = DateTime.Now; // Se limpia también el segundo picker
+            dateTimePicker2.Value = DateTime.Now;
             AplicarFiltrosGlobales();
         }
 
+        // 3. CORRECCIÓN EXPORTAR: Removida la columna Proveedor del objeto anónimo
         public object ObtenerDatosFiltrados()
         {
             return comprasfiltradas.Select(c => new
             {
                 ID = c.Id,
                 Fecha = c.Fecha.ToString("dd/MM/yyyy"),
-                Proveedor = c.Proveedor != null ? c.Proveedor.Nombre : "Desconocido",
                 Total = string.Format("Q{0:N2}", c.Total),
                 Estado = c.Estado.ToString()
             }).ToList();
