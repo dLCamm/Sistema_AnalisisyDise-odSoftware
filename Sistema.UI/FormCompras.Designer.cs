@@ -39,13 +39,6 @@
             clm_descripcion = new DataGridViewTextBoxColumn();
             clm_proveedor = new DataGridViewTextBoxColumn();
             dataGridView2 = new DataGridView();
-            clm_productoname = new DataGridViewTextBoxColumn();
-            clm_preciocompra = new DataGridViewTextBoxColumn();
-            clm_cantidad = new DataGridViewTextBoxColumn();
-            clm_subtotal = new DataGridViewTextBoxColumn();
-            clm_btndismin = new DataGridViewButtonColumn();
-            clm_btnaumentar = new DataGridViewButtonColumn();
-            clm_eliminar = new DataGridViewButtonColumn();
             label2 = new Label();
             label5 = new Label();
             comboBox1 = new ComboBox();
@@ -56,6 +49,14 @@
             button4 = new Button();
             label3 = new Label();
             label4 = new Label();
+            clm_productoname = new DataGridViewTextBoxColumn();
+            clm_proveedorcarro = new DataGridViewTextBoxColumn();
+            clm_preciocompra = new DataGridViewTextBoxColumn();
+            clm_cantidad = new DataGridViewTextBoxColumn();
+            clm_subtotal = new DataGridViewTextBoxColumn();
+            clm_btndismin = new DataGridViewButtonColumn();
+            clm_btnaumentar = new DataGridViewButtonColumn();
+            clm_eliminar = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -143,7 +144,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_proveedorcarro, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = Color.FromArgb(15, 19, 23);
             dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F);
@@ -163,70 +164,6 @@
             dataGridView2.TabIndex = 10;
             dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             dataGridView2.CellEndEdit += dataGridView2_CellEndEdit;
-            // 
-            // clm_productoname
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            clm_productoname.DefaultCellStyle = dataGridViewCellStyle4;
-            clm_productoname.FillWeight = 33.64486F;
-            clm_productoname.HeaderText = "Producto";
-            clm_productoname.MinimumWidth = 6;
-            clm_productoname.Name = "clm_productoname";
-            clm_productoname.ReadOnly = true;
-            clm_productoname.Width = 300;
-            // 
-            // clm_preciocompra
-            // 
-            clm_preciocompra.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_preciocompra.FillWeight = 33.64486F;
-            clm_preciocompra.HeaderText = "Precio de Compra";
-            clm_preciocompra.MinimumWidth = 6;
-            clm_preciocompra.Name = "clm_preciocompra";
-            // 
-            // clm_cantidad
-            // 
-            clm_cantidad.FillWeight = 33.64486F;
-            clm_cantidad.HeaderText = "Cantidad";
-            clm_cantidad.MinimumWidth = 6;
-            clm_cantidad.Name = "clm_cantidad";
-            clm_cantidad.Width = 125;
-            // 
-            // clm_subtotal
-            // 
-            clm_subtotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_subtotal.FillWeight = 33.64486F;
-            clm_subtotal.HeaderText = "Subtotal";
-            clm_subtotal.MinimumWidth = 6;
-            clm_subtotal.Name = "clm_subtotal";
-            clm_subtotal.ReadOnly = true;
-            // 
-            // clm_btndismin
-            // 
-            clm_btndismin.HeaderText = "";
-            clm_btndismin.MinimumWidth = 6;
-            clm_btndismin.Name = "clm_btndismin";
-            clm_btndismin.Text = "-";
-            clm_btndismin.UseColumnTextForButtonValue = true;
-            clm_btndismin.Width = 50;
-            // 
-            // clm_btnaumentar
-            // 
-            clm_btnaumentar.HeaderText = "";
-            clm_btnaumentar.MinimumWidth = 6;
-            clm_btnaumentar.Name = "clm_btnaumentar";
-            clm_btnaumentar.Text = "+";
-            clm_btnaumentar.UseColumnTextForButtonValue = true;
-            clm_btnaumentar.Width = 50;
-            // 
-            // clm_eliminar
-            // 
-            clm_eliminar.FillWeight = 33.64486F;
-            clm_eliminar.HeaderText = "Eliminar";
-            clm_eliminar.MinimumWidth = 6;
-            clm_eliminar.Name = "clm_eliminar";
-            clm_eliminar.Text = "Borrar";
-            clm_eliminar.UseColumnTextForButtonValue = true;
-            clm_eliminar.Width = 125;
             // 
             // label2
             // 
@@ -289,10 +226,11 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(28, 122);
+            textBox1.Font = new Font("Segoe UI", 10F);
+            textBox1.Location = new Point(28, 118);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar Productos";
-            textBox1.Size = new Size(364, 27);
+            textBox1.Size = new Size(364, 30);
             textBox1.TabIndex = 18;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -344,12 +282,84 @@
             label4.TabIndex = 22;
             label4.Text = "Filtrar por proveedor";
             // 
+            // clm_productoname
+            // 
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clm_productoname.DefaultCellStyle = dataGridViewCellStyle4;
+            clm_productoname.FillWeight = 33.64486F;
+            clm_productoname.HeaderText = "Producto";
+            clm_productoname.MinimumWidth = 6;
+            clm_productoname.Name = "clm_productoname";
+            clm_productoname.ReadOnly = true;
+            clm_productoname.Width = 200;
+            // 
+            // clm_proveedorcarro
+            // 
+            clm_proveedorcarro.HeaderText = "Proveedor";
+            clm_proveedorcarro.MinimumWidth = 6;
+            clm_proveedorcarro.Name = "clm_proveedorcarro";
+            clm_proveedorcarro.ReadOnly = true;
+            clm_proveedorcarro.Width = 160;
+            // 
+            // clm_preciocompra
+            // 
+            clm_preciocompra.FillWeight = 33.64486F;
+            clm_preciocompra.HeaderText = "Precio de Compra";
+            clm_preciocompra.MinimumWidth = 6;
+            clm_preciocompra.Name = "clm_preciocompra";
+            clm_preciocompra.Width = 90;
+            // 
+            // clm_cantidad
+            // 
+            clm_cantidad.FillWeight = 33.64486F;
+            clm_cantidad.HeaderText = "Cantidad";
+            clm_cantidad.MinimumWidth = 6;
+            clm_cantidad.Name = "clm_cantidad";
+            clm_cantidad.Width = 125;
+            // 
+            // clm_subtotal
+            // 
+            clm_subtotal.FillWeight = 33.64486F;
+            clm_subtotal.HeaderText = "Subtotal";
+            clm_subtotal.MinimumWidth = 6;
+            clm_subtotal.Name = "clm_subtotal";
+            clm_subtotal.ReadOnly = true;
+            clm_subtotal.Width = 110;
+            // 
+            // clm_btndismin
+            // 
+            clm_btndismin.HeaderText = "";
+            clm_btndismin.MinimumWidth = 6;
+            clm_btndismin.Name = "clm_btndismin";
+            clm_btndismin.Text = "-";
+            clm_btndismin.UseColumnTextForButtonValue = true;
+            clm_btndismin.Width = 50;
+            // 
+            // clm_btnaumentar
+            // 
+            clm_btnaumentar.HeaderText = "";
+            clm_btnaumentar.MinimumWidth = 6;
+            clm_btnaumentar.Name = "clm_btnaumentar";
+            clm_btnaumentar.Text = "+";
+            clm_btnaumentar.UseColumnTextForButtonValue = true;
+            clm_btnaumentar.Width = 50;
+            // 
+            // clm_eliminar
+            // 
+            clm_eliminar.FillWeight = 33.64486F;
+            clm_eliminar.HeaderText = "Eliminar";
+            clm_eliminar.MinimumWidth = 6;
+            clm_eliminar.Name = "clm_eliminar";
+            clm_eliminar.Text = "Borrar";
+            clm_eliminar.UseColumnTextForButtonValue = true;
+            clm_eliminar.Width = 125;
+            // 
             // FormCompras
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1688, 947);
+            ClientSize = new Size(1687, 947);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(button4);
@@ -385,16 +395,17 @@
         private Button button3;
         private Button button4;
         private Label label3;
+        private DataGridViewTextBoxColumn clm_nombre;
+        private DataGridViewTextBoxColumn clm_descripcion;
+        private DataGridViewTextBoxColumn clm_proveedor;
+        private Label label4;
         private DataGridViewTextBoxColumn clm_productoname;
+        private DataGridViewTextBoxColumn clm_proveedorcarro;
         private DataGridViewTextBoxColumn clm_preciocompra;
         private DataGridViewTextBoxColumn clm_cantidad;
         private DataGridViewTextBoxColumn clm_subtotal;
         private DataGridViewButtonColumn clm_btndismin;
         private DataGridViewButtonColumn clm_btnaumentar;
         private DataGridViewButtonColumn clm_eliminar;
-        private DataGridViewTextBoxColumn clm_nombre;
-        private DataGridViewTextBoxColumn clm_descripcion;
-        private DataGridViewTextBoxColumn clm_proveedor;
-        private Label label4;
     }
 }

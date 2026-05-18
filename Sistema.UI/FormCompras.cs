@@ -221,12 +221,13 @@ namespace Sistema.UI
             {
                 var item = carrito[i];
                 var nombre = item.Producto?.Nombre ?? "(sin nombre)";
+                var proveedor = item.Proveedor ?? "Sin Proveedor";
                 var precioCompra = $"Q{item.Producto.PrecioCompra:0.00}";
                 var cantidad = item.Cantidad.ToString();
                 var subtotal = $"Q{item.Subtotal:0.00}";
 
-                // Añadimos en el orden de columnas: Producto, Precio Unitario, Cantidad, Subtotal
-                int rowIndex = dataGridView2.Rows.Add(nombre, precioCompra, cantidad, subtotal);
+                // Añadimos en el orden de columnas: Producto, Proveedor, Precio Compra, Cantidad, Subtotal
+                int rowIndex = dataGridView2.Rows.Add(nombre, proveedor, precioCompra, cantidad, subtotal);
                 dataGridView2.Rows[rowIndex].Tag = item;
             }
 
@@ -252,6 +253,8 @@ namespace Sistema.UI
             public int Cantidad { get; set; }
 
             public decimal PrecioCompra => Producto?.PrecioCompra ?? 0m;
+
+            public string Proveedor => Producto?.Proveedor?.Nombre ?? "Sin Proveedor";
 
             public decimal Subtotal => PrecioCompra * Cantidad;
 
