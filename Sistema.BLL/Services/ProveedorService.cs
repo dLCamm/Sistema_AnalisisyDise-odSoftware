@@ -25,6 +25,7 @@ namespace Sistema.BLL.Services
             string nombre,
             string telefono,
             string direccion,
+            string dpi,
             string email)
         {
             if (string.IsNullOrWhiteSpace(nombre))
@@ -36,6 +37,7 @@ namespace Sistema.BLL.Services
                 Telefono = telefono,
                 Direccion = direccion,
                 Email = email,
+                DPI = dpi,
                 Estado = EstadoProveedor.Activo
             };
 
@@ -51,6 +53,7 @@ namespace Sistema.BLL.Services
             string telefono,
             string direccion,
             string email,
+            string dpi,
             EstadoProveedor estado)
         {
             var proveedor = _repo.ObtenerPorId(id);
@@ -63,6 +66,7 @@ namespace Sistema.BLL.Services
             proveedor.Direccion = direccion;
             proveedor.Email = email;
             proveedor.Estado = estado;
+            proveedor.DPI = dpi;
 
             _repo.Actualizar(proveedor);
 
