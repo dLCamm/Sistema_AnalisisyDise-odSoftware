@@ -16,7 +16,9 @@ namespace Sistema.DAL.Repositories
 
         public List<Producto> ObtenerTodos()
         {
-            return _context.Productos.ToList();
+            return _context.Productos
+        .Include(p => p.Proveedor)
+        .ToList();
         }
 
         public void Insertar(Producto producto)
