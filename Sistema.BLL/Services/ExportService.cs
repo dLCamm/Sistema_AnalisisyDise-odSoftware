@@ -7,10 +7,9 @@ namespace Sistema.BLL.Services
 {
     public class ExportService
     {
-        // =========================
-        // EXPORTAR CSV GENÉRICO
-        // =========================
-
+        // =======================================================
+        // EXPORTAR CSV GENÉRICO 
+        // =======================================================
         public void ExportarCsv<T>(
             List<T> datos,
             string rutaArchivo)
@@ -23,9 +22,9 @@ namespace Sistema.BLL.Services
 
             var sb = new StringBuilder();
 
-            // CABECERAS
+            // CORRECCIÓN: Separar cabeceras usando punto y coma ";"
             sb.AppendLine(
-                string.Join(",",
+                string.Join(";",
                 propiedades.Select(p => p.Name)));
 
             // FILAS
@@ -39,13 +38,16 @@ namespace Sistema.BLL.Services
                         if (valor == null)
                             return "";
 
-                        // evitar romper csv
+                        // CORRECCIÓN: Limpiar saltos de línea o ";" internos para no romper celdas
                         return valor.ToString()!
-                            .Replace(",", " ");
+                            .Replace("\r", " ")
+                            .Replace("\n", " ")
+                            .Replace(";", " ");
                     });
 
+                // CORRECCIÓN: Unir los valores del registro con ";"
                 sb.AppendLine(
-                    string.Join(",", valores));
+                    string.Join(";", valores));
             }
 
             File.WriteAllText(
@@ -57,7 +59,6 @@ namespace Sistema.BLL.Services
         // =========================================
         // EXPORTAR PDF
         // =========================================
-
         public void ExportarPdf<T>(
             List<T> datos,
             string titulo,
@@ -149,7 +150,6 @@ namespace Sistema.BLL.Services
                         });
                 });
             })
-
             .GeneratePdf(rutaArchivo);
         }
     }

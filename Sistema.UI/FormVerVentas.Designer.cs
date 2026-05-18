@@ -52,6 +52,7 @@ namespace Sistema.UI
             label6 = new Label();
             comboBox2 = new ComboBox();
             button3 = new Button();
+            dateTimePicker2 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -100,7 +101,7 @@ namespace Sistema.UI
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1659, 761);
+            dataGridView1.Size = new Size(1926, 761);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
@@ -204,7 +205,7 @@ namespace Sistema.UI
             // button1
             // 
             button1.BackColor = SystemColors.ActiveCaption;
-            button1.Location = new Point(1275, 47);
+            button1.Location = new Point(1439, 47);
             button1.Name = "button1";
             button1.Size = new Size(173, 30);
             button1.TabIndex = 14;
@@ -265,7 +266,7 @@ namespace Sistema.UI
             // button3
             // 
             button3.BackColor = SystemColors.ActiveCaption;
-            button3.Location = new Point(1520, 71);
+            button3.Location = new Point(1787, 77);
             button3.Name = "button3";
             button3.Size = new Size(125, 36);
             button3.TabIndex = 28;
@@ -273,12 +274,25 @@ namespace Sistema.UI
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
+            // dateTimePicker2
+            // 
+            dateTimePicker2.Checked = false;
+            dateTimePicker2.CustomFormat = "";
+            dateTimePicker2.Format = DateTimePickerFormat.Short;
+            dateTimePicker2.Location = new Point(1283, 50);
+            dateTimePicker2.Name = "dateTimePicker2";
+            dateTimePicker2.ShowCheckBox = true;
+            dateTimePicker2.Size = new Size(137, 27);
+            dateTimePicker2.TabIndex = 29;
+            dateTimePicker2.ValueChanged += dateTimePicker2_ValueChanged;
+            // 
             // FormVerVentas
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
-            ClientSize = new Size(1657, 974);
+            ClientSize = new Size(1924, 974);
+            Controls.Add(dateTimePicker2);
             Controls.Add(button3);
             Controls.Add(label6);
             Controls.Add(comboBox2);
@@ -326,6 +340,7 @@ namespace Sistema.UI
         private Label label6;
         private ComboBox comboBox2;
         private Button button3;
+        private DateTimePicker dateTimePicker2;
     }
 
 

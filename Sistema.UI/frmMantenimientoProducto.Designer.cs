@@ -43,6 +43,9 @@
             label7 = new Label();
             txtPrecioVenta = new TextBox();
             btnAnular = new Button();
+            btnActivarProducto = new Button();
+            cmbProveedor = new ComboBox();
+            label6 = new Label();
             SuspendLayout();
             // 
             // txtNombre
@@ -96,7 +99,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(25, 332);
+            label3.Location = new Point(25, 410);
             label3.Name = "label3";
             label3.Size = new Size(206, 31);
             label3.TabIndex = 5;
@@ -107,7 +110,7 @@
             txtPrecioCompra.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioCompra.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioCompra.ForeColor = Color.White;
-            txtPrecioCompra.Location = new Point(237, 329);
+            txtPrecioCompra.Location = new Point(237, 407);
             txtPrecioCompra.Name = "txtPrecioCompra";
             txtPrecioCompra.Size = new Size(243, 34);
             txtPrecioCompra.TabIndex = 4;
@@ -118,7 +121,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.White;
-            label4.Location = new Point(153, 414);
+            label4.Location = new Point(153, 492);
             label4.Name = "label4";
             label4.Size = new Size(78, 31);
             label4.TabIndex = 7;
@@ -129,7 +132,7 @@
             txtStockActual.BackColor = Color.FromArgb(30, 30, 35);
             txtStockActual.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtStockActual.ForeColor = Color.White;
-            txtStockActual.Location = new Point(237, 411);
+            txtStockActual.Location = new Point(237, 489);
             txtStockActual.Name = "txtStockActual";
             txtStockActual.Size = new Size(243, 34);
             txtStockActual.TabIndex = 6;
@@ -139,7 +142,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(623, 412);
+            label5.Location = new Point(623, 490);
             label5.Name = "label5";
             label5.Size = new Size(163, 31);
             label5.TabIndex = 9;
@@ -150,7 +153,7 @@
             txtStockMinimo.BackColor = Color.FromArgb(30, 30, 35);
             txtStockMinimo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtStockMinimo.ForeColor = Color.White;
-            txtStockMinimo.Location = new Point(802, 409);
+            txtStockMinimo.Location = new Point(802, 487);
             txtStockMinimo.Name = "txtStockMinimo";
             txtStockMinimo.Size = new Size(243, 34);
             txtStockMinimo.TabIndex = 8;
@@ -162,9 +165,9 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Arial", 12F);
             btnGuardar.ForeColor = Color.White;
-            btnGuardar.Location = new Point(274, 548);
+            btnGuardar.Location = new Point(623, 629);
             btnGuardar.Name = "btnGuardar";
-            btnGuardar.Size = new Size(187, 67);
+            btnGuardar.Size = new Size(187, 47);
             btnGuardar.TabIndex = 12;
             btnGuardar.Text = "Guardar Producto";
             btnGuardar.UseVisualStyleBackColor = false;
@@ -177,7 +180,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Arial", 12F);
             btnCancelar.ForeColor = Color.White;
-            btnCancelar.Location = new Point(680, 558);
+            btnCancelar.Location = new Point(318, 629);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(106, 47);
             btnCancelar.TabIndex = 13;
@@ -190,7 +193,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(604, 330);
+            label7.Location = new Point(604, 408);
             label7.Name = "label7";
             label7.Size = new Size(182, 31);
             label7.TabIndex = 15;
@@ -201,7 +204,7 @@
             txtPrecioVenta.BackColor = Color.FromArgb(30, 30, 35);
             txtPrecioVenta.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             txtPrecioVenta.ForeColor = Color.White;
-            txtPrecioVenta.Location = new Point(802, 327);
+            txtPrecioVenta.Location = new Point(802, 405);
             txtPrecioVenta.Name = "txtPrecioVenta";
             txtPrecioVenta.Size = new Size(243, 34);
             txtPrecioVenta.TabIndex = 14;
@@ -221,12 +224,53 @@
             btnAnular.UseVisualStyleBackColor = false;
             btnAnular.Click += btnAnular_Click_1;
             // 
+            // btnActivarProducto
+            // 
+            btnActivarProducto.BackColor = SystemColors.Highlight;
+            btnActivarProducto.FlatAppearance.BorderColor = Color.White;
+            btnActivarProducto.FlatStyle = FlatStyle.Flat;
+            btnActivarProducto.Font = new Font("Arial", 12F);
+            btnActivarProducto.ForeColor = Color.White;
+            btnActivarProducto.Location = new Point(899, 558);
+            btnActivarProducto.Name = "btnActivarProducto";
+            btnActivarProducto.Size = new Size(187, 57);
+            btnActivarProducto.TabIndex = 17;
+            btnActivarProducto.Text = "Activar Producto";
+            btnActivarProducto.UseVisualStyleBackColor = false;
+            btnActivarProducto.Click += btnActivarProducto_Click;
+            // 
+            // cmbProveedor
+            // 
+            cmbProveedor.BackColor = Color.FromArgb(30, 30, 35);
+            cmbProveedor.Font = new Font("Segoe UI Symbol", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cmbProveedor.ForeColor = Color.White;
+            cmbProveedor.FormattingEnabled = true;
+            cmbProveedor.Location = new Point(274, 310);
+            cmbProveedor.Name = "cmbProveedor";
+            cmbProveedor.Size = new Size(771, 39);
+            cmbProveedor.TabIndex = 18;
+            cmbProveedor.SelectedIndexChanged += cmbProveedor_SelectedIndexChanged;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(129, 310);
+            label6.Name = "label6";
+            label6.Size = new Size(130, 31);
+            label6.TabIndex = 19;
+            label6.Text = "Proveedor:";
+            // 
             // frmMantenimientoProducto
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 41, 55);
             ClientSize = new Size(1098, 696);
+            Controls.Add(label6);
+            Controls.Add(cmbProveedor);
+            Controls.Add(btnActivarProducto);
             Controls.Add(btnAnular);
             Controls.Add(label7);
             Controls.Add(txtPrecioVenta);
@@ -271,5 +315,8 @@
         private Label label7;
         private TextBox txtPrecioVenta;
         private Button btnAnular;
+        private Button btnActivarProducto;
+        private ComboBox cmbProveedor;
+        private Label label6;
     }
 }

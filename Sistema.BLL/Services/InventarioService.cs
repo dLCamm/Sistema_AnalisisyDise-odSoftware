@@ -73,7 +73,7 @@ namespace Sistema.BLL.Services
 
             if (producto.Stock < 0)
                 throw new Exception("El stock no puede ser negativo");
-            
+
             if (producto.ProveedorId.HasValue)
             {
                 var proveedor = _repoProveedor.ObtenerPorId(producto.ProveedorId.Value);
@@ -84,6 +84,8 @@ namespace Sistema.BLL.Services
             producto.Estado = EstadoProducto.Activo;
 
             _repo.Insertar(producto);
+
+            _context.SaveChanges(); 
         }
 
 
@@ -91,6 +93,9 @@ namespace Sistema.BLL.Services
         public void ActualizarProducto(int id, Producto datos)
         {
             var producto = _repo.ObtenerPorId(id);
+
+            if (producto == null)
+                throw new Exception("Producto no encontrado");
 
             if (producto == null)
                 throw new Exception("Producto no encontrado");
@@ -119,6 +124,8 @@ namespace Sistema.BLL.Services
             producto.Stock = datos.Stock;
             producto.StockMinimo = datos.StockMinimo;
             producto.Estado = datos.Estado;
+
+            producto.ProveedorId = datos.ProveedorId; 
 
             _repo.Actualizar(producto);
 

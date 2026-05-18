@@ -34,6 +34,24 @@ namespace Sistema.UI
 
         }
 
+        // Constructor sobrecargado 
+        public FormCompras(Producto productoInicial) : this()
+        {
+            this.Load += (s, e) => {
+                if (productoInicial != null && productosAll != null)
+                {
+                    // Buscamos el producto dentro de la lista de activos 
+                    var prodEncontrado = productosAll.FirstOrDefault(p => p.Id == productoInicial.Id);
+
+                    if (prodEncontrado != null)
+                    {
+                        // Si existe y está activo, lo agregamos automáticamente al carrito
+                        AgregarProductoAlCarrito(prodEncontrado);
+                    }
+                }
+            };
+        }
+
         private void Ventas_Load(object? sender, EventArgs e)
         {
 

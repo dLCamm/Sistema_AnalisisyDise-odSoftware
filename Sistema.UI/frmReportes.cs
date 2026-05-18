@@ -3,145 +3,185 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Sistema.BLL.Services;
-using Sistema.BLL.Factories;
-using Sistema.Entities.DTOs.Ventas;
-using Sistema.Entities.DTOs.Caja;
-using Sistema.Entities.DTOs.Creditos;
-using Sistema.Entities.DTOs.Compras;
 
 namespace Sistema.UI
 {
     public partial class frmReportes : Form
     {
-        private readonly ReporteService _reporteService;
-        private readonly ExportService _exportService;
-
         public frmReportes()
         {
             InitializeComponent();
-            _reporteService = ServiceFactory.CrearReporteService();
-            _exportService = new ExportService();
-
-            // ACTIVADO: Permite que el Grid cree las columnas solo
-            dgvResultados.AutoGenerateColumns = true;
-
-            ConfigurarFiltrosInciales();
+            ConfigurarComponentes();
         }
 
-        private void ConfigurarFiltrosInciales()
+        private void ConfigurarComponentes()
         {
             cmbTipoReporte.Items.Clear();
-            cmbTipoReporte.Items.AddRange(new string[] { "Ventas", "Caja", "Créditos", "Compras" });
-            cmbTipoReporte.SelectedIndex = 0;
+            cmbTipoReporte.Items.Add("Ventas");
+            cmbTipoReporte.Items.Add("Compras");
+  
 
-            dtpInicio.Value = DateTime.Now.AddDays(-30);
-            dtpFin.Value = DateTime.Now;
+            cmbTipoReporte.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            if (cmbEstadoFiltro != null) cmbEstadoFiltro.Visible = false;
+            if (cmbTipoReporte.Items.Count > 0)
+            {
+                cmbTipoReporte.SelectedIndex = 0;
+            }
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            try
+            // 1. Validar selección
+            if (cmbTipoReporte.SelectedItem == null)
             {
-                DateTime inicio = dtpInicio.Value.Date;
-                DateTime fin = dtpFin.Value.Date;
-                string seleccion = cmbTipoReporte.Text;
-
-                dgvResultados.DataSource = null;
-
-                if (seleccion == "Ventas")
-                {
-                    var ventas = _reporteService.ObtenerVentasPorDia(inicio, fin);
-                    dgvResultados.DataSource = ventas;
-                    lblTotal.Text = "Total: Q " + ventas.Sum(v => v.TotalVentas).ToString("N2");
-                }
-                else if (seleccion == "Caja")
-                {
-                    var caja = _reporteService.ObtenerCajaPorDia(inicio, fin);
-                    dgvResultados.DataSource = caja;
-                    lblTotal.Text = "Balance: Q " + caja.Sum(c => c.Ingresos - c.Egresos).ToString("N2");
-                }
-                else if (seleccion == "Créditos")
-                {
-                    var creditos = _reporteService.ObtenerClientesConDeuda();
-                    dgvResultados.DataSource = creditos;
-                    lblTotal.Text = "Deuda Total: Q " + creditos.Sum(c => c.TotalCredito).ToString("N2");
-                }
-                else if (seleccion == "Compras")
-                {
-                    var compras = _reporteService.ObtenerComprasPorFecha(inicio, fin);
-                    dgvResultados.DataSource = compras;
-                    lblTotal.Text = "Total Compras: Q " + compras.Sum(c => c.Total).ToString("N2");
-                }
+                MessageBox.Show("Por favor, seleccione un tipo de reporte.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            string opcionSeleccionada = cmbTipoReporte.SelectedItem.ToString();
+            Form formularioAbrir = null;
+
+            // 2. Instanciar el formulario según la selección
+            switch (opcionSeleccionada)
             {
-                MessageBox.Show("Error al buscar: " + ex.Message);
+                case "Ventas":
+                    formularioAbrir = new FormVerVentas();
+                    break;
+
+                case "Compras":
+                    formularioAbrir = new FormVerCompras();
+                    break;
+
+
+                default:
+                    MessageBox.Show("Tipo de reporte no reconocido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
             }
+
+            // 3. Cargar el formulario incrustado dentro del panel pnlReportes
+            if (formularioAbrir != null)
+            {
+                AbrirFormularioEnPanel(formularioAbrir);
+            }
+        }
+
+        /// <summary>
+        /// Método encargado de limpiar el panel e incrustar el nuevo formulario.
+        /// </summary>
+        private void AbrirFormularioEnPanel(Form formularioHijo)
+        {
+            // Si ya hay un formulario o controles cargados en el panel, los limpia
+            if (pnlReportes.Controls.Count > 0)
+            {
+                pnlReportes.Controls.Clear();
+            }
+
+            // Configuraciones críticas para que el formulario se comporte como un control dentro del panel
+            formularioHijo.TopLevel = false;
+            formularioHijo.FormBorderStyle = FormBorderStyle.None;
+            formularioHijo.Dock = DockStyle.Fill;
+
+            // Se agrega al panel y se muestra
+            pnlReportes.Controls.Add(formularioHijo);
+            pnlReportes.Tag = formularioHijo;
+            formularioHijo.Show();
+        }
+
+     
+        
+
+        private void dgvResultados_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            // Lógica del DataGridView
         }
 
         private void btnExportarPdf_Click_1(object sender, EventArgs e)
         {
-            // 1. Validamos que haya algo en el Grid
-            if (dgvResultados.DataSource == null)
+            // 1. Verificar si hay un formulario cargado en el panel
+            if (pnlReportes.Controls.Count == 0 || pnlReportes.Tag == null)
             {
-                MessageBox.Show("No hay datos para exportar.");
+                MessageBox.Show("No hay ningún reporte activo para exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            try
+            if (pnlReportes.Tag is IReporteForm formularioActivo)
             {
-                string seleccion = cmbTipoReporte.Text;
-                string nombreArchivo = $"Reporte_{seleccion}_{DateTime.Now:yyyyMMdd}.pdf";
+                dynamic datosFiltrados = formularioActivo.ObtenerDatosFiltrados();
 
-                // 2. Usamos 'dynamic' para que el servicio acepte cualquier lista (Ventas, Compras, etc.)
-                dynamic datos = dgvResultados.DataSource;
+                if (datosFiltrados == null || datosFiltrados.Count == 0)
+                {
+                    MessageBox.Show("No hay datos en la lista actual para ser exportados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-                // 3. Exportamos
-                _exportService.ExportarPdf(datos, $"Reporte de {seleccion}", nombreArchivo);
+                //Configurar el cuadro de diálogo para guardar el archivo
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivos PDF (*.pdf)|*.pdf";
+                    sfd.FileName = $"{formularioActivo.ObtenerTituloReporte()}_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
 
-                MessageBox.Show($"✅ PDF de {seleccion} generado correctamente.");
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            // Instanciar el servicio de exportación y ejecutamos pasándole la ruta elegida
+                            ExportService exportador = new ExportService();
+                            exportador.ExportarPdf(datosFiltrados, formularioActivo.ObtenerTituloReporte(), sfd.FileName);
+
+                            MessageBox.Show("Reporte en PDF generado exitosamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al generar el PDF: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al generar PDF: " + ex.Message);
-            }
+
         }
 
         private void btnExportarExcel_Click_1(object sender, EventArgs e)
         {
-            // 1. Validamos que haya algo en el Grid
-            if (dgvResultados.DataSource == null)
+            if (pnlReportes.Controls.Count == 0 || pnlReportes.Tag == null)
             {
-                MessageBox.Show("No hay datos para exportar.");
+                MessageBox.Show("No hay ningún reporte activo para exportar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            try
+            if (pnlReportes.Tag is IReporteForm formularioActivo)
             {
-                string seleccion = cmbTipoReporte.Text;
-                string ruta = AppDomain.CurrentDomain.BaseDirectory + $"Reporte_{seleccion}_{DateTime.Now:yyyyMMdd}.csv";
+                dynamic datosFiltrados = formularioActivo.ObtenerDatosFiltrados();
 
-                // 2. Tomamos los datos directamente del DataSource del Grid
-                dynamic datos = dgvResultados.DataSource;
+                if (datosFiltrados == null || datosFiltrados.Count == 0)
+                {
+                    MessageBox.Show("No hay datos en la lista actual para ser exportados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-                // 3. Exportamos al CSV
-                _exportService.ExportarCsv(datos, ruta);
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = "Archivos CSV (*.csv)|*.csv";
+                    sfd.FileName = $"{formularioActivo.ObtenerTituloReporte()}_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
 
-                MessageBox.Show($"✅ CSV de {seleccion} generado exitosamente en:\n{ruta}");
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            ExportService exportador = new ExportService();
+
+                            // Exportamos a CSV usando la lista dinámica filtrada
+                            exportador.ExportarCsv(datosFiltrados, sfd.FileName);
+
+                            MessageBox.Show("Reporte en CSV generado exitosamente (Compatible con Excel).", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error al generar el CSV: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al generar Excel/CSV: " + ex.Message);
-            }
+
         }
-
-        private void cmbTipoReporte_SelectedIndexChanged(object sender, EventArgs e) { }
-        private void dtpInicio_ValueChanged(object sender, EventArgs e) { }
-        private void dtpFin_ValueChanged(object sender, EventArgs e) { }
-        private void btnExportarPdf_Click(object sender, EventArgs e) { }
-        private void btnExportarExcel_Click(object sender, EventArgs e) { }
-        private void dgvResultados_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
     }
 }

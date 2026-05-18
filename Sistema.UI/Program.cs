@@ -3,7 +3,7 @@ using Sistema.DAL.Data;
 using QuestPDF.Infrastructure;
 using System;
 using System.Windows.Forms;
-
+using QuestPDF.Infrastructure;
 namespace Sistema.UI
 {
     internal static class Program
@@ -11,7 +11,9 @@ namespace Sistema.UI
 
         public static SistemaDbContext? Context;
 
+
         [STAThread]
+
         static void Main()
         {
             // PARA USAR EL PDF HAY QUE DEFINIR LA LICENCIA
@@ -30,7 +32,8 @@ namespace Sistema.UI
 
                 // Iniciar WinForms
                 ApplicationConfiguration.Initialize();
-                Application.Run(new login());
+                Application.Run(new Form1());
+                //Application.Run(new login());
             }
             finally
             {
