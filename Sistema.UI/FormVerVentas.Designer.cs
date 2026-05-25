@@ -31,8 +31,8 @@ namespace Sistema.UI
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             btnVolver = new Button();
             dataGridView1 = new DataGridView();
             clm_cliente = new DataGridViewTextBoxColumn();
@@ -59,7 +59,7 @@ namespace Sistema.UI
             // btnVolver
             // 
             btnVolver.BackColor = SystemColors.ActiveCaption;
-            btnVolver.Location = new Point(28, 897);
+            btnVolver.Location = new Point(28, 923);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(133, 39);
             btnVolver.TabIndex = 0;
@@ -75,33 +75,33 @@ namespace Sistema.UI
             dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_cliente, clm_Tipopago, clm_Fecha, clm_Total, clm_Estado, clm_id });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionForeColor = Color.White;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(70, 70, 75);
-            dataGridView1.Location = new Point(-3, 119);
+            dataGridView1.Location = new Point(12, 158);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1926, 761);
+            dataGridView1.Size = new Size(1911, 761);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
@@ -165,7 +165,7 @@ namespace Sistema.UI
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(28, 34);
+            label1.Location = new Point(28, 9);
             label1.Name = "label1";
             label1.Size = new Size(475, 57);
             label1.TabIndex = 8;
@@ -173,10 +173,11 @@ namespace Sistema.UI
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(538, 50);
+            textBox1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(28, 94);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar por Cliente";
-            textBox1.Size = new Size(237, 27);
+            textBox1.Size = new Size(521, 38);
             textBox1.TabIndex = 9;
             textBox1.TextChanged += textchanged_buscador;
             // 
@@ -185,7 +186,7 @@ namespace Sistema.UI
             dateTimePicker1.Checked = false;
             dateTimePicker1.CustomFormat = "";
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(1127, 50);
+            dateTimePicker1.Location = new Point(1012, 54);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.ShowCheckBox = true;
             dateTimePicker1.Size = new Size(137, 27);
@@ -196,7 +197,7 @@ namespace Sistema.UI
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(1127, 27);
+            label2.Location = new Point(1012, 31);
             label2.Name = "label2";
             label2.Size = new Size(32, 20);
             label2.TabIndex = 12;
@@ -205,7 +206,7 @@ namespace Sistema.UI
             // button1
             // 
             button1.BackColor = SystemColors.ActiveCaption;
-            button1.Location = new Point(1439, 47);
+            button1.Location = new Point(1324, 51);
             button1.Name = "button1";
             button1.Size = new Size(173, 30);
             button1.TabIndex = 14;
@@ -228,7 +229,7 @@ namespace Sistema.UI
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(985, 50);
+            comboBox1.Location = new Point(870, 54);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(136, 28);
             comboBox1.TabIndex = 23;
@@ -238,7 +239,7 @@ namespace Sistema.UI
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.White;
-            label5.Location = new Point(985, 26);
+            label5.Location = new Point(870, 30);
             label5.Name = "label5";
             label5.Size = new Size(97, 20);
             label5.TabIndex = 24;
@@ -249,7 +250,7 @@ namespace Sistema.UI
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(843, 26);
+            label6.Location = new Point(728, 30);
             label6.Name = "label6";
             label6.Size = new Size(54, 20);
             label6.TabIndex = 26;
@@ -258,7 +259,7 @@ namespace Sistema.UI
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(843, 50);
+            comboBox2.Location = new Point(728, 54);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(136, 28);
             comboBox2.TabIndex = 25;
@@ -266,7 +267,7 @@ namespace Sistema.UI
             // button3
             // 
             button3.BackColor = SystemColors.ActiveCaption;
-            button3.Location = new Point(1787, 77);
+            button3.Location = new Point(1535, 49);
             button3.Name = "button3";
             button3.Size = new Size(125, 36);
             button3.TabIndex = 28;
@@ -279,7 +280,7 @@ namespace Sistema.UI
             dateTimePicker2.Checked = false;
             dateTimePicker2.CustomFormat = "";
             dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(1283, 50);
+            dateTimePicker2.Location = new Point(1168, 54);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.ShowCheckBox = true;
             dateTimePicker2.Size = new Size(137, 27);
@@ -292,8 +293,8 @@ namespace Sistema.UI
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1924, 974);
-            Controls.Add(dateTimePicker2);
             Controls.Add(button3);
+            Controls.Add(dateTimePicker2);
             Controls.Add(label6);
             Controls.Add(comboBox2);
             Controls.Add(label5);

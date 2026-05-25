@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnComprar = new Button();
             label2 = new Label();
@@ -53,7 +53,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.BackColor = Color.FromArgb(15, 19, 23);
             panel1.Controls.Add(btnComprar);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(btnFiltrar);
@@ -74,11 +74,11 @@
             btnComprar.Cursor = Cursors.Hand;
             btnComprar.FlatAppearance.BorderSize = 0;
             btnComprar.FlatStyle = FlatStyle.Flat;
-            btnComprar.Font = new Font("Segoe UI", 13F);
+            btnComprar.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnComprar.ForeColor = Color.White;
-            btnComprar.Location = new Point(1619, 17);
+            btnComprar.Location = new Point(1611, 12);
             btnComprar.Name = "btnComprar";
-            btnComprar.Size = new Size(126, 39);
+            btnComprar.Size = new Size(154, 44);
             btnComprar.TabIndex = 9;
             btnComprar.Text = "$Comprar";
             btnComprar.UseVisualStyleBackColor = false;
@@ -100,11 +100,11 @@
             // 
             btnFiltrar.Anchor = AnchorStyles.Top;
             btnFiltrar.ContextMenuStrip = menuFiltros;
-            btnFiltrar.Font = new Font("Segoe UI", 10F);
+            btnFiltrar.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnFiltrar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrar.Location = new Point(1136, 21);
+            btnFiltrar.Location = new Point(1144, 12);
             btnFiltrar.Name = "btnFiltrar";
-            btnFiltrar.Size = new Size(97, 32);
+            btnFiltrar.Size = new Size(124, 41);
             btnFiltrar.TabIndex = 5;
             btnFiltrar.Text = "Filtrar ▽";
             btnFiltrar.UseVisualStyleBackColor = true;
@@ -115,48 +115,48 @@
             menuFiltros.ImageScalingSize = new Size(20, 20);
             menuFiltros.Items.AddRange(new ToolStripItem[] { verTodoToolStripMenuItem, stockBajoToolStripMenuItem, sinExistenciasToolStripMenuItem, anuladosToolStripMenuItem, fechaAscToolStripMenuItem, fechaDescToolStripMenuItem });
             menuFiltros.Name = "menuFiltros";
-            menuFiltros.Size = new Size(211, 176);
+            menuFiltros.Size = new Size(210, 148);
             menuFiltros.Opening += menuFiltros_Opening;
             // 
             // verTodoToolStripMenuItem
             // 
             verTodoToolStripMenuItem.Name = "verTodoToolStripMenuItem";
-            verTodoToolStripMenuItem.Size = new Size(210, 24);
+            verTodoToolStripMenuItem.Size = new Size(209, 24);
             verTodoToolStripMenuItem.Text = "Ver Todo";
             verTodoToolStripMenuItem.Click += verTodoToolStripMenuItem_Click;
             // 
             // stockBajoToolStripMenuItem
             // 
             stockBajoToolStripMenuItem.Name = "stockBajoToolStripMenuItem";
-            stockBajoToolStripMenuItem.Size = new Size(210, 24);
+            stockBajoToolStripMenuItem.Size = new Size(209, 24);
             stockBajoToolStripMenuItem.Text = "Stock Bajo";
             stockBajoToolStripMenuItem.Click += stockBajoToolStripMenuItem_Click;
             // 
             // sinExistenciasToolStripMenuItem
             // 
             sinExistenciasToolStripMenuItem.Name = "sinExistenciasToolStripMenuItem";
-            sinExistenciasToolStripMenuItem.Size = new Size(210, 24);
+            sinExistenciasToolStripMenuItem.Size = new Size(209, 24);
             sinExistenciasToolStripMenuItem.Text = "Sin Existencias";
             sinExistenciasToolStripMenuItem.Click += sinExistenciasToolStripMenuItem_Click;
             // 
             // anuladosToolStripMenuItem
             // 
             anuladosToolStripMenuItem.Name = "anuladosToolStripMenuItem";
-            anuladosToolStripMenuItem.Size = new Size(210, 24);
+            anuladosToolStripMenuItem.Size = new Size(209, 24);
             anuladosToolStripMenuItem.Text = "Anulados";
             anuladosToolStripMenuItem.Click += anuladosToolStripMenuItem_Click;
             // 
             // fechaAscToolStripMenuItem
             // 
             fechaAscToolStripMenuItem.Name = "fechaAscToolStripMenuItem";
-            fechaAscToolStripMenuItem.Size = new Size(210, 24);
+            fechaAscToolStripMenuItem.Size = new Size(209, 24);
             fechaAscToolStripMenuItem.Text = "Fecha: Ascendente";
             fechaAscToolStripMenuItem.Click += fechaAscToolStripMenuItem_Click_1;
             // 
             // fechaDescToolStripMenuItem
             // 
             fechaDescToolStripMenuItem.Name = "fechaDescToolStripMenuItem";
-            fechaDescToolStripMenuItem.Size = new Size(210, 24);
+            fechaDescToolStripMenuItem.Size = new Size(209, 24);
             fechaDescToolStripMenuItem.Text = "Fecha: Descendente";
             fechaDescToolStripMenuItem.Click += fechaDescToolStripMenuItem_Click_1;
             // 
@@ -189,11 +189,11 @@
             btnAgregarProducto.Cursor = Cursors.Hand;
             btnAgregarProducto.FlatAppearance.BorderSize = 0;
             btnAgregarProducto.FlatStyle = FlatStyle.Flat;
-            btnAgregarProducto.Font = new Font("Segoe UI", 13F);
+            btnAgregarProducto.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnAgregarProducto.ForeColor = Color.White;
-            btnAgregarProducto.Location = new Point(1383, 16);
+            btnAgregarProducto.Location = new Point(1363, 11);
             btnAgregarProducto.Name = "btnAgregarProducto";
-            btnAgregarProducto.Size = new Size(213, 39);
+            btnAgregarProducto.Size = new Size(224, 47);
             btnAgregarProducto.TabIndex = 0;
             btnAgregarProducto.Text = "+Agregar Producto";
             btnAgregarProducto.UseVisualStyleBackColor = false;
@@ -207,23 +207,23 @@
             dgvProductos.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dgvProductos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dgvProductos.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 14F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvProductos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 13F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle4.SelectionForeColor = Color.White;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dgvProductos.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 13F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvProductos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvProductos.EnableHeadersVisualStyles = false;
             dgvProductos.GridColor = Color.FromArgb(70, 70, 75);
             dgvProductos.Location = new Point(0, 69);

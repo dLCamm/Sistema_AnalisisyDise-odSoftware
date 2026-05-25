@@ -42,7 +42,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.BackColor = Color.FromArgb(15, 19, 23);
             panel1.Controls.Add(labelCreditos);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);

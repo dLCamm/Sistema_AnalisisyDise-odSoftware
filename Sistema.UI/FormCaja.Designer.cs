@@ -28,14 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             label4 = new Label();
             panel2 = new Panel();
             label2 = new Label();
             label8 = new Label();
             dataGridView1 = new DataGridView();
+            clm_id = new DataGridViewTextBoxColumn();
+            clm_tipo = new DataGridViewTextBoxColumn();
+            clm_monto = new DataGridViewTextBoxColumn();
+            clm_origen = new DataGridViewTextBoxColumn();
+            clm_descripcion = new DataGridViewTextBoxColumn();
+            clm_fecha = new DataGridViewTextBoxColumn();
+            clm_estado = new DataGridViewTextBoxColumn();
             folderBrowserDialog1 = new FolderBrowserDialog();
             button1 = new Button();
             label13 = new Label();
@@ -56,13 +63,6 @@
             label6 = new Label();
             panel4 = new Panel();
             button4 = new Button();
-            clm_id = new DataGridViewTextBoxColumn();
-            clm_tipo = new DataGridViewTextBoxColumn();
-            clm_monto = new DataGridViewTextBoxColumn();
-            clm_origen = new DataGridViewTextBoxColumn();
-            clm_descripcion = new DataGridViewTextBoxColumn();
-            clm_fecha = new DataGridViewTextBoxColumn();
-            clm_estado = new DataGridViewTextBoxColumn();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
@@ -74,11 +74,12 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 28.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(46, 35);
+            label1.Location = new Point(22, 9);
             label1.Name = "label1";
             label1.Size = new Size(151, 62);
             label1.TabIndex = 8;
             label1.Text = "CAJA";
+            label1.Click += label1_Click;
             // 
             // label4
             // 
@@ -132,25 +133,25 @@
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
             dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_id, clm_tipo, clm_monto, clm_origen, clm_descripcion, clm_fecha, clm_estado });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.Padding = new Padding(2, 8, 2, 8);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 11F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.Padding = new Padding(2, 8, 2, 8);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView1.Location = new Point(134, 458);
@@ -161,6 +162,70 @@
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(1440, 502);
             dataGridView1.TabIndex = 15;
+            // 
+            // clm_id
+            // 
+            clm_id.FillWeight = 50F;
+            clm_id.HeaderText = "Id";
+            clm_id.MinimumWidth = 6;
+            clm_id.Name = "clm_id";
+            clm_id.ReadOnly = true;
+            clm_id.Visible = false;
+            clm_id.Width = 40;
+            // 
+            // clm_tipo
+            // 
+            clm_tipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_tipo.FillWeight = 28.1356926F;
+            clm_tipo.HeaderText = "Tipo";
+            clm_tipo.MinimumWidth = 6;
+            clm_tipo.Name = "clm_tipo";
+            clm_tipo.ReadOnly = true;
+            // 
+            // clm_monto
+            // 
+            clm_monto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_monto.FillWeight = 28.1356926F;
+            clm_monto.HeaderText = "Monto";
+            clm_monto.MinimumWidth = 6;
+            clm_monto.Name = "clm_monto";
+            clm_monto.ReadOnly = true;
+            // 
+            // clm_origen
+            // 
+            clm_origen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_origen.FillWeight = 28.1356926F;
+            clm_origen.HeaderText = "Origen";
+            clm_origen.MinimumWidth = 6;
+            clm_origen.Name = "clm_origen";
+            clm_origen.ReadOnly = true;
+            // 
+            // clm_descripcion
+            // 
+            clm_descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_descripcion.FillWeight = 28.1356926F;
+            clm_descripcion.HeaderText = "Descripción";
+            clm_descripcion.MinimumWidth = 6;
+            clm_descripcion.Name = "clm_descripcion";
+            clm_descripcion.ReadOnly = true;
+            // 
+            // clm_fecha
+            // 
+            clm_fecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_fecha.FillWeight = 28.1356926F;
+            clm_fecha.HeaderText = "Fecha";
+            clm_fecha.MinimumWidth = 6;
+            clm_fecha.Name = "clm_fecha";
+            clm_fecha.ReadOnly = true;
+            // 
+            // clm_estado
+            // 
+            clm_estado.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            clm_estado.FillWeight = 28.1356926F;
+            clm_estado.HeaderText = "Estado";
+            clm_estado.MinimumWidth = 6;
+            clm_estado.Name = "clm_estado";
+            clm_estado.ReadOnly = true;
             // 
             // button1
             // 
@@ -369,70 +434,6 @@
             button4.Text = "Anular";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
-            // 
-            // clm_id
-            // 
-            clm_id.FillWeight = 50F;
-            clm_id.HeaderText = "Id";
-            clm_id.MinimumWidth = 6;
-            clm_id.Name = "clm_id";
-            clm_id.ReadOnly = true;
-            clm_id.Visible = false;
-            clm_id.Width = 40;
-            // 
-            // clm_tipo
-            // 
-            clm_tipo.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_tipo.FillWeight = 28.1356926F;
-            clm_tipo.HeaderText = "Tipo";
-            clm_tipo.MinimumWidth = 6;
-            clm_tipo.Name = "clm_tipo";
-            clm_tipo.ReadOnly = true;
-            // 
-            // clm_monto
-            // 
-            clm_monto.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_monto.FillWeight = 28.1356926F;
-            clm_monto.HeaderText = "Monto";
-            clm_monto.MinimumWidth = 6;
-            clm_monto.Name = "clm_monto";
-            clm_monto.ReadOnly = true;
-            // 
-            // clm_origen
-            // 
-            clm_origen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_origen.FillWeight = 28.1356926F;
-            clm_origen.HeaderText = "Origen";
-            clm_origen.MinimumWidth = 6;
-            clm_origen.Name = "clm_origen";
-            clm_origen.ReadOnly = true;
-            // 
-            // clm_descripcion
-            // 
-            clm_descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_descripcion.FillWeight = 28.1356926F;
-            clm_descripcion.HeaderText = "Descripción";
-            clm_descripcion.MinimumWidth = 6;
-            clm_descripcion.Name = "clm_descripcion";
-            clm_descripcion.ReadOnly = true;
-            // 
-            // clm_fecha
-            // 
-            clm_fecha.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_fecha.FillWeight = 28.1356926F;
-            clm_fecha.HeaderText = "Fecha";
-            clm_fecha.MinimumWidth = 6;
-            clm_fecha.Name = "clm_fecha";
-            clm_fecha.ReadOnly = true;
-            // 
-            // clm_estado
-            // 
-            clm_estado.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            clm_estado.FillWeight = 28.1356926F;
-            clm_estado.HeaderText = "Estado";
-            clm_estado.MinimumWidth = 6;
-            clm_estado.Name = "clm_estado";
-            clm_estado.ReadOnly = true;
             // 
             // FormCaja
             // 

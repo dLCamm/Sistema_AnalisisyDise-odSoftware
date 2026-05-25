@@ -28,17 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             label1 = new Label();
             dataGridView1 = new DataGridView();
             clm_nombre = new DataGridViewTextBoxColumn();
             clm_descripcion = new DataGridViewTextBoxColumn();
             clm_proveedor = new DataGridViewTextBoxColumn();
             dataGridView2 = new DataGridView();
+            clm_productoname = new DataGridViewTextBoxColumn();
+            clm_proveedorcarro = new DataGridViewTextBoxColumn();
+            clm_preciocompra = new DataGridViewTextBoxColumn();
+            clm_cantidad = new DataGridViewTextBoxColumn();
+            clm_subtotal = new DataGridViewTextBoxColumn();
+            clm_btndismin = new DataGridViewButtonColumn();
+            clm_btnaumentar = new DataGridViewButtonColumn();
+            clm_eliminar = new DataGridViewButtonColumn();
             label2 = new Label();
             label5 = new Label();
             comboBox1 = new ComboBox();
@@ -49,14 +57,6 @@
             button4 = new Button();
             label3 = new Label();
             label4 = new Label();
-            clm_productoname = new DataGridViewTextBoxColumn();
-            clm_proveedorcarro = new DataGridViewTextBoxColumn();
-            clm_preciocompra = new DataGridViewTextBoxColumn();
-            clm_cantidad = new DataGridViewTextBoxColumn();
-            clm_subtotal = new DataGridViewTextBoxColumn();
-            clm_btndismin = new DataGridViewButtonColumn();
-            clm_btnaumentar = new DataGridViewButtonColumn();
-            clm_eliminar = new DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -66,7 +66,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(28, 37);
+            label1.Location = new Point(12, 9);
             label1.Name = "label1";
             label1.Size = new Size(237, 57);
             label1.TabIndex = 8;
@@ -76,25 +76,25 @@
             // 
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_nombre, clm_descripcion, clm_proveedor });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.Padding = new Padding(5, 10, 5, 10);
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.Padding = new Padding(5, 10, 5, 10);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView1.Location = new Point(28, 155);
@@ -135,25 +135,25 @@
             // 
             dataGridView2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView2.BackgroundColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { clm_productoname, clm_proveedorcarro, clm_preciocompra, clm_cantidad, clm_subtotal, clm_btndismin, clm_btnaumentar, clm_eliminar });
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 12F);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.Padding = new Padding(5);
-            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle5.SelectionForeColor = Color.White;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dataGridView2.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 12F);
+            dataGridViewCellStyle10.ForeColor = Color.White;
+            dataGridViewCellStyle10.Padding = new Padding(5);
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle10.SelectionForeColor = Color.White;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            dataGridView2.DefaultCellStyle = dataGridViewCellStyle10;
             dataGridView2.EnableHeadersVisualStyles = false;
             dataGridView2.GridColor = Color.FromArgb(30, 30, 35);
             dataGridView2.Location = new Point(737, 155);
@@ -164,6 +164,78 @@
             dataGridView2.TabIndex = 10;
             dataGridView2.CellContentClick += dataGridView2_CellContentClick;
             dataGridView2.CellEndEdit += dataGridView2_CellEndEdit;
+            // 
+            // clm_productoname
+            // 
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            clm_productoname.DefaultCellStyle = dataGridViewCellStyle9;
+            clm_productoname.FillWeight = 33.64486F;
+            clm_productoname.HeaderText = "Producto";
+            clm_productoname.MinimumWidth = 6;
+            clm_productoname.Name = "clm_productoname";
+            clm_productoname.ReadOnly = true;
+            clm_productoname.Width = 200;
+            // 
+            // clm_proveedorcarro
+            // 
+            clm_proveedorcarro.HeaderText = "Proveedor";
+            clm_proveedorcarro.MinimumWidth = 6;
+            clm_proveedorcarro.Name = "clm_proveedorcarro";
+            clm_proveedorcarro.ReadOnly = true;
+            clm_proveedorcarro.Width = 160;
+            // 
+            // clm_preciocompra
+            // 
+            clm_preciocompra.FillWeight = 33.64486F;
+            clm_preciocompra.HeaderText = "Precio de Compra";
+            clm_preciocompra.MinimumWidth = 6;
+            clm_preciocompra.Name = "clm_preciocompra";
+            clm_preciocompra.Width = 90;
+            // 
+            // clm_cantidad
+            // 
+            clm_cantidad.FillWeight = 33.64486F;
+            clm_cantidad.HeaderText = "Cantidad";
+            clm_cantidad.MinimumWidth = 6;
+            clm_cantidad.Name = "clm_cantidad";
+            clm_cantidad.Width = 125;
+            // 
+            // clm_subtotal
+            // 
+            clm_subtotal.FillWeight = 33.64486F;
+            clm_subtotal.HeaderText = "Subtotal";
+            clm_subtotal.MinimumWidth = 6;
+            clm_subtotal.Name = "clm_subtotal";
+            clm_subtotal.ReadOnly = true;
+            clm_subtotal.Width = 110;
+            // 
+            // clm_btndismin
+            // 
+            clm_btndismin.HeaderText = "";
+            clm_btndismin.MinimumWidth = 6;
+            clm_btndismin.Name = "clm_btndismin";
+            clm_btndismin.Text = "-";
+            clm_btndismin.UseColumnTextForButtonValue = true;
+            clm_btndismin.Width = 50;
+            // 
+            // clm_btnaumentar
+            // 
+            clm_btnaumentar.HeaderText = "";
+            clm_btnaumentar.MinimumWidth = 6;
+            clm_btnaumentar.Name = "clm_btnaumentar";
+            clm_btnaumentar.Text = "+";
+            clm_btnaumentar.UseColumnTextForButtonValue = true;
+            clm_btnaumentar.Width = 50;
+            // 
+            // clm_eliminar
+            // 
+            clm_eliminar.FillWeight = 33.64486F;
+            clm_eliminar.HeaderText = "Eliminar";
+            clm_eliminar.MinimumWidth = 6;
+            clm_eliminar.Name = "clm_eliminar";
+            clm_eliminar.Text = "Borrar";
+            clm_eliminar.UseColumnTextForButtonValue = true;
+            clm_eliminar.Width = 125;
             // 
             // label2
             // 
@@ -281,78 +353,6 @@
             label4.Size = new Size(137, 20);
             label4.TabIndex = 22;
             label4.Text = "Filtrar por proveedor";
-            // 
-            // clm_productoname
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            clm_productoname.DefaultCellStyle = dataGridViewCellStyle4;
-            clm_productoname.FillWeight = 33.64486F;
-            clm_productoname.HeaderText = "Producto";
-            clm_productoname.MinimumWidth = 6;
-            clm_productoname.Name = "clm_productoname";
-            clm_productoname.ReadOnly = true;
-            clm_productoname.Width = 200;
-            // 
-            // clm_proveedorcarro
-            // 
-            clm_proveedorcarro.HeaderText = "Proveedor";
-            clm_proveedorcarro.MinimumWidth = 6;
-            clm_proveedorcarro.Name = "clm_proveedorcarro";
-            clm_proveedorcarro.ReadOnly = true;
-            clm_proveedorcarro.Width = 160;
-            // 
-            // clm_preciocompra
-            // 
-            clm_preciocompra.FillWeight = 33.64486F;
-            clm_preciocompra.HeaderText = "Precio de Compra";
-            clm_preciocompra.MinimumWidth = 6;
-            clm_preciocompra.Name = "clm_preciocompra";
-            clm_preciocompra.Width = 90;
-            // 
-            // clm_cantidad
-            // 
-            clm_cantidad.FillWeight = 33.64486F;
-            clm_cantidad.HeaderText = "Cantidad";
-            clm_cantidad.MinimumWidth = 6;
-            clm_cantidad.Name = "clm_cantidad";
-            clm_cantidad.Width = 125;
-            // 
-            // clm_subtotal
-            // 
-            clm_subtotal.FillWeight = 33.64486F;
-            clm_subtotal.HeaderText = "Subtotal";
-            clm_subtotal.MinimumWidth = 6;
-            clm_subtotal.Name = "clm_subtotal";
-            clm_subtotal.ReadOnly = true;
-            clm_subtotal.Width = 110;
-            // 
-            // clm_btndismin
-            // 
-            clm_btndismin.HeaderText = "";
-            clm_btndismin.MinimumWidth = 6;
-            clm_btndismin.Name = "clm_btndismin";
-            clm_btndismin.Text = "-";
-            clm_btndismin.UseColumnTextForButtonValue = true;
-            clm_btndismin.Width = 50;
-            // 
-            // clm_btnaumentar
-            // 
-            clm_btnaumentar.HeaderText = "";
-            clm_btnaumentar.MinimumWidth = 6;
-            clm_btnaumentar.Name = "clm_btnaumentar";
-            clm_btnaumentar.Text = "+";
-            clm_btnaumentar.UseColumnTextForButtonValue = true;
-            clm_btnaumentar.Width = 50;
-            // 
-            // clm_eliminar
-            // 
-            clm_eliminar.FillWeight = 33.64486F;
-            clm_eliminar.HeaderText = "Eliminar";
-            clm_eliminar.MinimumWidth = 6;
-            clm_eliminar.Name = "clm_eliminar";
-            clm_eliminar.Text = "Borrar";
-            clm_eliminar.UseColumnTextForButtonValue = true;
-            clm_eliminar.Width = 125;
             // 
             // FormCompras
             // 

@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            button1 = new Button();
             labelCreditos = new Label();
             dataGridView1 = new DataGridView();
             clm_id = new DataGridViewTextBoxColumn();
@@ -41,14 +42,13 @@
             clm_fecha = new DataGridViewTextBoxColumn();
             clm_correo = new DataGridViewTextBoxColumn();
             clm_estado = new DataGridViewTextBoxColumn();
-            button1 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.BackColor = Color.FromArgb(15, 19, 23);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(labelCreditos);
             panel1.Dock = DockStyle.Top;
@@ -56,6 +56,18 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1705, 76);
             panel1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.BackColor = SystemColors.ActiveCaption;
+            button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Location = new Point(1476, 25);
+            button1.Name = "button1";
+            button1.Size = new Size(159, 41);
+            button1.TabIndex = 6;
+            button1.Text = "Agregar Cliente";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // labelCreditos
             // 
@@ -73,25 +85,25 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.BackgroundColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 13.2000008F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { clm_id, clm_dpi, clm_nombre, clm_telefono, clm_direccion, clm_fecha, clm_correo, clm_estado });
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.Padding = new Padding(5, 10, 5, 10);
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.Padding = new Padding(5, 10, 5, 10);
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(34, 34, 34);
             dataGridView1.Location = new Point(0, 82);
@@ -159,18 +171,6 @@
             clm_estado.MinimumWidth = 6;
             clm_estado.Name = "clm_estado";
             clm_estado.ReadOnly = true;
-            // 
-            // button1
-            // 
-            button1.BackColor = SystemColors.ActiveCaption;
-            button1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.Location = new Point(1476, 25);
-            button1.Name = "button1";
-            button1.Size = new Size(159, 41);
-            button1.TabIndex = 6;
-            button1.Text = "Agregar Cliente";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
             // 
             // FormVerClientes
             // 

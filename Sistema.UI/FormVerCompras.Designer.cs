@@ -74,7 +74,7 @@
             dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.EnableHeadersVisualStyles = false;
             dataGridView1.GridColor = Color.FromArgb(30, 30, 35);
-            dataGridView1.Location = new Point(12, 164);
+            dataGridView1.Location = new Point(12, 157);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
@@ -133,7 +133,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 25F, FontStyle.Bold);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(23, 22);
+            label1.Location = new Point(23, 9);
             label1.Name = "label1";
             label1.Size = new Size(518, 57);
             label1.TabIndex = 9;
@@ -152,10 +152,11 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(556, 44);
+            textBox1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(23, 93);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Buscar por Proveedor";
-            textBox1.Size = new Size(315, 27);
+            textBox1.Size = new Size(527, 38);
             textBox1.TabIndex = 11;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
@@ -163,7 +164,7 @@
             // 
             button3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button3.BackColor = SystemColors.ActiveCaption;
-            button3.Location = new Point(1707, 122);
+            button3.Location = new Point(1585, 49);
             button3.Name = "button3";
             button3.Size = new Size(125, 36);
             button3.TabIndex = 32;
@@ -174,7 +175,7 @@
             // button2
             // 
             button2.BackColor = SystemColors.ActiveCaption;
-            button2.Location = new Point(1491, 47);
+            button2.Location = new Point(1217, 52);
             button2.Name = "button2";
             button2.Size = new Size(173, 30);
             button2.TabIndex = 31;
@@ -187,7 +188,7 @@
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(1143, 24);
+            label2.Location = new Point(869, 29);
             label2.Name = "label2";
             label2.Size = new Size(32, 20);
             label2.TabIndex = 30;
@@ -198,7 +199,7 @@
             dateTimePicker1.Checked = false;
             dateTimePicker1.CustomFormat = "";
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(1143, 47);
+            dateTimePicker1.Location = new Point(869, 52);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.ShowCheckBox = true;
             dateTimePicker1.Size = new Size(137, 27);
@@ -219,7 +220,7 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(1001, 46);
+            comboBox2.Location = new Point(727, 51);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(136, 28);
             comboBox2.TabIndex = 34;
@@ -229,7 +230,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(1001, 22);
+            label6.Location = new Point(727, 27);
             label6.Name = "label6";
             label6.Size = new Size(54, 20);
             label6.TabIndex = 35;
@@ -240,7 +241,7 @@
             dateTimePicker2.Checked = false;
             dateTimePicker2.CustomFormat = "";
             dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(1296, 47);
+            dateTimePicker2.Location = new Point(1022, 52);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.ShowCheckBox = true;
             dateTimePicker2.Size = new Size(137, 27);
@@ -253,12 +254,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 19, 23);
             ClientSize = new Size(1834, 1048);
+            Controls.Add(button2);
+            Controls.Add(button3);
             Controls.Add(dateTimePicker2);
             Controls.Add(label6);
             Controls.Add(comboBox2);
             Controls.Add(label4);
-            Controls.Add(button3);
-            Controls.Add(button2);
             Controls.Add(label2);
             Controls.Add(dateTimePicker1);
             Controls.Add(textBox1);

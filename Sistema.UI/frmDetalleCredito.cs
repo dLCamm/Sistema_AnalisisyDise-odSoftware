@@ -72,7 +72,7 @@ namespace Sistema.UI
 
                     // 1. Datos del Cliente 
                     txtDetalleCliente.Text = _creditoActual.Venta?.Cliente?.Nombre ?? "N/A";
-                    txtDetalleDpi.Text = "---"; // Pendiente 
+                    txtDetalleDpi.Text = _creditoActual.Venta?.Cliente?.DPI ?? "N/A";
                     txtDetalleTelefono.Text = _creditoActual.Venta?.Cliente?.Telefono ?? "N/A";
                     txtDetalleEmision.Text = _creditoActual.FechaInicio.ToShortDateString();
                     txtDetalleVencimiento.Text = _creditoActual.FechaVencimiento.ToShortDateString();
@@ -185,6 +185,11 @@ namespace Sistema.UI
         }
 
         private void pnlDetallecredito_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtDetalleCliente_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -76,15 +76,15 @@ namespace Sistema.UI
                         m.Descripcion,
                         m.Fecha,
                         m.Estado.ToString()
-                        
-                        
+
+
                     );
 
 
                     dataGridView1.Rows[rowIndex].Tag = m;
 
 
-                   
+
                 }
                 using (var service = ServiceFactory.CrearCajaService())
                 {
@@ -214,6 +214,11 @@ namespace Sistema.UI
                     Cursor.Current = Cursors.Default;
                 }
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

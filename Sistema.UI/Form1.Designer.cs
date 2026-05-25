@@ -46,6 +46,7 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(31, 41, 55);
+            panel1.Controls.Add(btnInventario);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
@@ -55,7 +56,6 @@
             panel1.Controls.Add(btnProveedores);
             panel1.Controls.Add(btnVentas);
             panel1.Controls.Add(btnInicio);
-            panel1.Controls.Add(btnInventario);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -99,7 +99,7 @@
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 15F);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(0, 479);
+            button1.Location = new Point(0, 401);
             button1.Name = "button1";
             button1.Size = new Size(229, 69);
             button1.TabIndex = 8;
@@ -114,7 +114,7 @@
             btnCréditos.FlatStyle = FlatStyle.Flat;
             btnCréditos.Font = new Font("Segoe UI", 15F);
             btnCréditos.ForeColor = Color.White;
-            btnCréditos.Location = new Point(0, 404);
+            btnCréditos.Location = new Point(0, 246);
             btnCréditos.Name = "btnCréditos";
             btnCréditos.Size = new Size(229, 69);
             btnCréditos.TabIndex = 7;
@@ -129,7 +129,7 @@
             btnSalir.FlatStyle = FlatStyle.Flat;
             btnSalir.Font = new Font("Segoe UI", 15F);
             btnSalir.ForeColor = Color.White;
-            btnSalir.Location = new Point(-3, 816);
+            btnSalir.Location = new Point(0, 880);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(229, 70);
             btnSalir.TabIndex = 6;
@@ -144,7 +144,7 @@
             btnReportes.FlatStyle = FlatStyle.Flat;
             btnReportes.Font = new Font("Segoe UI", 15F);
             btnReportes.ForeColor = Color.White;
-            btnReportes.Location = new Point(0, 329);
+            btnReportes.Location = new Point(0, 476);
             btnReportes.Name = "btnReportes";
             btnReportes.Size = new Size(229, 69);
             btnReportes.TabIndex = 5;
@@ -159,7 +159,7 @@
             btnProveedores.FlatStyle = FlatStyle.Flat;
             btnProveedores.Font = new Font("Segoe UI", 15F);
             btnProveedores.ForeColor = Color.White;
-            btnProveedores.Location = new Point(-3, 253);
+            btnProveedores.Location = new Point(0, 170);
             btnProveedores.Name = "btnProveedores";
             btnProveedores.Size = new Size(229, 70);
             btnProveedores.TabIndex = 4;
@@ -174,7 +174,7 @@
             btnVentas.FlatStyle = FlatStyle.Flat;
             btnVentas.Font = new Font("Segoe UI", 15F);
             btnVentas.ForeColor = Color.White;
-            btnVentas.Location = new Point(0, 176);
+            btnVentas.Location = new Point(0, 93);
             btnVentas.Name = "btnVentas";
             btnVentas.Size = new Size(229, 71);
             btnVentas.TabIndex = 2;
@@ -204,7 +204,7 @@
             btnInventario.FlatStyle = FlatStyle.Flat;
             btnInventario.Font = new Font("Segoe UI", 15F);
             btnInventario.ForeColor = Color.White;
-            btnInventario.Location = new Point(0, 96);
+            btnInventario.Location = new Point(0, 321);
             btnInventario.Name = "btnInventario";
             btnInventario.Size = new Size(229, 74);
             btnInventario.TabIndex = 0;

@@ -27,15 +27,18 @@ namespace Sistema.UI
 
         private void frmMantenimientoProducto_Load(object sender, EventArgs e)
         {
-            // 1. Cargar la lista de proveedores primero para 
+            // 1. Cargar la lista de proveedores primero
             CargarProveedores();
-
-            // Mostrar el botón "Anular" si el producto ya existe
-            btnAnular.Visible = (_idParaEditar != null);
 
             if (_idParaEditar != null)
             {
                 CargarDatosParaEditar();
+            }
+            else
+            {
+                // ---- REGISTRAR NUEVO ----
+                btnAnular.Visible = false;
+                btnActivarProducto.Visible = false;
             }
         }
 
@@ -89,9 +92,9 @@ namespace Sistema.UI
                     var proveedores = service.ListarProveedores();
 
                     cmbProveedor.DataSource = proveedores;
-                    cmbProveedor.DisplayMember = "Nombre";      
-                    cmbProveedor.ValueMember = "Id";          
-                    cmbProveedor.SelectedIndex = -1;            
+                    cmbProveedor.DisplayMember = "Nombre";
+                    cmbProveedor.ValueMember = "Id";
+                    cmbProveedor.SelectedIndex = -1;
                 }
             }
             catch (Exception ex)
@@ -116,7 +119,7 @@ namespace Sistema.UI
                 // Verificamos que realmente haya algo seleccionado en el control visual
                 if (cmbProveedor.SelectedIndex != -1 && cmbProveedor.SelectedValue != null)
                 {
-                    
+
                     if (int.TryParse(cmbProveedor.SelectedValue.ToString(), out int idValido))
                     {
                         if (idValido > 0)
@@ -139,7 +142,7 @@ namespace Sistema.UI
                             PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
                             Stock = int.Parse(txtStockActual.Text),
                             StockMinimo = int.Parse(txtStockMinimo.Text),
-                            ProveedorId = idProveedorSeleccionado 
+                            ProveedorId = idProveedorSeleccionado
                         };
 
                         service.RegistrarProducto(nuevo);
@@ -157,7 +160,7 @@ namespace Sistema.UI
                             PrecioVenta = decimal.Parse(txtPrecioVenta.Text),
                             Stock = int.Parse(txtStockActual.Text),
                             StockMinimo = int.Parse(txtStockMinimo.Text),
-                            ProveedorId = idProveedorSeleccionado 
+                            ProveedorId = idProveedorSeleccionado
                         };
 
                         service.ActualizarProducto(_idParaEditar.Value, editado);
@@ -220,5 +223,10 @@ namespace Sistema.UI
         private void txtDescripcion_TextChanged(object sender, EventArgs e) { }
         private void txtNombre_TextChanged(object sender, EventArgs e) { }
         private void cmbProveedor_SelectedIndexChanged(object sender, EventArgs e) { }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

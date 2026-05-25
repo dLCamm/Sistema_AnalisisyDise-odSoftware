@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             btnFiltrosrCredito = new Button();
             label1 = new Label();
@@ -63,11 +63,11 @@
             // btnFiltrosrCredito
             // 
             btnFiltrosrCredito.Anchor = AnchorStyles.Top;
-            btnFiltrosrCredito.Font = new Font("Segoe UI", 10F);
+            btnFiltrosrCredito.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnFiltrosrCredito.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFiltrosrCredito.Location = new Point(848, 20);
+            btnFiltrosrCredito.Location = new Point(848, 16);
             btnFiltrosrCredito.Name = "btnFiltrosrCredito";
-            btnFiltrosrCredito.Size = new Size(97, 32);
+            btnFiltrosrCredito.Size = new Size(116, 39);
             btnFiltrosrCredito.TabIndex = 6;
             btnFiltrosrCredito.Text = "Filtrar ▽";
             btnFiltrosrCredito.UseVisualStyleBackColor = true;
@@ -111,14 +111,14 @@
             // 
             dgvCreditos.BackgroundColor = Color.FromArgb(15, 19, 23);
             dgvCreditos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(15, 19, 23);
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvCreditos.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(15, 19, 23);
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvCreditos.DefaultCellStyle = dataGridViewCellStyle2;
             dgvCreditos.Dock = DockStyle.Fill;
             dgvCreditos.GridColor = Color.DimGray;
             dgvCreditos.Location = new Point(0, 76);
